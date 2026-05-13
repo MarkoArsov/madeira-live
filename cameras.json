@@ -1,0 +1,18 @@
+[
+  { "name": "Paul do Mar",          "type": "youtube", "id": "n5z4uxlus8k", "lat": 32.766844774344335, "lng": -17.233138543578388, "region": "South" },
+  { "name": "Airport",              "type": "youtube", "id": "mUgnMZQxJFg", "lat": 32.70094417976398,  "lng": -16.763281763418494, "region": "East" },
+  { "name": "Funchal",              "type": "youtube", "id": "afyrMxe0qjg", "lat": 32.64784062545288,  "lng": -16.911428053661336, "region": "Funchal" },
+  { "name": "Funchal Marina",       "type": "youtube", "id": "-p1Xnt9n0yg", "lat": 32.64553873671038,  "lng": -16.91015744839195,  "region": "Funchal" },
+  { "name": "Funchal CR7 Museum",   "type": "youtube", "id": "INtLnpLxPKQ", "lat": 32.64423093576197,  "lng": -16.914033478248523, "region": "Funchal" },
+  { "name": "Câmara de Lobos",      "type": "youtube", "id": "dlyn0fJBBWk", "lat": 32.66103629457273,  "lng": -16.98659592933467,  "region": "South" },
+  { "name": "Ponta do Sol",         "type": "youtube", "id": "BuL1tgahkXM", "lat": 32.679406030690295, "lng": -17.104620015115017, "region": "South" },
+  { "name": "Seixal",               "type": "youtube", "id": "WwOuI_G5WUI", "lat": 32.823908978497826, "lng": -17.108282582564577, "region": "North Coast" },
+  { "name": "Machico",              "type": "youtube", "id": "KUnIxGXKox0", "lat": 32.71687705744276,  "lng": -16.764651429436064, "region": "East" },
+  { "name": "Machico Beach",        "type": "iframe",  "url": "https://stream.madeirawebcams.com/08a41ec3-dea1-48bb-beef-c276c04266e7.html?rel=0&autoplay=1&mute=1", "lat": 32.718921445152716, "lng": -16.762364298643664, "region": "Beaches" },
+  { "name": "Reis Magos Beach",     "type": "youtube", "id": "4bgsscC-fJc", "lat": 32.64762718106607,  "lng": -16.823213116811754, "region": "Beaches" },
+  { "name": "Calheta Beach",        "type": "youtube", "id": "t4x0u0ARLwo", "lat": 32.719679385701546, "lng": -17.17661518289865,  "region": "Beaches" },
+  { "name": "Madalena do Mar",      "type": "youtube", "id": "8e0UGWin4J0", "lat": 32.70125212692035,  "lng": -17.134164842996583, "region": "South" },
+  { "name": "Rabaçal",              "type": "youtube", "id": "a9uoa-Q97zw", "lat": 32.7556098119273,   "lng": -17.134199201489963, "region": "Mountains" },
+  { "name": "Porto Santo",          "type": "youtube", "id": "m_y8kzegqDo", "lat": 33.05754618203754,  "lng": -16.334610987286798, "region": "Porto Santo" },
+  { "name": "Porto Moniz",          "type": "iframe",  "url": "https://stream.madeirawebcams.com/dab34e3a-a67a-4d47-9580-3d408d545431.html?rel=0&autoplay=1&mute=1", "lat": 32.866605352082296, "lng": -17.169411259016112, "region": "North Coast" }
+]

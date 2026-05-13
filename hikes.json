@@ -1,0 +1,1038 @@
+{
+  "metadata": {
+    "description": "Comprehensive data for all official PR (Pequena Rota) hiking trails in Madeira and Porto Santo.",
+    "sources": [
+      {
+        "name": "Visit Madeira (official tourism board)",
+        "url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/",
+        "used_for": "Coordinates, trail status, images, official trail page URLs"
+      },
+      {
+        "name": "Madeira Hiking",
+        "url": "https://madeirahiking.org/trails",
+        "used_for": "Distance, duration, difficulty, elevation, fees, equipment, safety, exposure, tunnels"
+      }
+    ],
+    "total_trails": 40,
+    "fee_info_2026": "Standard fee €4.50/person/trail. PR1 €10.50. Discounted rates (€3 / €7) with IFCN protocol operators. Madeira residents exempt but must reserve. Booking via SIMplifica.",
+    "status_values": ["Open", "Restricted", "Closed"]
+  },
+  "trails": [
+    {
+      "pr_code": "PR1",
+      "name": "Vereda do Areeiro",
+      "location": {
+        "lat": 32.73549086827481,
+        "lng": -16.928797218182066
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/jlbfai1k/passeiosape_veredadopicodoareeiro39.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-1-vereda-do-areeiro/",
+      "alternative_names": "Pico do Areeiro to Pico Ruivo",
+      "distance_km": 15.6,
+      "duration_hours": "7-8",
+      "difficulty": "Hard",
+      "type": "Vereda (mountain ridge)",
+      "elevation_gain_m": 1000,
+      "start_point": "Pico do Areeiro",
+      "end_point": "Pico Ruivo",
+      "fee_required": true,
+      "fee_amount": "€10.50 (€7 with protocol operator)",
+      "highlights": "Madeira's most iconic ridge walk across the island's highest peaks",
+      "equipment_needed": "Proper hiking boots, layers, headlamp, windproof jacket",
+      "safety_notes": "Exposed drops and vertigo triggers; extremely weather-dependent. Capacity limits apply after reopening.",
+      "best_season": "Year-round when open (reopens April 27, 2026 after wildfire reconstruction). Book early — slots sell out fast.",
+      "parking_location": "Pico do Areeiro car park",
+      "parking_cost": "€4.50 (via SIMplifica)",
+      "exposure_rating": 5,
+      "exposure_notes": "Very exposed ridge with major vertigo triggers; not suitable for fear of heights.",
+      "tunnels": {
+        "has_tunnels": true,
+        "count": null,
+        "longest_m": null,
+        "headlamp_required": true
+      }
+    },
+    {
+      "pr_code": "PR1.1",
+      "name": "Vereda da Ilha",
+      "location": {
+        "lat": 32.80589882733172,
+        "lng": -16.911390091678538
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/wafd3t1s/dsc_5214.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-11-vereda-da-ilha/"
+    },
+    {
+      "pr_code": "PR1.2",
+      "name": "Vereda do Pico Ruivo",
+      "location": {
+        "lat": 32.76481399738595,
+        "lng": -16.921079577375384
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/ca2jb02k/passeiosape_veredadopicodoruivo195.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-12-vereda-do-pico-ruivo/",
+      "alternative_names": "Achada do Teixeira to Pico Ruivo",
+      "distance_km": 6,
+      "duration_hours": "1.5-2",
+      "difficulty": "Easy-Moderate",
+      "type": "Vereda (peak ascent)",
+      "elevation_gain_m": 300,
+      "start_point": "Achada do Teixeira",
+      "end_point": "Pico Ruivo (1,862m)",
+      "fee_required": true,
+      "fee_amount": "€4.50 (€3 with protocol operator)",
+      "highlights": "Shortest route to Madeira's highest peak",
+      "equipment_needed": "Layers (cold/wind), water, sturdy shoes",
+      "safety_notes": "Weather changes fast at altitude; start early",
+      "best_season": "Year-round (best sunrise/sunset on clear days)",
+      "parking_location": "Achada do Teixeira",
+      "parking_cost": "Free",
+      "exposure_rating": 3,
+      "exposure_notes": "Mountain route with steep sections; exposure varies with weather and visibility.",
+      "tunnels": {
+        "has_tunnels": false,
+        "count": 0,
+        "longest_m": null,
+        "headlamp_required": false
+      }
+    },
+    {
+      "pr_code": "PR1.3",
+      "name": "Vereda da Encumeada",
+      "location": {
+        "lat": 32.76021449770582,
+        "lng": -16.943376336186073
+      },
+      "status": "Closed",
+      "image": "https://visitmadeira.com/media/puyjv1ru/pr-13-vereda-da-encumeada-023-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-13-vereda-da-encumeada/"
+    },
+    {
+      "pr_code": "PR2",
+      "name": "Vereda do Urzal",
+      "location": {
+        "lat": 32.74254420560559,
+        "lng": -16.966133498283956
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/n0znv1pp/_pr-2-vereda-do-urzal-002-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-2-vereda-do-urzal/",
+      "alternative_names": "Urzal Trail, Curral das Freiras to Boaventura",
+      "distance_km": 10.6,
+      "duration_hours": "4-5",
+      "difficulty": "Moderate",
+      "type": "Vereda (mountain crossing)",
+      "elevation_gain_m": 931,
+      "start_point": "Curral das Freiras",
+      "end_point": "Lombo do Urzal (Boaventura)",
+      "fee_required": true,
+      "fee_amount": "€4.50 (€3 with protocol operator)",
+      "highlights": "South-to-north coast crossing, Boca das Torrinhas viewpoint, connects to PR1.3",
+      "equipment_needed": "Hiking boots, layers (altitude up to 1450m), water, sun protection",
+      "safety_notes": "Steep descent on the north side; altitude changes from 519m to 1450m.",
+      "best_season": "Spring and autumn (avoid winter fog at altitude)",
+      "parking_location": "Curral das Freiras",
+      "parking_cost": "Free",
+      "exposure_rating": 3,
+      "exposure_notes": "Mountain ridge crossing with exposed sections near Boca das Torrinhas; take care in wind and fog.",
+      "tunnels": {
+        "has_tunnels": false,
+        "count": 0,
+        "longest_m": null,
+        "headlamp_required": false
+      }
+    },
+    {
+      "pr_code": "PR3",
+      "name": "Vereda do Burro",
+      "location": {
+        "lat": 32.734932734078406,
+        "lng": -16.928817586547034
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/xrxkqufy/pr-3-vereda-do-burro0022-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-3-vereda-do-burro/",
+      "alternative_names": "Donkey Trail, Pico do Areeiro to Ribeira das Cales",
+      "distance_km": 7.2,
+      "duration_hours": "2.5-3",
+      "difficulty": "Easy",
+      "type": "Vereda (mountain descent)",
+      "elevation_gain_m": 675,
+      "start_point": "Pico do Areeiro (1,805m)",
+      "end_point": "Ribeira das Cales (Funchal Ecological Park)",
+      "fee_required": true,
+      "fee_amount": "€4.50 (€3 with protocol operator)",
+      "highlights": "Poço da Neve (1813 ice house), high-altitude flora, Ribeira do Cidrão valley views",
+      "equipment_needed": "Warm layers, windproof jacket, sturdy shoes",
+      "safety_notes": "High altitude start (1805m) — cold and windy conditions common.",
+      "best_season": "Spring to autumn (when open)",
+      "parking_location": "Pico do Areeiro car park",
+      "parking_cost": "€4.50 (via SIMplifica)",
+      "exposure_rating": 2,
+      "exposure_notes": "Mostly downhill with moderate exposure; the start near Pico do Areeiro is exposed to wind.",
+      "tunnels": {
+        "has_tunnels": false,
+        "count": 0,
+        "longest_m": null,
+        "headlamp_required": false
+      }
+    },
+    {
+      "pr_code": "PR3.1",
+      "name": "Caminho Real do Monte",
+      "location": {
+        "lat": 32.67669129523632,
+        "lng": -16.903320943749144
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/3yjpwwd2/caminho-real-do-monte-3-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-31-caminho-real-do-monte/"
+    },
+    {
+      "pr_code": "PR4",
+      "name": "Levada do Barreiro",
+      "location": {
+        "lat": 32.72601175823501,
+        "lng": -16.924866237361318
+      },
+      "status": "Restricted",
+      "image": "https://visitmadeira.com/media/mukcywbg/pr4_levado-do-barreiro0001-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-4-levada-do-barreiro/",
+      "alternative_names": "Barreiro Levada, Poço da Neve Trail",
+      "distance_km": 5.2,
+      "duration_hours": "2-2.5",
+      "difficulty": "Easy",
+      "type": "Levada Walk",
+      "elevation_gain_m": 100,
+      "start_point": "Poço da Neve",
+      "end_point": "Casa do Barreiro (Funchal Ecological Park)",
+      "fee_required": true,
+      "fee_amount": "€4.50 (€3 with protocol operator)",
+      "highlights": "Poço da Neve ice house (1813), Funchal panoramic views, high-altitude flora, Ribeira de Santa Luzia valley",
+      "equipment_needed": "Comfortable walking shoes, water, warm layer",
+      "safety_notes": "Mostly downhill, easy path. Check partial opening restrictions before hiking.",
+      "best_season": "Year-round",
+      "parking_location": "Poço da Neve area",
+      "parking_cost": "Free",
+      "exposure_rating": 1,
+      "exposure_notes": "Low exposure; gentle levada path suitable for most fitness levels.",
+      "tunnels": {
+        "has_tunnels": false,
+        "count": 0,
+        "longest_m": null,
+        "headlamp_required": false
+      }
+    },
+    {
+      "pr_code": "PR5",
+      "name": "Vereda das Funduras",
+      "location": {
+        "lat": 32.74747059707775,
+        "lng": -16.825448583409344
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/n3lfy1f5/pr-5_vereda-das-funduras001-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-5-vereda-das-funduras/",
+      "alternative_names": "Funduras Trail, Portela to Maroços",
+      "distance_km": 8.7,
+      "duration_hours": "3-4",
+      "difficulty": "Moderate",
+      "type": "Vereda (coastal hills)",
+      "elevation_gain_m": 438,
+      "start_point": "Portela Viewpoint",
+      "end_point": "Maroços",
+      "fee_required": true,
+      "fee_amount": "€4.50 (€3 with protocol operator)",
+      "highlights": "Penha d'Águia views, Laurisilva forest, green hills of Machico, less crowded alternative",
+      "equipment_needed": "Hiking boots, water, sun protection",
+      "safety_notes": "Steep descent sections; can be slippery when wet. Some narrow trail sections.",
+      "best_season": "Year-round (especially beautiful in spring)",
+      "parking_location": "Portela Viewpoint",
+      "parking_cost": "Free",
+      "exposure_rating": 2,
+      "exposure_notes": "Moderate exposure at viewpoints; mostly forest paths with some open hillside sections.",
+      "tunnels": {
+        "has_tunnels": false,
+        "count": 0,
+        "longest_m": null,
+        "headlamp_required": false
+      }
+    },
+    {
+      "pr_code": "PR6",
+      "name": "Levada das 25 Fontes",
+      "location": {
+        "lat": 32.75504424930365,
+        "lng": -17.133990561042204
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/1ilatoaw/2021_msonntag_madeira_25fontes_dsc0462fullres.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-6-levada-das-25-fontes/",
+      "alternative_names": "25 Springs, Rabaçal Levada Walk",
+      "distance_km": 11,
+      "duration_hours": "3-4",
+      "difficulty": "Moderate",
+      "type": "Levada Walk",
+      "elevation_gain_m": 324,
+      "start_point": "Rabaçal",
+      "end_point": "25 Fontes Waterfall",
+      "fee_required": true,
+      "fee_amount": "€4.50 (€3 with protocol operator)",
+      "highlights": "25 natural springs, waterfall, Laurisilva forest",
+      "equipment_needed": "Hiking boots, headlamp (tunnel), rain jacket, water",
+      "safety_notes": "800m tunnel (headlamp required), narrow sections, very crowded",
+      "best_season": "Year-round (best in spring and autumn)",
+      "parking_location": "Rabaçal",
+      "parking_cost": "Included in trail fee (via SIMplifica)",
+      "exposure_rating": 3,
+      "exposure_notes": "Mostly forest paths, but includes narrow sections and unprotected drops in places.",
+      "tunnels": {
+        "has_tunnels": true,
+        "count": 1,
+        "longest_m": 800,
+        "headlamp_required": true
+      }
+    },
+    {
+      "pr_code": "PR6.1",
+      "name": "Levada do Risco",
+      "location": {
+        "lat": 32.75504612371665,
+        "lng": -17.133992561599545
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/aghgei2r/festival-da-natureza-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-61-levada-do-risco/",
+      "alternative_names": "Risco Waterfall",
+      "distance_km": 2,
+      "duration_hours": "0.5-0.75",
+      "difficulty": "Easy",
+      "type": "Levada walk (short)",
+      "elevation_gain_m": 60,
+      "start_point": "Rabaçal",
+      "end_point": "Risco waterfall",
+      "fee_required": true,
+      "fee_amount": "€4.50 (€3 with protocol operator)",
+      "highlights": "Two-tier waterfall, easy add-on to PR6",
+      "equipment_needed": "Comfortable shoes, rain layer",
+      "safety_notes": "Slippery after rain; watch footing near viewpoints",
+      "best_season": "Year-round (waterflow best after rain/winter)",
+      "parking_location": "Rabaçal",
+      "parking_cost": "Included in trail fee (via SIMplifica)",
+      "exposure_rating": 2,
+      "exposure_notes": "Short, popular walk; take care at viewpoints and on slippery sections.",
+      "tunnels": {
+        "has_tunnels": false,
+        "count": 0,
+        "longest_m": null,
+        "headlamp_required": false
+      }
+    },
+    {
+      "pr_code": "PR6.2",
+      "name": "Levada do Alecrim",
+      "location": {
+        "lat": 32.753572621238135,
+        "lng": -17.132658815204834
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/j5zd5o5v/levada-do-alecrim3-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-62-levada-do-alecrim/"
+    },
+    {
+      "pr_code": "PR6.3",
+      "name": "Vereda da Lagoa do Vento",
+      "location": {
+        "lat": 32.75993603465592,
+        "lng": -17.121886972313497
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/dzlekzdq/lagoa-do-vento-filipe-mendonça.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-63-vereda-da-lagoa-do-vento/"
+    },
+    {
+      "pr_code": "PR6.4",
+      "name": "Levada Velha do Rabaçal",
+      "location": {
+        "lat": 32.76903882249155,
+        "lng": -17.153573486631423
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/n12i3oxm/pr-64-levada-velha-do-rabac-al-019-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-64-levada-velha-do-rabacal/"
+    },
+    {
+      "pr_code": "PR6.5",
+      "name": "Vereda do Pico Fernandes",
+      "location": {
+        "lat": 32.76262800882304,
+        "lng": -17.09943964232764
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/qlxj2dny/pr-65-vereda-do-pico-fernandes-015-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-65-vereda-do-pico-fernandes/"
+    },
+    {
+      "pr_code": "PR6.6",
+      "name": "Vereda do Túnel do Cavalo",
+      "location": {
+        "lat": 32.755616048764786,
+        "lng": -17.14259727082998
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/cqtfdxzh/pr-66-vereda-do-túnel-do-cavalo-3-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-66-vereda-do-tunel-do-cavalo/"
+    },
+    {
+      "pr_code": "PR6.8",
+      "name": "Levada do Paul II - Um caminho para todos",
+      "location": {
+        "lat": 32.748333751351666,
+        "lng": -17.1254424884857
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/q5yf5kdw/pr-68-levada-do-paul-ii-um-caminho-para-todos-1-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-68-levada-do-paul-ii-um-caminho-para-todos/"
+    },
+    {
+      "pr_code": "PR7",
+      "name": "Levada do Moinho",
+      "location": {
+        "lat": 32.845746147850626,
+        "lng": -17.193716747622144
+      },
+      "status": "Closed",
+      "image": "https://visitmadeira.com/media/xs1hfbu3/dsc_0514.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-7-levada-do-moinho/",
+      "alternative_names": "Mill Levada, Ribeira da Cruz to Ponta do Pargo",
+      "distance_km": 10.3,
+      "duration_hours": "3-4",
+      "difficulty": "Moderate",
+      "type": "Levada Walk",
+      "elevation_gain_m": 200,
+      "start_point": "Ribeira da Cruz (Porto Moniz)",
+      "end_point": "Tornadouro (Ponta do Pargo)",
+      "fee_required": true,
+      "fee_amount": "€4.50 (€3 with protocol operator)",
+      "highlights": "Historic water mills, Laurisilva forest, Achadas mill ruins",
+      "equipment_needed": "Hiking boots, rain jacket, water",
+      "safety_notes": "Currently closed since June 2024. When open: can be muddy and overgrown in sections.",
+      "best_season": "Spring and autumn (when open)",
+      "parking_location": "Ribeira da Cruz",
+      "parking_cost": "Free",
+      "exposure_rating": 2,
+      "exposure_notes": "Low to moderate exposure; mainly forest and levada path. Some narrow sections near drops.",
+      "tunnels": {
+        "has_tunnels": false,
+        "count": 0,
+        "longest_m": null,
+        "headlamp_required": false
+      }
+    },
+    {
+      "pr_code": "PR8",
+      "name": "Vereda da Ponta de São Lourenço",
+      "location": {
+        "lat": 32.74337635200951,
+        "lng": -16.700940231938628
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/nh2hxcxp/dsc_2726.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-8-vereda-da-ponta-de-sao-lourenco/",
+      "alternative_names": "São Lourenço Peninsula, Eastern Peninsula",
+      "distance_km": 7,
+      "duration_hours": "2.5-4",
+      "difficulty": "Easy-Moderate",
+      "type": "Vereda (coastal)",
+      "elevation_gain_m": 150,
+      "start_point": "Baía d'Abra",
+      "end_point": "Ponta do Furado",
+      "fee_required": true,
+      "fee_amount": "€4.50 (€3 with protocol operator)",
+      "highlights": "Volcanic coastal peninsula, red cliffs, Atlantic views",
+      "equipment_needed": "Sun protection, windproof layer, plenty of water",
+      "safety_notes": "No shade, strong winds, exposed drops",
+      "best_season": "Year-round (avoid windy days; start early in summer)",
+      "parking_location": "Baía d'Abra car park",
+      "parking_cost": "Free",
+      "exposure_rating": 4,
+      "exposure_notes": "Exposed coastal sections with unprotected edges; avoid in strong wind.",
+      "tunnels": {
+        "has_tunnels": false,
+        "count": 0,
+        "longest_m": null,
+        "headlamp_required": false
+      }
+    },
+    {
+      "pr_code": "PR9",
+      "name": "Levada do Caldeirão Verde",
+      "location": {
+        "lat": 32.78355662588914,
+        "lng": -16.907019203666717
+      },
+      "status": "Closed",
+      "image": "https://visitmadeira.com/media/zillvugq/dsc_2209.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-9-levada-do-caldeirao-verde/",
+      "alternative_names": "Green Cauldron, Queimadas Levada",
+      "distance_km": 17.4,
+      "duration_hours": "5-7",
+      "difficulty": "Easy-Moderate",
+      "type": "Levada Walk",
+      "elevation_gain_m": 250,
+      "start_point": "Queimadas Forest Park",
+      "end_point": "Caldeirão Verde waterfall",
+      "fee_required": true,
+      "fee_amount": "€4.50 (€3 with protocol operator)",
+      "highlights": "100m waterfall, emerald pool, jungle immersion",
+      "equipment_needed": "Hiking boots, headlamp (tunnels), rain gear",
+      "safety_notes": "Multiple dark tunnels; headlamp essential; narrow ledges in places",
+      "best_season": "Year-round (waterfalls best in winter and spring)",
+      "parking_location": "Queimadas Forest Park",
+      "parking_cost": "Free",
+      "exposure_rating": 3,
+      "exposure_notes": "Includes narrow ledges and multiple dark tunnels; take extra care in wet weather.",
+      "tunnels": {
+        "has_tunnels": true,
+        "count": 4,
+        "longest_m": null,
+        "headlamp_required": true
+      }
+    },
+    {
+      "pr_code": "PR9.1",
+      "name": "Levada do Caldeirão Verde - um caminho para todos",
+      "location": {
+        "lat": 32.77959690401485,
+        "lng": -16.89645519773683
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/gvxpt1jj/pr-91-levada-do-caldeira-o-verde-um-caminho-para-todos-1-luis-freitas.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-91-levada-do-caldeirao-verde-um-caminho-para-todos/"
+    },
+    {
+      "pr_code": "PR10",
+      "name": "Levada do Furado",
+      "location": {
+        "lat": 32.734914631544086,
+        "lng": -16.886137865456078
+      },
+      "status": "Closed",
+      "image": "https://visitmadeira.com/media/ygnpxayr/dsc_5340.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-10-levada-do-furado/",
+      "alternative_names": "Ribeiro Frio to Portela, Furado Levada Walk",
+      "distance_km": 11,
+      "duration_hours": "4-5",
+      "difficulty": "Moderate",
+      "type": "Levada Walk",
+      "elevation_gain_m": 235,
+      "start_point": "Ribeiro Frio (ER 303)",
+      "end_point": "Portela (ER 102)",
+      "fee_required": true,
+      "fee_amount": "€4.50 (€3 with protocol operator)",
+      "highlights": "One of Madeira's oldest levadas, deep Laurisilva forest immersion, Ribeiro Frio trout farm",
+      "equipment_needed": "Hiking boots, rain jacket, water, warm layer",
+      "safety_notes": "Currently closed due to landslide damage (January 2026). When open: narrow sections, can be muddy.",
+      "best_season": "Year-round (when open)",
+      "parking_location": "Ribeiro Frio",
+      "parking_cost": "Free",
+      "exposure_rating": 2,
+      "exposure_notes": "Mostly low exposure forest path; some narrow levada sections with drops on one side.",
+      "tunnels": {
+        "has_tunnels": false,
+        "count": 0,
+        "longest_m": null,
+        "headlamp_required": false
+      }
+    },
+    {
+      "pr_code": "PR11",
+      "name": "Vereda dos Balcões",
+      "location": {
+        "lat": 32.735539779125105,
+        "lng": -16.886377853332657
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/kpqlgyf0/pr-11_vereda-dos-balcões-003-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-11-vereda-dos-balcoes/",
+      "alternative_names": "Balcões Viewpoint, Ribeiro Frio Balcony",
+      "distance_km": 3,
+      "duration_hours": "0.75-1.5",
+      "difficulty": "Easy",
+      "type": "Vereda (short viewpoint)",
+      "elevation_gain_m": 20,
+      "start_point": "Ribeiro Frio",
+      "end_point": "Balcões viewpoint",
+      "fee_required": false,
+      "fee_amount": "Free",
+      "highlights": "Quick mountain viewpoint, peaks panorama",
+      "equipment_needed": "Comfortable shoes, camera",
+      "safety_notes": "Easy, well-maintained path (watch for wet spots)",
+      "best_season": "Year-round",
+      "parking_location": "Ribeiro Frio",
+      "parking_cost": "Free",
+      "exposure_rating": 2,
+      "exposure_notes": "Easy forest path; the viewpoint itself can feel high even though it is fenced.",
+      "tunnels": {
+        "has_tunnels": false,
+        "count": 0,
+        "longest_m": null,
+        "headlamp_required": false
+      }
+    },
+    {
+      "pr_code": "PR12",
+      "name": "Caminho Real da Encumeada",
+      "location": {
+        "lat": 32.71106531519118,
+        "lng": -16.98719335015557
+      },
+      "status": "Restricted",
+      "image": "https://visitmadeira.com/media/3tmnlbfh/pr-12-caminho-real-da-encumeada-8-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-12-caminho-real-da-encumeada/",
+      "alternative_names": "Royal Path of Encumeada, Boca da Corrida to Encumeada",
+      "distance_km": 12.5,
+      "duration_hours": "4-5",
+      "difficulty": "Moderate",
+      "type": "Vereda (mountain traverse)",
+      "elevation_gain_m": 493,
+      "start_point": "Boca da Corrida Viewpoint",
+      "end_point": "Encumeada (ER 228)",
+      "fee_required": true,
+      "fee_amount": "€4.50 (€3 with protocol operator)",
+      "highlights": "Historic cobbled royal path, central mountain massif, highest peaks panorama",
+      "equipment_needed": "Hiking boots, warm layers, water, rain jacket",
+      "safety_notes": "Partially open — passable from Boca da Corrida to km 3.5 only. Mountain weather can change rapidly.",
+      "best_season": "Spring to autumn (clear days for peak views)",
+      "parking_location": "Boca da Corrida Viewpoint",
+      "parking_cost": "Free",
+      "exposure_rating": 3,
+      "exposure_notes": "Mountain traverse with exposed ridge sections; significant weather exposure at altitude.",
+      "tunnels": {
+        "has_tunnels": false,
+        "count": 0,
+        "longest_m": null,
+        "headlamp_required": false
+      }
+    },
+    {
+      "pr_code": "PR13",
+      "name": "Vereda do Fanal",
+      "location": {
+        "lat": 32.76711059606755,
+        "lng": -17.107713654977086
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/xseb0wcl/dsc_9964.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-13-vereda-do-fanal/",
+      "alternative_names": "Fanal Forest Trail",
+      "distance_km": 10.8,
+      "duration_hours": "3.5-4.5",
+      "difficulty": "Moderate",
+      "type": "Vereda/Levada mix",
+      "elevation_gain_m": 350,
+      "start_point": "Fanal area",
+      "end_point": "Laurisilva viewpoints",
+      "fee_required": false,
+      "fee_amount": "Free",
+      "highlights": "UNESCO Laurisilva forest, misty atmosphere, ancient laurel trees",
+      "equipment_needed": "Waterproof shoes, warm layer (often foggy), water",
+      "safety_notes": "Can be muddy and slippery; visibility can drop in fog",
+      "best_season": "Year-round (especially atmospheric in winter)",
+      "parking_location": "Fanal parking area",
+      "parking_cost": "Free",
+      "exposure_rating": 1,
+      "exposure_notes": "Low exposure; main challenge is mud and poor visibility in fog.",
+      "tunnels": {
+        "has_tunnels": false,
+        "count": 0,
+        "longest_m": null,
+        "headlamp_required": false
+      }
+    },
+    {
+      "pr_code": "PR13.1",
+      "name": "Vereda da Palha Carga",
+      "location": {
+        "lat": 32.772718042482936,
+        "lng": -17.12269427305472
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/ym1jn02y/pr-131-vereda-da-palha-carga-002-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-131-vereda-da-palha-carga/"
+    },
+    {
+      "pr_code": "PR14",
+      "name": "Levada dos Cedros",
+      "location": {
+        "lat": 32.80610297336484,
+        "lng": -17.14084752263464
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/p5tjmsnx/_-pr-14_levada-dos-cedros5-jacksongroves.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-14-levada-dos-cedros/",
+      "alternative_names": "Cedar Levada, Fanal Forest Walk",
+      "distance_km": 7.2,
+      "duration_hours": "2.5-3",
+      "difficulty": "Moderate",
+      "type": "Levada Walk",
+      "elevation_gain_m": 150,
+      "start_point": "Fanal area",
+      "end_point": "Curral Falso",
+      "fee_required": true,
+      "fee_amount": "€4.50 (€3 with protocol operator)",
+      "highlights": "Deep Laurisilva forest, ancient cedar trees, UNESCO World Heritage laurel forest",
+      "equipment_needed": "Waterproof shoes, warm layer (often foggy), water",
+      "safety_notes": "Can be muddy and slippery; fog reduces visibility. Path may be uneven in sections.",
+      "best_season": "Year-round (especially atmospheric in fog/winter)",
+      "parking_location": "Fanal area",
+      "parking_cost": "Free",
+      "exposure_rating": 1,
+      "exposure_notes": "Very low exposure; sheltered forest levada path.",
+      "tunnels": {
+        "has_tunnels": false,
+        "count": 0,
+        "longest_m": null,
+        "headlamp_required": false
+      }
+    },
+    {
+      "pr_code": "PR15",
+      "name": "Vereda da Ribeira da Janela",
+      "location": {
+        "lat": 32.84409253483396,
+        "lng": -17.1550570898547
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/4xil5g1x/pr-15-vereda-da-ribeira-da-janela-010-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-15-vereda-da-ribeira-da-janela/",
+      "alternative_names": "Ribeira da Janela Valley Trail",
+      "distance_km": 2.7,
+      "duration_hours": "1-1.5",
+      "difficulty": "Moderate",
+      "type": "Vereda (valley descent)",
+      "elevation_gain_m": 420,
+      "start_point": "Curral Falso (Fanal)",
+      "end_point": "Ribeira da Janela",
+      "fee_required": true,
+      "fee_amount": "€4.50 (€3 with protocol operator)",
+      "highlights": "Historic footpath, valley descent with sea views, connection to Fanal area",
+      "equipment_needed": "Sturdy shoes (steep descent), trekking poles helpful, water",
+      "safety_notes": "Steep descent (420m drop in 2.7km). Knee strain on descent; harder in reverse. Can be slippery when wet.",
+      "best_season": "Year-round (avoid after heavy rain)",
+      "parking_location": "Curral Falso",
+      "parking_cost": "Free",
+      "exposure_rating": 3,
+      "exposure_notes": "Steep descent with some exposed hillside sections; moderate vertigo potential.",
+      "tunnels": {
+        "has_tunnels": false,
+        "count": 0,
+        "longest_m": null,
+        "headlamp_required": false
+      }
+    },
+    {
+      "pr_code": "PR16",
+      "name": "Levada Fajã do Rodrigues",
+      "location": {
+        "lat": 32.779256929687,
+        "lng": -17.04957993776205
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/0hkjwbr4/dsc_2083.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-16-levada-faja-do-rodrigues/",
+      "alternative_names": "São Vicente Levada, Ginjas Levada Walk",
+      "distance_km": 7.8,
+      "duration_hours": "3-4",
+      "difficulty": "Moderate",
+      "type": "Levada Walk",
+      "elevation_gain_m": 150,
+      "start_point": "Ginjas (São Vicente)",
+      "end_point": "Ribeira do Inferno",
+      "fee_required": true,
+      "fee_amount": "€4.50 (€3 with protocol operator)",
+      "highlights": "Three tunnels (longest ~20min), dramatic valley, Ribeira do Inferno stream",
+      "equipment_needed": "Headlamp (essential for tunnels), hiking boots, rain jacket, warm layer",
+      "safety_notes": "When open: long dark tunnel (20-25min), uneven footing, dripping water.",
+      "best_season": "Spring to autumn (when open)",
+      "parking_location": "Ginjas, São Vicente",
+      "parking_cost": "Free",
+      "exposure_rating": 3,
+      "exposure_notes": "Long tunnels require confidence; narrow levada path with drops in sections.",
+      "tunnels": {
+        "has_tunnels": true,
+        "count": 3,
+        "longest_m": 600,
+        "headlamp_required": true
+      }
+    },
+    {
+      "pr_code": "PR17",
+      "name": "Caminho do Pináculo e Folhadal",
+      "location": {
+        "lat": 32.75422517938156,
+        "lng": -17.019292506502026
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/ktgpofqx/passeioape_caminhodopinaculoefolhadal3.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-17-caminho-do-pinaculo-e-folhadal/",
+      "alternative_names": "Pináculo Trail, Encumeada Loop",
+      "distance_km": 18,
+      "duration_hours": "6-7",
+      "difficulty": "Hard",
+      "type": "Vereda/Levada mix (loop)",
+      "elevation_gain_m": 700,
+      "start_point": "Boca da Encumeada",
+      "end_point": "Boca da Encumeada (loop)",
+      "fee_required": true,
+      "fee_amount": "€4.50 (€3 with protocol operator)",
+      "highlights": "Jurassic Park scenery, jagged peaks, levada tunnels, cascading waterfalls, ridge walk",
+      "equipment_needed": "Hiking boots, headlamp (tunnels), warm layers, rain jacket, plenty of water and food",
+      "safety_notes": "Long and demanding trail. Full loop may not be fully accessible. Tunnels, exposed ridges, and variable weather at altitude.",
+      "best_season": "Spring to autumn (clear weather essential for ridge sections)",
+      "parking_location": "Boca da Encumeada",
+      "parking_cost": "Free",
+      "exposure_rating": 4,
+      "exposure_notes": "Exposed ridge walk sections; long tunnels; significant altitude changes. Not for vertigo sufferers.",
+      "tunnels": {
+        "has_tunnels": true,
+        "count": 2,
+        "longest_m": 500,
+        "headlamp_required": true
+      }
+    },
+    {
+      "pr_code": "PR18",
+      "name": "Levada do Rei",
+      "location": {
+        "lat": 32.816548298715254,
+        "lng": -16.924595003735213
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/buqmunqp/pr-18_levada-do-rei-ribeiro-bonito001-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-18-levada-do-rei/",
+      "alternative_names": "King's Levada",
+      "distance_km": 10,
+      "duration_hours": "3-4",
+      "difficulty": "Easy-Moderate",
+      "type": "Levada Walk",
+      "elevation_gain_m": 120,
+      "start_point": "São Jorge",
+      "end_point": "Ribeira do Caniçal",
+      "fee_required": true,
+      "fee_amount": "€4.50 (€3 with protocol operator)",
+      "highlights": "Forest immersion, waterfalls, less crowded than PR6",
+      "equipment_needed": "Comfortable hiking shoes, water, light rain layer",
+      "safety_notes": "Occasional wet/uneven sections; take care near levada edges",
+      "best_season": "Year-round",
+      "parking_location": "São Jorge",
+      "parking_cost": "Free",
+      "exposure_rating": 2,
+      "exposure_notes": "Generally low exposure, but keep awareness near levada edges, especially when wet.",
+      "tunnels": {
+        "has_tunnels": false,
+        "count": 0,
+        "longest_m": null,
+        "headlamp_required": false
+      }
+    },
+    {
+      "pr_code": "PR19",
+      "name": "Caminho Real do Paul do Mar",
+      "location": {
+        "lat": 32.75248737105696,
+        "lng": -17.217051687162563
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/rjdpgen1/dsc_8067.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-19-caminho-real-do-paul-do-mar/",
+      "alternative_names": "Royal Path to Paúl do Mar",
+      "distance_km": 1.8,
+      "duration_hours": "1-1.5",
+      "difficulty": "Hard",
+      "type": "Vereda (steep coastal descent)",
+      "elevation_gain_m": 500,
+      "start_point": "Prazeres",
+      "end_point": "Paúl do Mar",
+      "fee_required": true,
+      "fee_amount": "€4.50 (€3 with protocol operator)",
+      "highlights": "Historic zigzag path, sea views, agricultural terraces, stone walls",
+      "equipment_needed": "Sturdy shoes with grip, trekking poles helpful, water, sun protection",
+      "safety_notes": "Very steep descent (500m in 1.8km). Hard on knees. Cobbled stone steps can be slippery. Return uphill is extremely demanding.",
+      "best_season": "Year-round (avoid in heavy rain — slippery stones)",
+      "parking_location": "Prazeres",
+      "parking_cost": "Free",
+      "exposure_rating": 4,
+      "exposure_notes": "Steep coastal descent with exposure on the hillside; vertigo-inducing in sections.",
+      "tunnels": {
+        "has_tunnels": false,
+        "count": 0,
+        "longest_m": null,
+        "headlamp_required": false
+      }
+    },
+    {
+      "pr_code": "PR20",
+      "name": "Vereda do Jardim do Mar",
+      "location": {
+        "lat": 32.74833202362809,
+        "lng": -17.210159519414983
+      },
+      "status": "Closed",
+      "image": "https://visitmadeira.com/media/iu4dv2zb/pr-20_vereda-do-jardim-do-mar001-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-20-vereda-do-jardim-do-mar/",
+      "alternative_names": "Garden of the Sea Trail",
+      "distance_km": 1.9,
+      "duration_hours": "1-1.5",
+      "difficulty": "Moderate",
+      "type": "Vereda (coastal descent)",
+      "elevation_gain_m": 488,
+      "start_point": "Prazeres",
+      "end_point": "Jardim do Mar",
+      "fee_required": true,
+      "fee_amount": "€4.50 (€3 with protocol operator)",
+      "highlights": "Jardim do Mar and Paúl do Mar views, agricultural terraces (poios), historic path",
+      "equipment_needed": "Sturdy shoes, sun protection, water",
+      "safety_notes": "Closed since August 2024. When open: steep descent through terraces, narrow path sections.",
+      "best_season": "Year-round (when open)",
+      "parking_location": "Prazeres",
+      "parking_cost": "Free",
+      "exposure_rating": 3,
+      "exposure_notes": "Hillside descent with moderate exposure; some sections overlook steep drops.",
+      "tunnels": {
+        "has_tunnels": false,
+        "count": 0,
+        "longest_m": null,
+        "headlamp_required": false
+      }
+    },
+    {
+      "pr_code": "PR21",
+      "name": "Caminho do Norte",
+      "location": {
+        "lat": 32.75452412649732,
+        "lng": -17.01888724496048
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/1kqbr34t/dsc_0270.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-21-caminho-do-norte/",
+      "alternative_names": "North Path",
+      "distance_km": 3.2,
+      "duration_hours": "1.5",
+      "difficulty": "Moderate",
+      "type": "Vereda",
+      "elevation_gain_m": 300,
+      "start_point": "Encumeada",
+      "end_point": "Ribeira Grande",
+      "fee_required": true,
+      "fee_amount": "€4.50",
+      "highlights": "Traditional stone path connecting the north and south",
+      "equipment_needed": "Hiking shoes, water",
+      "safety_notes": "Steep and slippery when wet",
+      "best_season": "Year-round",
+      "parking_location": "Encumeada",
+      "parking_cost": "Free",
+      "exposure_rating": 3,
+      "exposure_notes": "Some steep sections but generally wide path",
+      "tunnels": {
+        "has_tunnels": false,
+        "count": 0,
+        "longest_m": null,
+        "headlamp_required": false
+      }
+    },
+    {
+      "pr_code": "PR22",
+      "name": "Vereda do Chão dos Louros",
+      "location": {
+        "lat": 32.760189950825286,
+        "lng": -17.018242398710708
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/vwkfavy2/dsc_8469.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-22-vereda-do-chao-dos-louros/",
+      "alternative_names": "Laurel Floor Path",
+      "distance_km": 1.9,
+      "duration_hours": "0.5-1",
+      "difficulty": "Easy",
+      "type": "Vereda",
+      "elevation_gain_m": 50,
+      "start_point": "Chão dos Louros",
+      "end_point": "Chão dos Louros (Circular)",
+      "fee_required": true,
+      "fee_amount": "€4.50",
+      "highlights": "Circular laurel-forest walk with streamside paths, picnic and barbecue area, camping, and a viewpoint over São Vicente valley — ideal for families",
+      "equipment_needed": "Comfortable shoes, rain jacket (light rain common), picnic supplies if grilling",
+      "safety_notes": "Stream crossing requires stepping across rocks; west section has fewer markers — follow standard hiking signs attentively",
+      "best_season": "Year-round (picnic area busiest in summer, especially 1 May)",
+      "parking_location": "Chão dos Louros Forest Park",
+      "parking_cost": "Free",
+      "exposure_rating": 1,
+      "exposure_notes": "No exposure; suitable for children and beginners",
+      "tunnels": {
+        "has_tunnels": false,
+        "count": 0,
+        "longest_m": null,
+        "headlamp_required": false
+      }
+    },
+    {
+      "pr_code": "PR27",
+      "name": "Glaciar de Planalto",
+      "location": {
+        "lat": 32.7576210698105,
+        "lng": -17.05954580536538
+      },
+      "status": "Closed",
+      "image": "https://visitmadeira.com/media/vdrdwzi5/pr-27-glaciar-de-planalto-014-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-27-glaciar-de-planalto/"
+    },
+    {
+      "pr_code": "PR28",
+      "name": "Levada da Rocha Vermelha",
+      "location": {
+        "lat": 32.7428037746597,
+        "lng": -17.150513538606898
+      },
+      "status": "Closed",
+      "image": "https://visitmadeira.com/media/kpydxuua/pr-28-levada-da-rocha-vermelha-2-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-28-levada-da-rocha-vermelha/"
+    },
+    {
+      "pr_code": "PS PR1",
+      "name": "Vereda do Pico Branco e Terra Chã",
+      "location": {
+        "lat": 33.09670603437484,
+        "lng": -16.314597854937265
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/4unbykul/vereda-do-pico-branco-e-terra-cha005-francisco-correia.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/ps-pr-1-vereda-do-pico-branco-e-terra-cha/"
+    },
+    {
+      "pr_code": "PS PR2",
+      "name": "Vereda do Pico do Castelo",
+      "location": {
+        "lat": 33.0907093007863,
+        "lng": -16.327400163922427
+      },
+      "status": "Open",
+      "image": "https://visitmadeira.com/media/invjhuam/portosanto_passeisope_picocastelo5.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/ps-pr-2-vereda-do-pico-do-castelo/"
+    },
+    {
+      "pr_code": "PS PR3",
+      "name": "Levada do Pico do Castelo",
+      "location": {
+        "lat": 33.083820334426555,
+        "lng": -16.34084078243039
+      },
+      "status": "Closed",
+      "image": "https://visitmadeira.com/media/kzhhahfz/dsc_2866.jpg",
+      "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/ps-pr-3-levada-do-pico-do-castelo/"
+    }
+  ]
+}
