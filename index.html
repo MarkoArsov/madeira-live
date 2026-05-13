@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://api.open-meteo.com" />
-  <link rel="preconnect" href="https://tiles.stadiamaps.com" />
+  <link rel="preconnect" href="https://server.arcgisonline.com" />
   <link rel="dns-prefetch" href="https://www.youtube.com" />
 
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -103,7 +103,7 @@
       --ease-out-strong: cubic-bezier(0.16, 1, 0.3, 1);
       --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 
-      --nav-h: 56px;
+      --nav-h: 62px;
     }
 
     /* ============================================================
@@ -194,10 +194,10 @@
     }
     .tabbar {
       pointer-events: auto;
-      padding: 5px 6px;
+      padding: 6px 8px;
       display: flex;
       align-items: stretch;
-      gap: 4px;
+      gap: 5px;
       background: rgba(255, 248, 236, 0.94);
       border: 1px solid var(--hairline);
       border-radius: var(--r-pill);
@@ -209,14 +209,14 @@
       -webkit-backdrop-filter: saturate(180%) blur(24px);
     }
     .tab {
-      width: 54px; height: 38px;
+      width: 58px; height: 42px;
       display: inline-flex; align-items: center; justify-content: center;
       color: var(--ink-muted);
       border-radius: var(--r-pill);
       transition: color 0.22s var(--ease-out), background 0.28s var(--ease-out-strong), transform 0.12s var(--ease-out);
       position: relative;
     }
-    .tab svg { width: 20px; height: 20px; transition: transform 0.22s var(--ease-out); }
+    .tab svg { width: 22px; height: 22px; transition: transform 0.22s var(--ease-out); }
     .tab:active { transform: scale(0.94); }
     .tab[aria-selected="true"] {
       background: var(--forest);
@@ -1441,8 +1441,8 @@
         return { center: MADEIRA_CENTER, zoom: MADEIRA_ZOOM };
       }, []);
 
-      // Map always uses Positron (light) tiles for readability — independent of app theme.
-      const TILE_URL = 'https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.jpg';
+      const TILE_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+      const LABELS_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}';
 
       const rebuildPins = useCallback(() => {
         const L = window.L;
@@ -1524,10 +1524,18 @@
           mapRef.current = map;
 
           L.tileLayer(TILE_URL, {
-            attribution: '&copy; CNES, Distribution Airbus DS, &copy; Airbus DS, &copy; PlanetObserver (Contains Copernicus Data) | &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            attribution: 'Imagery &copy; Esri',
             detectRetina: true,
             minZoom: 0,
-            maxZoom: 20,
+            maxZoom: 19,
+          }).addTo(map);
+
+          L.tileLayer(LABELS_URL, {
+            attribution: '&copy; Esri',
+            detectRetina: true,
+            minZoom: 0,
+            maxZoom: 19,
+            pane: 'overlayPane',
           }).addTo(map);
 
           map.on('moveend zoomend', () => {
@@ -1890,6 +1898,8 @@
       }, []);
 
       const requestClose = useCallback(() => {
+        setDragY(0);
+        setDragging(false);
         setOpen(false);
         setTimeout(onClose, 320);
       }, [onClose]);
