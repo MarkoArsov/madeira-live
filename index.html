@@ -103,7 +103,7 @@
       --ease-out-strong: cubic-bezier(0.16, 1, 0.3, 1);
       --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 
-      --nav-h: 62px;
+      --nav-h: 58px;
     }
 
     /* ============================================================
@@ -186,7 +186,7 @@
     .tabbar-wrap {
       position: fixed;
       left: 50%;
-      bottom: calc(env(safe-area-inset-bottom) + 12px);
+      bottom: calc(env(safe-area-inset-bottom) + 8px);
       transform: translateX(-50%);
       z-index: 30;
       pointer-events: none;
@@ -194,10 +194,10 @@
     }
     .tabbar {
       pointer-events: auto;
-      padding: 6px 8px;
+      padding: 5px 10px;
       display: flex;
       align-items: stretch;
-      gap: 5px;
+      gap: 6px;
       background: rgba(255, 248, 236, 0.94);
       border: 1px solid var(--hairline);
       border-radius: var(--r-pill);
@@ -209,14 +209,14 @@
       -webkit-backdrop-filter: saturate(180%) blur(24px);
     }
     .tab {
-      width: 58px; height: 42px;
+      width: 62px; height: 38px;
       display: inline-flex; align-items: center; justify-content: center;
       color: var(--ink-muted);
       border-radius: var(--r-pill);
       transition: color 0.22s var(--ease-out), background 0.28s var(--ease-out-strong), transform 0.12s var(--ease-out);
       position: relative;
     }
-    .tab svg { width: 22px; height: 22px; transition: transform 0.22s var(--ease-out); }
+    .tab svg { width: 20px; height: 20px; transition: transform 0.22s var(--ease-out); }
     .tab:active { transform: scale(0.94); }
     .tab[aria-selected="true"] {
       background: var(--forest);
@@ -1020,6 +1020,17 @@
       color: var(--on-accent);
       border-color: var(--forest-deep);
     }
+    .map-fab.fab-style {
+      top: calc(env(safe-area-inset-top) + var(--space-3) + 104px);
+      background: var(--bg-elevated);
+      color: var(--forest);
+      border-color: var(--border);
+    }
+    .map-fab.fab-style[aria-pressed="true"] {
+      background: var(--forest);
+      color: var(--on-accent);
+      border-color: var(--forest-deep);
+    }
 
     /* ============================================================
        Settings page — editorial, not a settings form
@@ -1418,6 +1429,7 @@
     function MapView({ cameras, trails, onSelect, onSelectTrail, active }) {
       const containerRef = useRef(null);
       const mapRef = useRef(null);
+      const layersRef = useRef({ regular: null, satellite: null, labels: null });
       const markersRef = useRef([]);
       const trailMarkersRef = useRef([]);
       const camerasRef = useRef(cameras);
@@ -1426,6 +1438,13 @@
       const onSelectTrailRef = useRef(onSelectTrail);
       const [showTrails, setShowTrails] = useState(true);
       const showTrailsRef = useRef(showTrails);
+      const [mapMode, setMapMode] = useState(() => {
+        try {
+          const raw = localStorage.getItem('mira:mapmode');
+          return raw === 'satellite' ? 'satellite' : 'regular';
+        } catch {}
+        return 'regular';
+      });
       useEffect(() => { camerasRef.current = cameras; }, [cameras]);
       useEffect(() => { trailsRef.current = trails; }, [trails]);
       useEffect(() => { onSelectRef.current = onSelect; }, [onSelect]);
@@ -1443,6 +1462,25 @@
 
       const TILE_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
       const LABELS_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}';
+      const OSM_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+
+      const applyMapMode = useCallback((mode) => {
+        const map = mapRef.current;
+        const layers = layersRef.current;
+        if (!map || !layers.regular || !layers.satellite || !layers.labels) return;
+        const isSatellite = mode === 'satellite';
+
+        if (isSatellite) {
+          if (map.hasLayer(layers.regular)) map.removeLayer(layers.regular);
+          if (!map.hasLayer(layers.satellite)) map.addLayer(layers.satellite);
+          if (!map.hasLayer(layers.labels)) map.addLayer(layers.labels);
+          return;
+        }
+
+        if (map.hasLayer(layers.satellite)) map.removeLayer(layers.satellite);
+        if (map.hasLayer(layers.labels)) map.removeLayer(layers.labels);
+        if (!map.hasLayer(layers.regular)) map.addLayer(layers.regular);
+      }, []);
 
       const rebuildPins = useCallback(() => {
         const L = window.L;
@@ -1523,20 +1561,27 @@
           }).setView(initialView.center, initialView.zoom);
           mapRef.current = map;
 
-          L.tileLayer(TILE_URL, {
+          layersRef.current.satellite = L.tileLayer(TILE_URL, {
             attribution: 'Imagery &copy; Esri',
             detectRetina: true,
             minZoom: 0,
             maxZoom: 19,
-          }).addTo(map);
+          });
 
-          L.tileLayer(LABELS_URL, {
+          layersRef.current.labels = L.tileLayer(LABELS_URL, {
             attribution: '&copy; Esri',
             detectRetina: true,
             minZoom: 0,
             maxZoom: 19,
             pane: 'overlayPane',
-          }).addTo(map);
+          });
+
+          layersRef.current.regular = L.tileLayer(OSM_URL, {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          });
+
+          applyMapMode(mapMode);
 
           map.on('moveend zoomend', () => {
             const c = map.getCenter();
@@ -1553,6 +1598,11 @@
         return () => { cancelled = true; };
       // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
+
+      useEffect(() => {
+        try { localStorage.setItem('mira:mapmode', mapMode); } catch {}
+        applyMapMode(mapMode);
+      }, [mapMode, applyMapMode]);
 
       // Rebuild pins when cameras list changes
       useEffect(() => { rebuildPins(); }, [cameras, rebuildPins]);
@@ -1582,6 +1632,12 @@
                   aria-label=${showTrails ? 'Hide trails' : 'Show trails'}
                   onClick=${() => setShowTrails((v) => !v)}>
             <${Icon} name="mountain" />
+          </button>
+          <button class="map-fab fab-style"
+                  aria-pressed=${mapMode === 'satellite'}
+                  aria-label=${mapMode === 'satellite' ? 'Switch to regular map' : 'Switch to satellite map'}
+                  onClick=${() => setMapMode((m) => (m === 'satellite' ? 'regular' : 'satellite'))}>
+            <${Icon} name="map" />
           </button>
         </div>
       `;
@@ -2225,7 +2281,7 @@
                 <div class="about">
                   Streams sourced openly via YouTube and madeirawebcams.com.
                   Weather by <a href="https://open-meteo.com" target="_blank" rel="noreferrer">Open-Meteo</a>.
-                  Map tiles by Stadia Maps, OpenMapTiles & OpenStreetMap. Satellite imagery © CNES / Airbus DS / PlanetObserver.
+                  Map view toggle: Regular by OpenStreetMap, Satellite imagery and labels by Esri.
                   <div class="about-meta">Mira runs entirely on your device. No accounts, no tracking, no servers between you and the cameras.</div>
                   <div class="about-version">Version ${APP_VERSION}</div>
                 </div>
