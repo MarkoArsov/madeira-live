@@ -1,7 +1,7 @@
 /* Mira — service worker
    Caches the app shell only. Never caches streams or weather.
 */
-const VERSION = 'mira-v13';
+const VERSION = 'mira-v15';
 const SHELL = [
   './',
   './index.html',

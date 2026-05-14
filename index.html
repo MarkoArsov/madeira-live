@@ -1751,28 +1751,12 @@
     const UNMOUNT_DELAY_MS = 2000;
     const WX_TTL_MS = 10 * 60 * 1000;
 
-    function setAppViewportHeight() {
-      const vv = window.visualViewport;
-      const h = Math.round(vv ? vv.height : window.innerHeight);
-      document.documentElement.style.setProperty('--app-vh', `${h}px`);
-    }
-    // On iOS standalone PWA cold launch, visualViewport.height occasionally
-    // reports the pre-chrome value for the first paint, leaving a band of
-    // empty page background at the bottom. Re-measuring on the next frame,
-    // again ~100ms later, and on pageshow / visibilitychange covers all the
-    // observed cases without polling.
-    setAppViewportHeight();
-    requestAnimationFrame(setAppViewportHeight);
-    setTimeout(setAppViewportHeight, 120);
-    window.addEventListener('resize', setAppViewportHeight, { passive: true });
-    window.addEventListener('orientationchange', setAppViewportHeight, { passive: true });
-    window.addEventListener('pageshow', setAppViewportHeight, { passive: true });
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') setAppViewportHeight();
-    });
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', setAppViewportHeight, { passive: true });
-    }
+    // Viewport height: handled in CSS via `--app-vh: 100dvh`. On iOS PWA
+    // standalone, `visualViewport.height` reports the *safe* viewport
+    // (excluding the home-indicator zone) which is shorter than the actual
+    // screen, so overriding `--app-vh` with that value produces an empty
+    // cream band at the bottom on cold launch. `100dvh` is computed by the
+    // browser using the full viewport — that's what we want here.
 
     const LINKS = [
       { id: 'itinerary', label: 'Itinerary',             icon: 'document', href: 'https://docs.google.com/document/d/1i-Vklymq5Wh3YAt_izedDb2oGH0yGbkWNTaCaOhwvCQ/edit?usp=sharing' },
@@ -1835,8 +1819,27 @@
       try { return localStorage.getItem('mira:chromeLinks') !== '0'; }
       catch { return true; }
     }
+    // Hosts with first-class iOS apps that handle universal links. We always
+    // open these as plain https so iOS routes to the installed app (Chrome
+    // would otherwise swallow them into the Chrome browser).
+    const PREFER_APP_HOSTS = [
+      'alltrails.com',
+      'komoot.com', 'komoot.de',
+      'youtube.com', 'm.youtube.com', 'youtu.be',
+      'docs.google.com',
+    ];
+    function prefersNativeApp(url) {
+      try {
+        const h = new URL(url).hostname.replace(/^www\./, '');
+        return PREFER_APP_HOSTS.some((d) => h === d || h.endsWith('.' + d));
+      } catch { return false; }
+    }
     function openExternal(url) {
       if (!url) return;
+      if (prefersNativeApp(url)) {
+        window.open(url, '_blank', 'noopener,noreferrer');
+        return;
+      }
       if (readChromePref()) { window.location.href = chromifyUrl(url); return; }
       window.open(url, '_blank', 'noopener,noreferrer');
     }
