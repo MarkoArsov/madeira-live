@@ -75,7 +75,11 @@
       "Bash(python -m http.server 8767)",
       "Bash(rm -rf \"C:/Users/arsov/AppData/Local/Temp/mira-v7-sheet\" \"C:/Users/arsov/AppData/Local/Temp/mira-v7-trail\")",
       "Bash('/c/Program Files/Google/Chrome/Application/chrome.exe' --headless=new --disable-gpu --no-sandbox --user-data-dir=C:/Users/arsov/AppData/Local/Temp/mira-v7-sheet --virtual-time-budget=10000 --run-all-compositor-stages-before-draw --screenshot=C:/Users/arsov/AppData/Local/Temp/mira-v7-sheet.png --window-size=520,900 'http://localhost:8767/index.html#sheet=Funchal%20Marina')",
-      "Bash('/c/Program Files/Google/Chrome/Application/chrome.exe' --headless=new --disable-gpu --no-sandbox --user-data-dir=C:/Users/arsov/AppData/Local/Temp/mira-v7-trail --virtual-time-budget=10000 --run-all-compositor-stages-before-draw --screenshot=C:/Users/arsov/AppData/Local/Temp/mira-v7-trail.png --window-size=520,900 'http://localhost:8767/index.html#trails&trail=PR1')"
+      "Bash('/c/Program Files/Google/Chrome/Application/chrome.exe' --headless=new --disable-gpu --no-sandbox --user-data-dir=C:/Users/arsov/AppData/Local/Temp/mira-v7-trail --virtual-time-budget=10000 --run-all-compositor-stages-before-draw --screenshot=C:/Users/arsov/AppData/Local/Temp/mira-v7-trail.png --window-size=520,900 'http://localhost:8767/index.html#trails&trail=PR1')",
+      "Bash(mkdir -p vendor/leaflet/1.9.4/images)",
+      "Bash(mkdir -p fonts)",
+      "PowerShell($ProgressPreference='SilentlyContinue'; $base='https://unpkg.com/leaflet@1.9.4/dist/'; $dest='vendor/leaflet/1.9.4/'; Invoke-WebRequest -UseBasicParsing -Uri \\($base+'leaflet.js'\\) -OutFile \\($dest+'leaflet.js'\\); Invoke-WebRequest -UseBasicParsing -Uri \\($base+'leaflet.css'\\) -OutFile \\($dest+'leaflet.css'\\); $imgs=@\\('marker-icon.png','marker-icon-2x.png','marker-shadow.png','layers.png','layers-2x.png'\\); foreach \\($f in $imgs\\) { Invoke-WebRequest -UseBasicParsing -Uri \\($base+'images/'+$f\\) -OutFile \\($dest+'images/'+$f\\) }; Get-ChildItem $dest -Recurse | Select-Object FullName, Length)",
+      "Bash(xargs ls -la)"
     ]
   }
 }

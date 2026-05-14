@@ -8,7 +8,20 @@
   <meta name="description" content="Live webcams across Madeira and Porto Santo, with local weather." />
 
   <meta name="theme-color" content="#FFF8EC" />
-  <meta name="color-scheme" content="light" />
+  <meta name="color-scheme" content="light dark" />
+
+  <!-- Theme bootstrap: runs synchronously so the first paint matches the user's
+       stored preference. Default is always light; OS preference is ignored. -->
+  <script>
+    (function () {
+      var t;
+      try { t = localStorage.getItem('mira:theme'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = 'light';
+      document.documentElement.dataset.theme = t;
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', t === 'dark' ? '#15170F' : '#FFF8EC');
+    })();
+  </script>
 
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -19,15 +32,44 @@
   <link rel="icon" type="image/svg+xml" href="./icons/favicon.svg" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://i.ytimg.com" crossorigin />
+  <link rel="preconnect" href="https://api.ipma.pt" />
   <link rel="preconnect" href="https://api.open-meteo.com" />
   <link rel="preconnect" href="https://server.arcgisonline.com" />
   <link rel="dns-prefetch" href="https://www.youtube.com" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="./fonts/geist-500.woff2" />
 
   <style>
+    /* ============================================================
+       Self-hosted fonts (latin subset, only weights actually used).
+       Geist 500/600/700 + Fraunces 500/600/700.
+       ============================================================ */
+    @font-face {
+      font-family: 'Geist'; font-style: normal; font-weight: 500;
+      font-display: swap; src: url('./fonts/geist-500.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Geist'; font-style: normal; font-weight: 600;
+      font-display: swap; src: url('./fonts/geist-600.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Geist'; font-style: normal; font-weight: 700;
+      font-display: swap; src: url('./fonts/geist-700.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Fraunces'; font-style: normal; font-weight: 500;
+      font-display: swap; src: url('./fonts/fraunces-500.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Fraunces'; font-style: normal; font-weight: 600;
+      font-display: swap; src: url('./fonts/fraunces-600.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Fraunces'; font-style: normal; font-weight: 700;
+      font-display: swap; src: url('./fonts/fraunces-700.woff2') format('woff2');
+    }
+
     /* ============================================================
        Mira — design tokens
        Light: limestone surface, basalt ink, ember accent.
@@ -105,6 +147,101 @@
       --app-vh: 100dvh;
 
       --nav-h: 58px;
+
+      /* Tabbar surface — tokenized so dark theme can re-skin it. */
+      --tabbar-bg: rgba(255, 248, 236, 0.97);
+      --tabbar-border: rgba(84, 107, 65, 0.22);
+    }
+
+    /* ============================================================
+       Dark theme — Laurisilva at night. Same brand language, deeper
+       basalts, sage accent lifted for readability. Toggled by setting
+       data-theme="dark" on <html>; light values above are untouched.
+       ============================================================ */
+    :root[data-theme="dark"] {
+      --forest: #99AD7A;
+      --forest-deep: #B7C898;
+      --sage: #6F8856;
+      --sand: #4D4737;
+      --cream: #F4ECD8;
+
+      --bg: #15170F;
+      --bg-elevated: #1F221A;
+      --bg-sunken: #0E110A;
+      --bg-scrim: rgba(21, 23, 15, 0.84);
+      --bg-overlay: rgba(0, 0, 0, 0.66);
+
+      --ink: #F4ECD8;
+      --ink-soft: #BBC4A3;
+      --ink-muted: #8A9374;
+
+      --border: #2A2D22;
+      --hairline: rgba(244, 236, 216, 0.10);
+
+      --accent: #99AD7A;
+      --accent-deep: #B7C898;
+      --accent-soft: rgba(153, 173, 122, 0.16);
+      --accent-glow: rgba(153, 173, 122, 0.34);
+      --on-accent: #15170F;
+
+      --accent-2: #6F8856;
+      --accent-2-soft: rgba(111, 136, 86, 0.22);
+
+      --live: #E55A40;
+      --live-glow: rgba(229, 90, 64, 0.40);
+
+      --skel: linear-gradient(90deg, rgba(244,236,216,0.04), rgba(244,236,216,0.10), rgba(244,236,216,0.04));
+
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.32);
+      --shadow-md: 0 8px 22px rgba(0, 0, 0, 0.40);
+      --shadow-lg: 0 28px 64px rgba(0, 0, 0, 0.56);
+      --shadow-forest: 0 8px 22px rgba(153, 173, 122, 0.28);
+
+      --tabbar-bg: rgba(20, 22, 15, 0.92);
+      --tabbar-border: rgba(244, 236, 216, 0.14);
+    }
+
+    /* Targeted dark overrides for the few places that still use literal
+       light-palette colours (gradients, map surface, status badges). */
+    :root[data-theme="dark"] .map-root,
+    :root[data-theme="dark"] .leaflet-container {
+      background: #1F221A !important;
+    }
+    :root[data-theme="dark"] .leaflet-control-attribution {
+      background: rgba(20, 22, 15, 0.86) !important;
+      color: #BBC4A3 !important;
+    }
+    :root[data-theme="dark"] .leaflet-control-attribution a { color: #D8E0C2 !important; }
+    :root[data-theme="dark"] .tile-wx-bg {
+      background:
+        radial-gradient(120% 80% at 20% 0%, rgba(244, 236, 216, 0.06), transparent 60%),
+        linear-gradient(160deg, #232719 0%, #1A1D14 60%, #14160F 100%);
+    }
+    :root[data-theme="dark"] .tile--weather .tile-overlay {
+      background: linear-gradient(180deg, transparent 0%, rgba(20, 22, 15, 0.6) 70%, rgba(20, 22, 15, 0.92) 100%);
+    }
+    :root[data-theme="dark"] .tile--weather .tile-overlay > .tile-name { color: var(--ink); }
+    :root[data-theme="dark"] .tile-thumb-fallback-rich {
+      background:
+        radial-gradient(120% 80% at 50% 0%, rgba(244, 236, 216, 0.10), transparent 60%),
+        linear-gradient(135deg, #1F221A 0%, #2A2F22 55%, #3A4030 100%);
+    }
+    :root[data-theme="dark"] .trail-thumb-fallback {
+      background: linear-gradient(135deg, #232719 0%, #2A2F22 60%, #3A4030 100%);
+    }
+    :root[data-theme="dark"] .trail-hero-fallback {
+      background: linear-gradient(135deg, #232719 0%, #2A2F22 60%, #3A4030 100%);
+    }
+    :root[data-theme="dark"] .status[data-status="Open"]       { background: rgba(153, 173, 122, 0.18); color: #B7C898; }
+    :root[data-theme="dark"] .status[data-status="Closed"]     { background: rgba(229, 90, 64, 0.18);  color: #E89B85; }
+    :root[data-theme="dark"] .status[data-status="Restricted"] { background: rgba(215, 154, 67, 0.20); color: #E0BD7C; }
+    :root[data-theme="dark"] .pin-dot,
+    :root[data-theme="dark"] .pin-trail-dot,
+    :root[data-theme="dark"] .pin-wx-dot {
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.50), 0 0 0 3px var(--bg);
+    }
+    :root[data-theme="dark"] .pin-cluster {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.50), 0 0 0 2px var(--accent);
     }
 
     /* ============================================================
@@ -169,7 +306,7 @@
     }
     .pages-track {
       display: flex;
-      width: 400%;
+      width: 500%;
       height: 100%;
       transform: translate3d(0, 0, 0);
       transition: transform 0.44s var(--ease-out-strong);
@@ -178,7 +315,7 @@
       backface-visibility: hidden;
     }
     .page {
-      flex: 0 0 25%;
+      flex: 0 0 20%;
       min-width: 0;
       height: 100%;
       position: relative;
@@ -191,7 +328,7 @@
     .tabbar-wrap {
       position: fixed;
       left: 50%;
-      bottom: calc(env(safe-area-inset-bottom) + 7px);
+      bottom: calc(env(safe-area-inset-bottom) + 18px);
       transform: translateX(-50%);
       z-index: 30;
       pointer-events: none;
@@ -203,23 +340,27 @@
       display: flex;
       align-items: stretch;
       gap: 6px;
-      background: rgba(255, 248, 236, 0.94);
-      border: 1px solid var(--hairline);
+      background: var(--tabbar-bg);
+      border: 1.5px solid var(--tabbar-border);
       border-radius: var(--r-pill);
       box-shadow:
-        0 1px 2px rgba(42, 58, 31, 0.06),
-        0 10px 22px rgba(42, 58, 31, 0.12),
-        0 28px 52px rgba(42, 58, 31, 0.20);
+        0 1px 2px rgba(42, 58, 31, 0.08),
+        0 4px 10px rgba(42, 58, 31, 0.10),
+        0 14px 28px rgba(42, 58, 31, 0.20),
+        0 36px 60px rgba(42, 58, 31, 0.30);
       backdrop-filter: saturate(180%) blur(24px);
       -webkit-backdrop-filter: saturate(180%) blur(24px);
     }
     .tab {
-      width: 62px; height: 38px;
+      width: 56px; height: 38px;
       display: inline-flex; align-items: center; justify-content: center;
       color: var(--ink-muted);
       border-radius: var(--r-pill);
       transition: color 0.22s var(--ease-out), background 0.28s var(--ease-out-strong), transform 0.12s var(--ease-out);
       position: relative;
+    }
+    @media (max-width: 360px) {
+      .tab { width: 50px; }
     }
     .tab svg { width: 20px; height: 20px; transition: transform 0.22s var(--ease-out); }
     .tab:active { transform: scale(0.94); }
@@ -367,7 +508,10 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    .chips {
+    /* Two-part header: a fixed "leading" slot (Auto-play) and a horizontally
+       scrolling list of region filter chips to its right. The leading slot
+       does not scroll with the chips. */
+    .chips-row {
       position: sticky;
       top: 0;
       z-index: 4;
@@ -376,15 +520,30 @@
       -webkit-backdrop-filter: saturate(160%) blur(20px);
       padding-top: calc(env(safe-area-inset-top) + var(--space-3));
       padding-bottom: var(--space-3);
-      padding-left: var(--space-4);
-      padding-right: var(--space-4);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--hairline);
+    }
+    .chips-leading {
+      flex: 0 0 auto;
+      padding-left: var(--space-5);
+      padding-right: 12px;
+      border-right: 1px solid var(--border);
+      align-self: stretch;
+      display: flex; align-items: center;
+    }
+    .chips {
+      flex: 1 1 auto;
+      min-width: 0;
       display: flex; gap: 8px;
       overflow-x: auto;
       overflow-y: hidden;
+      padding-right: var(--space-5);
       scroll-snap-type: x proximity;
+      scroll-padding-left: 4px;
       scrollbar-width: none;
       -ms-overflow-style: none;
-      border-bottom: 1px solid var(--hairline);
     }
     .chips::-webkit-scrollbar { display: none; }
     .chip {
@@ -407,6 +566,49 @@
       color: var(--on-accent);
       border-color: var(--forest);
     }
+
+    /* Auto-play toggle pill — lives next to the region chips. */
+    .chip-toggle {
+      flex: 0 0 auto;
+      height: 34px;
+      padding: 0 12px 0 11px;
+      border-radius: var(--r-pill);
+      background: var(--bg-elevated);
+      color: var(--ink-soft);
+      border: 1px solid var(--border);
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: 7px;
+      scroll-snap-align: start;
+      transition: background 0.18s var(--ease-out), color 0.18s var(--ease-out), border-color 0.18s var(--ease-out), transform 0.12s var(--ease-out);
+    }
+    .chip-toggle:active { transform: scale(0.96); }
+    .chip-toggle[aria-pressed="true"] {
+      background: var(--forest);
+      color: var(--on-accent);
+      border-color: var(--forest);
+    }
+    .chip-toggle .toggle-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--ink-muted);
+      transition: background 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+    }
+    .chip-toggle[aria-pressed="true"] .toggle-dot {
+      background: var(--live);
+      box-shadow: 0 0 0 3px rgba(200, 65, 42, 0.22);
+    }
+    /* Icon-only variant — square pill with just an SVG inside. */
+    .chip-toggle--icon {
+      width: 34px;
+      padding: 0;
+      justify-content: center;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .chip-toggle--icon svg { width: 14px; height: 14px; }
 
     .grid {
       padding: var(--space-3) var(--space-3);
@@ -460,6 +662,105 @@
       transition: opacity 0.45s var(--ease-out);
     }
     .tile-frame.mounted { opacity: 1; }
+
+    /* Play badge — appears on unmounted tiles, hidden once iframe mounts. */
+    .tile-play {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px; height: 44px;
+      border-radius: 999px;
+      background: rgba(42, 58, 31, 0.62);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #FFF8EC;
+      display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 0.32s var(--ease-out), transform 0.18s var(--ease-out);
+      z-index: 1;
+    }
+    .tile.is-mounted .tile-play { opacity: 0; transform: translate(-50%, -50%) scale(0.86); }
+    .tile-play svg { width: 18px; height: 18px; margin-left: 2px; }
+
+    /* Info button — opens the detail sheet without affecting the tile media. */
+    .tile-info {
+      position: absolute;
+      top: 6px; left: 6px;
+      width: 28px; height: 28px;
+      border-radius: 999px;
+      background: rgba(42, 58, 31, 0.55);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #FFF8EC;
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: background 0.16s var(--ease-out), transform 0.12s var(--ease-out);
+      z-index: 3;
+      pointer-events: auto;
+    }
+    .tile-info:active { transform: scale(0.92); background: rgba(42, 58, 31, 0.8); }
+    .tile-info svg { width: 14px; height: 14px; }
+
+    /* Weather-only tile — no iframe, no thumbnail. Big temperature,
+       cam name at the bottom, soft sand+cream gradient background. */
+    .tile--weather { background: none; cursor: pointer; }
+    .tile-wx-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(120% 80% at 20% 0%, rgba(255, 248, 236, 0.95), transparent 60%),
+        linear-gradient(160deg, #F4ECD8 0%, #E5D8B8 60%, #DCCCAC 100%);
+    }
+    .tile-wx-temp {
+      position: absolute;
+      top: 12px; left: 14px;
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: 44px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      z-index: 1;
+    }
+    .tile-wx-temp sup {
+      font-size: 18px;
+      color: var(--ink-muted);
+      margin-left: 2px;
+      vertical-align: super;
+      top: -0.4em;
+    }
+    .tile--weather .tile-overlay > .tile-name {
+      color: var(--ink);
+      text-shadow: none;
+      font-weight: 600;
+      background: none;
+      width: auto;
+      margin: auto 0 0;
+      padding: 0;
+      font-size: 13px;
+    }
+    .tile--weather .tile-overlay {
+      background: linear-gradient(180deg, transparent 0%, rgba(245, 235, 215, 0.65) 70%, rgba(220, 204, 172, 0.85) 100%);
+    }
+
+    /* Iframe-cam thumbnail (no remote thumbnail available) — styled placeholder
+       with region label and cam name, sand/forest gradient. */
+    .tile-thumb-fallback-rich {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      gap: 6px;
+      padding: 16px;
+      text-align: center;
+      background:
+        radial-gradient(120% 80% at 50% 0%, rgba(255, 248, 236, 0.18), transparent 60%),
+        linear-gradient(135deg, #3F5331 0%, #546B41 55%, #6F8856 100%);
+      color: var(--cream);
+    }
+    .tile-thumb-fallback-rich svg { width: 22px; height: 22px; opacity: 0.72; }
+    .tile-thumb-fallback-rich .ph-region {
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      opacity: 0.7;
+    }
 
     .tile-overlay {
       position: absolute; inset: 0;
@@ -611,7 +912,9 @@
       aspect-ratio: 16 / 9;
       border-radius: var(--r-md);
       overflow: hidden;
-      background: var(--forest);
+      background-color: var(--forest);
+      background-size: cover;
+      background-position: center;
       box-shadow: var(--shadow-sm);
     }
     /* Detail-sheet stream: iframe receives no taps (controls=0 anyway), so the
@@ -624,7 +927,7 @@
 
     .stream-actions {
       position: absolute;
-      bottom: 10px; right: 10px;
+      bottom: 10px; left: 10px;
       z-index: 3;
       display: flex; gap: 6px;
       pointer-events: auto;
@@ -686,10 +989,34 @@
     }
     .weather-stats {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: repeat(2, 1fr);
       gap: 12px;
       padding-top: 14px;
       border-top: 1px solid var(--hairline);
+    }
+    .weather-stats[data-count="1"] { grid-template-columns: 1fr; }
+    .weather-stats[data-count="3"] { grid-template-columns: repeat(3, 1fr); }
+    @media (min-width: 540px) {
+      .weather-stats[data-count="4"] { grid-template-columns: repeat(4, 1fr); }
+      .weather-stats[data-count="5"] { grid-template-columns: repeat(5, 1fr); }
+    }
+    .weather-stat-unit {
+      font-size: 11px;
+      color: var(--ink-muted);
+      font-weight: 500;
+      margin-left: 1px;
+    }
+    .weather-stat-dir {
+      font-size: 11px;
+      color: var(--ink-muted);
+      font-weight: 600;
+      margin-left: 4px;
+      letter-spacing: 0.05em;
+    }
+    .weather-dot {
+      color: var(--ink-muted);
+      margin: 0 6px;
+      opacity: 0.7;
     }
     .weather-stat-key {
       font-size: 10px;
@@ -745,6 +1072,9 @@
       width: 100%;
       aspect-ratio: 16 / 9;
       max-height: 100dvh;
+      background-size: cover;
+      background-position: center;
+      background-color: #000;
     }
     .fs-inner iframe { width: 100%; height: 100%; border: 0; }
     .fs-close {
@@ -807,6 +1137,43 @@
       display: flex; flex-direction: column;
       gap: 10px;
     }
+    .trails-filter {
+      margin: 0 0 var(--space-4);
+      display: flex;
+    }
+    .trails-filter .chip-toggle svg { width: 14px; height: 14px; }
+
+    .trail-card-wrap { position: relative; }
+    .trail-fav {
+      position: absolute;
+      top: 10px; right: 10px;
+      width: 28px; height: 28px;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      color: var(--ink-muted);
+      display: inline-flex; align-items: center; justify-content: center;
+      z-index: 2;
+      transition: color 0.18s var(--ease-out), transform 0.12s var(--ease-out);
+    }
+    .trail-fav:active { transform: scale(0.86); }
+    .trail-fav svg { width: 20px; height: 20px; }
+    .trail-fav[aria-pressed="true"] { color: var(--live); }
+
+    /* Heart on the sheet header — same visual treatment, slightly bigger. */
+    .sheet-fav {
+      width: 36px; height: 36px;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      color: var(--ink-muted);
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: color 0.18s var(--ease-out), transform 0.12s var(--ease-out);
+    }
+    .sheet-fav svg { width: 22px; height: 22px; }
+    .sheet-fav:active { transform: scale(0.88); }
+    .sheet-fav[aria-pressed="true"] { color: var(--live); }
     .trail-card {
       display: flex; gap: 12px;
       align-items: stretch;
@@ -993,6 +1360,57 @@
     .trail-cta:active { transform: scale(0.98); background: var(--forest-deep); }
     .trail-cta svg { width: 16px; height: 16px; }
 
+    .trail-cta-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .trail-cta-pair[data-count="1"] { grid-template-columns: 1fr; }
+    .trail-cta-secondary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      height: 46px;
+      border-radius: var(--r-pill);
+      background: var(--bg-elevated);
+      color: var(--forest-deep);
+      font-weight: 600;
+      font-size: 13.5px;
+      letter-spacing: -0.005em;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      transition: transform 0.12s var(--ease-out), background 0.18s var(--ease-out), border-color 0.18s var(--ease-out);
+    }
+    .trail-cta-secondary:active { transform: scale(0.98); background: var(--bg-sunken); border-color: var(--forest); }
+    .trail-cta-secondary svg { width: 14px; height: 14px; }
+
+    .trail-alt-name {
+      font-size: 13px;
+      color: var(--ink-muted);
+      margin: 0 0 var(--space-4);
+      letter-spacing: -0.005em;
+    }
+
+    /* Weather-only pin — cream fill with sand ring, small thermometer glyph,
+       distinct from both camera (forest) and trail (sand+forest-ring) pins. */
+    .pin-wx {
+      width: 30px; height: 30px;
+      position: relative;
+      pointer-events: auto;
+    }
+    .pin-wx-dot {
+      position: absolute; top: 50%; left: 50%;
+      width: 26px; height: 26px;
+      margin: -13px 0 0 -13px;
+      border-radius: 50%;
+      background: var(--forest);
+      color: var(--cream);
+      display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 6px rgba(42, 58, 31, 0.40), 0 0 0 3px var(--cream);
+      transition: transform 0.18s var(--ease-out);
+    }
+    .pin-wx-dot svg { width: 13px; height: 13px; }
+    .pin-wx:active .pin-wx-dot { transform: scale(1.12); }
+
     /* Trail map pin — sand fill with forest ring to distinguish from camera pins. */
     .pin-trail {
       width: 30px; height: 30px;
@@ -1036,6 +1454,111 @@
       color: var(--on-accent);
       border-color: var(--forest-deep);
     }
+
+    /* ============================================================
+       Links page
+       ============================================================ */
+    .page--links { background: var(--bg); }
+    .links-scroll {
+      position: absolute; inset: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+    .links-inner {
+      padding-top: calc(env(safe-area-inset-top) + var(--space-7));
+      padding-left: var(--space-4);
+      padding-right: var(--space-4);
+      padding-bottom: calc(env(safe-area-inset-bottom) + var(--nav-h) + var(--space-8));
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .link-list {
+      display: flex; flex-direction: column;
+      gap: 10px;
+    }
+    .link-card {
+      display: flex; align-items: center;
+      gap: 14px;
+      width: 100%;
+      padding: 14px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--hairline);
+      border-radius: var(--r-md);
+      text-align: left;
+      transition: transform 0.12s var(--ease-out), background 0.18s var(--ease-out), border-color 0.18s var(--ease-out);
+    }
+    .link-card:active { transform: scale(0.985); background: var(--bg-sunken); border-color: var(--border); }
+    .link-card-icon {
+      flex-shrink: 0;
+      width: 44px; height: 44px;
+      border-radius: var(--r-sm);
+      background: var(--accent-soft);
+      color: var(--forest);
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .link-card-icon svg { width: 20px; height: 20px; }
+    .link-card-text {
+      flex: 1; min-width: 0;
+      display: flex; flex-direction: column;
+      gap: 2px;
+    }
+    .link-card-label {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.005em;
+      color: var(--ink);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .link-card-host {
+      font-size: 12px;
+      color: var(--ink-muted);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .link-card-chev {
+      flex-shrink: 0;
+      color: var(--ink-muted);
+      display: inline-flex;
+    }
+    .link-card-chev svg { width: 16px; height: 16px; }
+
+    /* ============================================================
+       Preference rows — used in Settings for Chrome / dark theme.
+       ============================================================ */
+    .pref-row {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%;
+      padding: 14px 4px;
+      gap: 12px;
+      border-bottom: 1px solid var(--hairline);
+      background: none;
+      text-align: left;
+    }
+    .pref-row:last-child { border-bottom: 0; }
+    .pref-text { min-width: 0; display: flex; flex-direction: column; }
+    .pref-title { display: block; font-size: 15px; font-weight: 600; color: var(--ink); letter-spacing: -0.005em; }
+    .pref-sub   { display: block; font-size: 12.5px; color: var(--ink-muted); margin-top: 2px; line-height: 1.4; }
+    .pref-switch {
+      position: relative;
+      flex-shrink: 0;
+      width: 44px; height: 26px;
+      border-radius: 999px;
+      background: var(--bg-sunken);
+      border: 1px solid var(--border);
+      transition: background 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
+    }
+    .pref-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--cream);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.20);
+      transition: transform 0.2s var(--ease-out);
+    }
+    .pref-row[aria-pressed="true"] .pref-switch { background: var(--accent); border-color: var(--accent-deep); }
+    .pref-row[aria-pressed="true"] .pref-switch::after { transform: translateX(18px); }
 
     /* ============================================================
        Settings page — editorial, not a settings form
@@ -1233,11 +1756,37 @@
       const h = Math.round(vv ? vv.height : window.innerHeight);
       document.documentElement.style.setProperty('--app-vh', `${h}px`);
     }
+    // On iOS standalone PWA cold launch, visualViewport.height occasionally
+    // reports the pre-chrome value for the first paint, leaving a band of
+    // empty page background at the bottom. Re-measuring on the next frame,
+    // again ~100ms later, and on pageshow / visibilitychange covers all the
+    // observed cases without polling.
     setAppViewportHeight();
+    requestAnimationFrame(setAppViewportHeight);
+    setTimeout(setAppViewportHeight, 120);
     window.addEventListener('resize', setAppViewportHeight, { passive: true });
     window.addEventListener('orientationchange', setAppViewportHeight, { passive: true });
+    window.addEventListener('pageshow', setAppViewportHeight, { passive: true });
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') setAppViewportHeight();
+    });
     if (window.visualViewport) {
       window.visualViewport.addEventListener('resize', setAppViewportHeight, { passive: true });
+    }
+
+    const LINKS = [
+      { id: 'itinerary', label: 'Itinerary',             icon: 'document', href: 'https://docs.google.com/document/d/1i-Vklymq5Wh3YAt_izedDb2oGH0yGbkWNTaCaOhwvCQ/edit?usp=sharing' },
+      { id: 'cameras',   label: 'More cameras',          icon: 'camera',   href: 'https://www.madeira-web.com/de/webcams.html' },
+      { id: 'bus',       label: 'Bus & airport shuttle', icon: 'bus',      href: 'https://siga.madeira.gov.pt/aerobus' },
+      { id: 'weather',   label: 'Weather forecast',      icon: 'sun-cloud',href: 'https://www.ipma.pt/en/otempo/prev.localidade.hora/index.jsp#Madeira&Funchal' },
+      { id: 'water',     label: 'Water temperature',     icon: 'droplet',  href: 'https://www.ipma.pt/pt/maritima/costeira/index.jsp?selLocal=182&idLocal=182' },
+      { id: 'ferry',     label: 'Porto Santo ferry',     icon: 'ferry',    href: 'https://www.portosantoline.pt/' },
+      { id: 'tours',     label: 'Epic Madeira Tours',    icon: 'sparkles', href: 'https://epicmadeira.com/' },
+    ];
+
+    function hostnameOf(href) {
+      try { return new URL(href).hostname.replace(/^www\./, ''); }
+      catch { return href; }
     }
 
     const REGION_FILTERS = [
@@ -1250,18 +1799,142 @@
     ];
 
     /* ============================================================
-       Theme management
+       Theme management — boot-time theme is already applied by the
+       inline <head> script (to avoid first-paint flash). These helpers
+       are used by the Settings toggle to switch theme at runtime.
        ============================================================ */
     function readStoredTheme() {
-      // legacy: Mira is single-theme now. Kept as a no-op for any older stored value.
+      try {
+        const t = localStorage.getItem('mira:theme');
+        if (t === 'light' || t === 'dark') return t;
+      } catch {}
       return 'light';
     }
-    function writeStoredTheme(_) { /* no-op, single theme */ }
-    function applyTheme(_) { /* no-op, single theme */ }
+    function writeStoredTheme(t) {
+      try { localStorage.setItem('mira:theme', t); } catch {}
+    }
+    function applyTheme(t) {
+      document.documentElement.dataset.theme = t;
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', t === 'dark' ? '#15170F' : '#FFF8EC');
+    }
 
     /* ============================================================
-       Weather (Open-Meteo) — sessionStorage cache, 10 min TTL.
+       External links — route through Chrome when the user prefers it,
+       otherwise fall back to a normal target=_blank open. The pref is
+       a localStorage flag so it can be read synchronously at click time
+       without React state plumbing.
        ============================================================ */
+    function chromifyUrl(u) {
+      if (typeof u !== 'string') return u;
+      if (u.startsWith('https://')) return 'googlechromes://' + u.slice(8);
+      if (u.startsWith('http://'))  return 'googlechrome://' + u.slice(7);
+      return u;
+    }
+    function readChromePref() {
+      try { return localStorage.getItem('mira:chromeLinks') !== '0'; }
+      catch { return true; }
+    }
+    function openExternal(url) {
+      if (!url) return;
+      if (readChromePref()) { window.location.href = chromifyUrl(url); return; }
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    /* ============================================================
+       Weather sources — hybrid:
+         • IPMA (api.ipma.pt)   — primary, real station observations
+                                  (temp, humidity, wind, pressure, precip).
+                                  One global fetch covers all of Portugal.
+         • Open-Meteo           — secondary, used only for the condition
+                                  glyph (weather_code) and UV index, since
+                                  IPMA does not expose either.
+         • Local apparent-temp  — feels-like is computed from IPMA's
+                                  measured temp + humidity + wind speed.
+       ============================================================ */
+    const IPMA_URL = 'https://api.ipma.pt/open-data/observation/meteorology/stations/obs-surface.geojson';
+    const IPMA_TTL_MS = 12 * 60 * 1000;
+
+    function ipmaCacheKey() { return 'ipma:obs'; }
+    function readIpmaCache() {
+      try {
+        const raw = sessionStorage.getItem(ipmaCacheKey());
+        if (!raw) return null;
+        const v = JSON.parse(raw);
+        if (Date.now() - v.t > IPMA_TTL_MS) return null;
+        return v;
+      } catch { return null; }
+    }
+    function writeIpmaCache(byStation) {
+      try {
+        sessionStorage.setItem(ipmaCacheKey(), JSON.stringify({ t: Date.now(), byStation }));
+      } catch {}
+    }
+
+    // -99.0 is IPMA's "no data" sentinel — normalise to null at parse time.
+    function ipmaVal(v) { return (v === -99 || v === -99.0) ? null : v; }
+
+    // Parse the GeoJSON feature collection into a {stationId -> obs} map,
+    // picking the most recent sample per station whose temperature is valid.
+    function parseIpma(json) {
+      const features = (json && json.features) || [];
+      const buckets = new Map(); // stationId -> [features]
+      for (const f of features) {
+        const p = f.properties || {};
+        if (!p.idEstacao || !p.time) continue;
+        const arr = buckets.get(p.idEstacao) || [];
+        arr.push(p);
+        buckets.set(p.idEstacao, arr);
+      }
+      const byStation = {};
+      for (const [id, arr] of buckets.entries()) {
+        arr.sort((a, b) => (a.time < b.time ? 1 : -1));
+        // Prefer the most recent sample with a usable temperature.
+        const chosen = arr.find((p) => ipmaVal(p.temperatura) != null) || arr[0];
+        byStation[id] = {
+          time: chosen.time,
+          name: (chosen.localEstacao || '').replace(/^Madeira,\s*/i, '').trim(),
+          temp:     ipmaVal(chosen.temperatura),
+          humidity: ipmaVal(chosen.humidade),
+          pressure: ipmaVal(chosen.pressao),
+          windKM:   ipmaVal(chosen.intensidadeVentoKM),
+          windMs:   ipmaVal(chosen.intensidadeVento),
+          windDir:  (chosen.descDirVento && chosen.descDirVento !== '---') ? chosen.descDirVento : null,
+          precip:   ipmaVal(chosen.precAcumulada),
+          radiation: ipmaVal(chosen.radiacao),
+        };
+      }
+      return byStation;
+    }
+
+    let ipmaInflight = null;
+    async function fetchIpma(force = false) {
+      if (!force) {
+        const cached = readIpmaCache();
+        if (cached) return cached.byStation;
+      }
+      if (ipmaInflight) return ipmaInflight;
+      ipmaInflight = fetch(IPMA_URL, { cache: 'no-store' })
+        .then((r) => { if (!r.ok) throw new Error('ipma fetch failed'); return r.json(); })
+        .then((json) => {
+          const byStation = parseIpma(json);
+          writeIpmaCache(byStation);
+          return byStation;
+        })
+        .finally(() => { ipmaInflight = null; });
+      return ipmaInflight;
+    }
+
+    // Australian apparent-temperature (Steadman). Inputs: T °C, RH %, wind m/s.
+    function apparentTemperature(t, rh, wsMs) {
+      if (t == null) return null;
+      const w = (wsMs == null || wsMs < 0) ? 0 : wsMs;
+      const r = (rh  == null || rh  < 0) ? 0 : rh;
+      const e = (r / 100) * 6.105 * Math.exp((17.27 * t) / (237.7 + t));
+      return t + 0.33 * e - 0.70 * w - 4.00;
+    }
+
+    /* ----- Open-Meteo secondary fetch — glyph + UV only ---------- */
     function wxKey(lat, lng) {
       return `wx:${lat.toFixed(3)},${lng.toFixed(3)}`;
     }
@@ -1282,11 +1955,11 @@
         const cached = wxRead(lat, lng);
         if (cached) return { ...cached.data, _ts: cached.t, _cached: true };
       }
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m&timezone=Atlantic%2FMadeira`;
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=weather_code,uv_index&timezone=Atlantic%2FMadeira`;
       const res = await fetch(url, { cache: 'no-store' });
       if (!res.ok) throw new Error('weather fetch failed');
       const json = await res.json();
-      const data = json.current;
+      const data = json.current || {};
       wxWrite(lat, lng, data);
       return { ...data, _ts: Date.now(), _cached: false };
     }
@@ -1343,9 +2016,19 @@
       expand: html`<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>`,
       external: html`<path d="M14 4h6v6"/><path d="M10 14L20 4"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/>`,
       play: html`<path d="M8 5v14l11-7z" fill="currentColor" stroke="none"/>`,
+      info: html`<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>`,
+      thermo: html`<path d="M12 3a2.5 2.5 0 0 0-2.5 2.5v9.05a4 4 0 1 0 5 0V5.5A2.5 2.5 0 0 0 12 3z"/><path d="M12 10v6"/>`,
+      compass: html`<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5.5-5.5 2 2-5.5z" fill="currentColor" stroke="none"/>`,
+      document: html`<path d="M7 3h7l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 17h4"/>`,
+      bus: html`<rect x="4" y="5" width="16" height="13" rx="2"/><path d="M4 11h16M8 5V3h8v2"/><circle cx="8" cy="18" r="1.5" fill="currentColor" stroke="none"/><circle cx="16" cy="18" r="1.5" fill="currentColor" stroke="none"/>`,
+      ferry: html`<path d="M3 17c1.5 1 3 1 4.5 0s3-1 4.5 0 3 1 4.5 0 3-1 4.5 0"/><path d="M4 14l8-7 8 7"/><path d="M7 14V9h10v5"/><path d="M12 4v3"/>`,
+      droplet: html`<path d="M12 3.5C8 8 5.5 11 5.5 14.5a6.5 6.5 0 0 0 13 0C18.5 11 16 8 12 3.5z"/>`,
+      sparkles: html`<path d="M12 4l1.4 3.4L17 9l-3.6 1.6L12 14l-1.4-3.4L7 9l3.6-1.6z" fill="currentColor" stroke="none"/><path d="M18 14l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z" fill="currentColor" stroke="none"/>`,
+      heart: html`<path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 8.8 6c1.6 0 2.7 1 3.2 2.1C12.5 7 13.6 6 15.2 6a4.3 4.3 0 0 1 4.3 4.3c0 5.6-7.5 10.2-7.5 10.2z"/>`,
+      'heart-fill': html`<path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 8.8 6c1.6 0 2.7 1 3.2 2.1C12.5 7 13.6 6 15.2 6a4.3 4.3 0 0 1 4.3 4.3c0 5.6-7.5 10.2-7.5 10.2z" fill="currentColor"/>`,
       camera: html`<rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z" fill="currentColor"/>`,
-      trail: html`<path d="M3 19l5-9 3.5 5 2.5-3 7 7z"/><circle cx="16" cy="6" r="2"/>`,
-      mountain: html`<path d="M3 19l5-9 3.5 5 2.5-3 7 7z"/>`,
+      trail: html`<path d="M4 16 L9 7 L12 11 L15 7 L20 16 Z"/>`,
+      mountain: html`<path d="M4 16 L9 7 L12 11 L15 7 L20 16 Z"/>`,
       // weather glyphs
       'sun': html`<circle cx="12" cy="12" r="4.2"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8"/>`,
       'sun-cloud': html`<circle cx="8" cy="9" r="3.2"/><path d="M8 2.4V4M2.4 9H4M3.5 4.5l1 1M12.5 4.5l-1 1"/><path d="M9 17a3 3 0 0 1 .5-5.9 4.5 4.5 0 0 1 8.4 1.4A3 3 0 0 1 17.5 18z" fill="none"/>`,
@@ -1375,10 +2058,24 @@
       return cam.url;
     }
     function cameraId(cam) {
-      return cam.type === 'youtube' ? `yt:${cam.id}` : `if:${cam.url}`;
+      if (cam.type === 'youtube') return `yt:${cam.id}`;
+      if (cam.type === 'weather') return `wx:${cam.stationId || cam.name}`;
+      return `if:${cam.url}`;
     }
     function sourceUrl(cam) {
       return cam.type === 'youtube' ? `https://www.youtube.com/watch?v=${cam.id}` : cam.url;
+    }
+    // mqdefault: 320x180, true 16:9, ~12-20KB — ideal for grid tiles.
+    // maxresdefault: 1280x720, only available when YouTube has generated it
+    //   (not guaranteed for live streams) — used in the sheet/fullscreen with
+    //   a runtime fallback to mqdefault.
+    function thumbGrid(cam) {
+      if (cam.type !== 'youtube') return null;
+      return `https://i.ytimg.com/vi/${cam.id}/mqdefault.jpg`;
+    }
+    function thumbLarge(cam) {
+      if (cam.type !== 'youtube') return null;
+      return `https://i.ytimg.com/vi/${cam.id}/maxresdefault.jpg`;
     }
 
     /* ============================================================
@@ -1390,11 +2087,11 @@
       leafletPromise = new Promise((resolve, reject) => {
         const css = document.createElement('link');
         css.rel = 'stylesheet';
-        css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+        css.href = './vendor/leaflet/1.9.4/leaflet.css';
         document.head.appendChild(css);
 
         const s = document.createElement('script');
-        s.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+        s.src = './vendor/leaflet/1.9.4/leaflet.js';
         s.onload = () => resolve(window.L);
         s.onerror = reject;
         document.head.appendChild(s);
@@ -1406,7 +2103,7 @@
        Pager — tap-only (swipe gestures intentionally disabled).
        Track width is 400% across 4 pages; transform shifts by 25% per page.
        ============================================================ */
-    const PAGE_COUNT = 4;
+    const PAGE_COUNT = 5;
     function usePager(initial = 0) {
       const [page, setPage] = useState(initial);
       const transform = useMemo(() => `translate3d(-${page * (100 / PAGE_COUNT)}%, 0, 0)`, [page]);
@@ -1453,8 +2150,14 @@
       const trailsRef = useRef(trails);
       const onSelectRef = useRef(onSelect);
       const onSelectTrailRef = useRef(onSelectTrail);
-      const [showTrails, setShowTrails] = useState(true);
+      const [showTrails, setShowTrails] = useState(() => {
+        try { return localStorage.getItem('mira:showTrails') === '1'; }
+        catch { return false; }
+      });
       const showTrailsRef = useRef(showTrails);
+      useEffect(() => {
+        try { localStorage.setItem('mira:showTrails', showTrails ? '1' : '0'); } catch {}
+      }, [showTrails]);
       const [mapMode, setMapMode] = useState(() => {
         try {
           const raw = localStorage.getItem('mira:mapmode');
@@ -1511,11 +2214,14 @@
         for (const group of clusters) {
           if (group.length === 1) {
             const { cam } = group[0];
+            const isWeather = cam.type === 'weather';
             const ic = L.divIcon({
               className: '',
-              html: `<div class="pin"><span class="pin-pulse"></span><span class="pin-dot"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 7l9 5-9 5z"/></svg></span></div>`,
-              iconSize: [36, 36],
-              iconAnchor: [18, 36],
+              html: isWeather
+                ? `<div class="pin-wx"><span class="pin-wx-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8"/></svg></span></div>`
+                : `<div class="pin"><span class="pin-pulse"></span><span class="pin-dot"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 7l9 5-9 5z"/></svg></span></div>`,
+              iconSize: isWeather ? [30, 30] : [36, 36],
+              iconAnchor: isWeather ? [15, 30] : [18, 36],
             });
             const m = L.marker([cam.lat, cam.lng], { icon: ic, keyboard: false });
             m.on('click', () => onSelectRef.current(cam));
@@ -1554,7 +2260,7 @@
           if (!t.location || typeof t.location.lat !== 'number') continue;
           const ic = L.divIcon({
             className: '',
-            html: `<div class="pin-trail"><span class="pin-trail-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19l5-9 3.5 5 2.5-3 7 7z"/></svg></span></div>`,
+            html: `<div class="pin-trail"><span class="pin-trail-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16 L9 7 L12 11 L15 7 L20 16 Z"/></svg></span></div>`,
             iconSize: [30, 30],
             iconAnchor: [15, 30],
           });
@@ -1664,7 +2370,39 @@
        Grid tile — Preact renders the shell, iframe src toggled imperatively
        to avoid teardown on parent re-renders.
        ============================================================ */
+    /* Weather-only tile — no iframe, just a temperature card. */
+    function WeatherTile({ cam, onSelect }) {
+      const [obs, setObs] = useState(null);
+      useEffect(() => {
+        let alive = true;
+        if (!cam.stationId) return;
+        fetchIpma()
+          .then((map) => { if (alive) setObs(map[cam.stationId] || null); })
+          .catch(() => {});
+        return () => { alive = false; };
+      }, [cam.stationId]);
+
+      const t = obs && obs.temp != null ? Math.round(obs.temp) : null;
+      return html`
+        <div class="tile tile--weather" onClick=${() => onSelect(cam)}
+             role="button" aria-label=${`Open ${cam.name}`}>
+          <div class="tile-wx-bg" aria-hidden="true"></div>
+          <div class="tile-wx-temp">
+            ${t != null ? html`<span class="num">${t}</span><sup>°</sup>` : html`<span class="num">—</span>`}
+          </div>
+          <div class="tile-overlay">
+            <span class="tile-name">${cam.name}</span>
+          </div>
+        </div>
+      `;
+    }
+
     function Tile({ cam, onSelect, registerIframe }) {
+      // Weather-only locations render a different tile entirely — they don't
+      // own an iframe and never register with the autoplay queue.
+      if (cam.type === 'weather') {
+        return html`<${WeatherTile} cam=${cam} onSelect=${onSelect} />`;
+      }
       const ref = useRef(null);
       const iframeRef = useRef(null);
       const id = cameraId(cam);
@@ -1676,15 +2414,26 @@
         return () => registerIframe(id, null, null, null);
       }, [id]);
 
-      const thumb = cam.type === 'youtube'
-        ? `https://i.ytimg.com/vi/${cam.id}/hqdefault.jpg`
-        : null;
+      const thumb = thumbGrid(cam);
+      // Defensive: if mqdefault ever 404s, fall back to hqdefault (cropped 4:3 but always present).
+      const onThumbError = useCallback((e) => {
+        if (e.currentTarget && cam.type === 'youtube') {
+          e.currentTarget.src = `https://i.ytimg.com/vi/${cam.id}/hqdefault.jpg`;
+          e.currentTarget.onerror = null;
+        }
+      }, [cam.id, cam.type]);
 
       return html`
-        <div class="tile" ref=${ref} data-cam-id=${id} onClick=${() => onSelect(cam)} role="button" aria-label=${`Open ${cam.name}`}>
+        <div class="tile" ref=${ref} data-cam-id=${id}
+             onClick=${() => onSelect(cam)} role="button"
+             aria-label=${`Open ${cam.name}`}>
           ${thumb
-            ? html`<img class="tile-thumb" src=${thumb} alt="" loading="lazy" decoding="async" />`
-            : html`<div class="tile-thumb-placeholder"><${Icon} name="camera" /></div>`}
+            ? html`<img class="tile-thumb" src=${thumb} alt=""
+                        loading="lazy" decoding="async" onerror=${onThumbError} />`
+            : html`<div class="tile-thumb-fallback-rich" aria-hidden="true">
+                     <${Icon} name="camera" />
+                     <span class="ph-region">${cam.region}</span>
+                   </div>`}
           <iframe class="tile-frame" ref=${iframeRef}
             title=${cam.name}
             allow="autoplay; encrypted-media; picture-in-picture"
@@ -1692,7 +2441,6 @@
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
           <div class="tile-overlay">
-            <span class="live"><span class="live-dot"></span>LIVE</span>
             <span class="tile-name">${cam.name}</span>
           </div>
         </div>
@@ -1706,6 +2454,18 @@
       const [filterIdx, setFilterIdx] = useState(0);
       const filtered = useMemo(() => cameras.filter(REGION_FILTERS[filterIdx].match), [cameras, filterIdx]);
 
+      // Auto-play visible tiles toggle (persisted). When OFF, tiles stay as
+      // thumbnails until tapped; when ON, the existing IntersectionObserver
+      // mounts visible tiles automatically (legacy behaviour).
+      const [autoplay, setAutoplay] = useState(() => {
+        try { return localStorage.getItem('mira:autoplay') === '1'; } catch { return false; }
+      });
+      const autoplayRef = useRef(autoplay);
+      useEffect(() => {
+        autoplayRef.current = autoplay;
+        try { localStorage.setItem('mira:autoplay', autoplay ? '1' : '0'); } catch {}
+      }, [autoplay]);
+
       const scrollRef = useRef(null);
       const pullRef = useRef(null);
       const tilesRef = useRef(new Map()); // id -> { el, iframe, cam, visible, unmountTimer }
@@ -1717,6 +2477,9 @@
         if (!e || !e.iframe) return;
         if (e.iframe.src === src) return;
         e.iframe.src = src;
+        // Mark the tile container immediately so the play badge fades out
+        // even while YouTube is still showing its grey loading screen.
+        if (e.el) e.el.classList.add('is-mounted');
         // YouTube's iframe fires `load` while still showing its own grey loading screen.
         // Keep the thumbnail visible until the video has had a beat to start playing.
         setTimeout(() => {
@@ -1729,6 +2492,7 @@
         const e = tilesRef.current.get(id);
         if (!e || !e.iframe) return;
         e.iframe.classList.remove('mounted');
+        if (e.el) e.el.classList.remove('is-mounted');
         // Wait for the cross-fade out before swapping src back to blank,
         // so the thumbnail underneath is the visible state during the transition.
         setTimeout(() => {
@@ -1773,7 +2537,9 @@
         if (e && e.unmountTimer) { clearTimeout(e.unmountTimer); e.unmountTimer = null; }
       };
 
-      // Initialise IO once
+      // Initialise IO once. Visibility is always tracked (so eviction-on-scroll
+      // still works when autoplay is enabled); but auto-mount only fires when
+      // the autoplay toggle is on.
       useEffect(() => {
         ioRef.current = new IntersectionObserver((entries) => {
           for (const en of entries) {
@@ -1783,14 +2549,32 @@
             e.visible = en.isIntersecting;
             if (en.isIntersecting) {
               cancelUnmount(id);
-              mountTile(id);
-            } else {
+              if (autoplayRef.current) mountTile(id);
+            } else if (autoplayRef.current) {
+              // Manual mounts stick until the LRU cap or autoplay toggle handles
+              // them — otherwise tapping a tile then scrolling 1px would tear it
+              // down. Eviction-on-scroll only applies in autoplay mode.
               scheduleUnmount(id);
             }
           }
         }, { root: scrollRef.current, rootMargin: '200px 0px', threshold: 0 });
         return () => ioRef.current && ioRef.current.disconnect();
       }, []);
+
+      // When autoplay flips ON, mount currently-visible tiles immediately
+      // (the IO won't re-fire for already-intersecting elements).
+      // When it flips OFF, unmount everything so the grid is fully passive.
+      useEffect(() => {
+        if (autoplay) {
+          for (const [id, e] of tilesRef.current.entries()) {
+            if (e.visible) mountTile(id);
+          }
+        } else {
+          const ids = [...mountedQueueRef.current];
+          mountedQueueRef.current = [];
+          ids.forEach(unmountIframe);
+        }
+      }, [autoplay]);
 
       const registerIframe = useCallback((id, el, iframe, cam) => {
         if (!el) {
@@ -1858,9 +2642,12 @@
         }
       };
       const refreshWeather = async () => {
-        // Force re-fetch for currently visible cameras
+        // Force re-fetch IPMA (one global call) + Open-Meteo for visible cams.
         const visible = filtered.filter((c) => tilesRef.current.get(cameraId(c))?.visible);
-        await Promise.all(visible.map((c) => fetchWeather(c.lat, c.lng, true).catch(() => null)));
+        await Promise.all([
+          fetchIpma(true).catch(() => null),
+          ...visible.map((c) => fetchWeather(c.lat, c.lng, true).catch(() => null)),
+        ]);
       };
 
       // Re-fetch on refreshKey change (theme toggles etc. won't trigger; only pull)
@@ -1875,11 +2662,22 @@
             </div>
             <div class="grid-pull-wrap ${refreshing ? 'dragging' : ''}" ref=${pullRef}
                  style=${{ transform: `translate3d(0, ${pullPx}px, 0)` }}>
-              <div class="chips" role="tablist" aria-label="Region filter">
-                ${REGION_FILTERS.map((f, i) => html`
-                  <button class="chip" key=${f.label}
-                          aria-pressed=${i === filterIdx}
-                          onClick=${() => setFilterIdx(i)}>${f.label}</button>`)}
+              <div class="chips-row">
+                <div class="chips-leading">
+                  <button class="chip-toggle chip-toggle--icon"
+                          aria-pressed=${autoplay}
+                          aria-label=${autoplay ? 'Disable auto-play of visible streams' : 'Enable auto-play of visible streams'}
+                          title=${autoplay ? 'Auto-play on' : 'Auto-play off'}
+                          onClick=${() => setAutoplay((v) => !v)}>
+                    <${Icon} name="play" />
+                  </button>
+                </div>
+                <div class="chips" role="tablist" aria-label="Region filter">
+                  ${REGION_FILTERS.map((f, i) => html`
+                    <button class="chip" key=${f.label}
+                            aria-pressed=${i === filterIdx}
+                            onClick=${() => setFilterIdx(i)}>${f.label}</button>`)}
+                </div>
               </div>
               <div class="grid">
                 ${filtered.map((c) => html`<${Tile} key=${cameraId(c)} cam=${c}
@@ -1893,21 +2691,29 @@
     }
 
     /* ============================================================
-       Weather card
+       Weather card — IPMA primary, Open-Meteo for glyph + UV.
+       Renders every stat individually, hiding any that the station
+       reports as -99 (no data). The card only shows the unavailable
+       state when the headline temperature itself is missing.
        ============================================================ */
-    function WeatherCard({ lat, lng, refreshKey }) {
+    function WeatherCard({ cam, refreshKey }) {
       const [state, setState] = useState({ loading: true });
 
       useEffect(() => {
         let alive = true;
         setState({ loading: true });
-        fetchWeather(lat, lng).then((d) => {
-          if (alive) setState({ loading: false, data: d });
-        }).catch(() => {
-          if (alive) setState({ loading: false, error: true });
+
+        const ipmaP = cam.stationId
+          ? fetchIpma().then((map) => map[cam.stationId] || null).catch(() => null)
+          : Promise.resolve(null);
+        const omP = fetchWeather(cam.lat, cam.lng).catch(() => null);
+
+        Promise.all([ipmaP, omP]).then(([obs, om]) => {
+          if (!alive) return;
+          setState({ loading: false, obs, om });
         });
         return () => { alive = false; };
-      }, [lat, lng, refreshKey]);
+      }, [cam.stationId, cam.lat, cam.lng, refreshKey]);
 
       if (state.loading) {
         return html`
@@ -1917,38 +2723,65 @@
           </div>
         `;
       }
-      if (state.error || !state.data) {
+      const { obs, om } = state;
+      if (!obs || obs.temp == null) {
         return html`<div class="weather"><div class="weather-error">Weather unavailable.</div></div>`;
       }
-      const d = state.data;
-      const wx = wxInfo(d.weather_code);
-      const t = Math.round(d.temperature_2m);
-      const feels = Math.round(d.apparent_temperature);
-      const wind = Math.round(d.wind_speed_10m);
-      const hum = Math.round(d.relative_humidity_2m);
+
+      const wx = om && om.weather_code != null ? wxInfo(om.weather_code) : null;
+      const uv = om && om.uv_index != null ? Math.max(0, Math.round(om.uv_index)) : null;
+      const tRound = Math.round(obs.temp);
+      const feels = apparentTemperature(obs.temp, obs.humidity, obs.windMs);
+      const feelsRound = feels != null ? Math.round(feels) : null;
+
+      // IPMA returns timezone-naive timestamps in Atlantic/Madeira local time
+      // (UTC in winter, UTC+1 in summer). Treat as UTC for relative-time
+      // display — a one-hour offset is acceptable for an "X ago" string.
+      const obsTs = obs.time ? new Date(obs.time + 'Z').getTime() : Date.now();
+
+      // Build the stats grid. Each cell is only rendered when its source value exists.
+      const stats = [];
+      if (obs.windKM != null) {
+        stats.push({
+          k: 'Wind',
+          v: html`<span class="num">${Math.round(obs.windKM)}</span> <span class="weather-stat-unit">km/h</span>${
+            obs.windDir ? html` <span class="weather-stat-dir">${obs.windDir}</span>` : null
+          }`,
+        });
+      }
+      if (obs.humidity != null) {
+        stats.push({ k: 'Humidity', v: html`<span class="num">${Math.round(obs.humidity)}</span><span class="weather-stat-unit">%</span>` });
+      }
+      if (obs.precip != null) {
+        stats.push({ k: 'Rain', v: html`<span class="num">${obs.precip.toFixed(1)}</span> <span class="weather-stat-unit">mm</span>` });
+      }
+      if (obs.pressure != null) {
+        stats.push({ k: 'Pressure', v: html`<span class="num">${Math.round(obs.pressure)}</span> <span class="weather-stat-unit">hPa</span>` });
+      }
+      if (uv != null) {
+        stats.push({ k: 'UV index', v: html`<span class="num">${uv}</span>` });
+      }
 
       return html`
         <div class="weather">
           <div class="weather-top">
-            <div class="weather-temp num">${t}<sup>°C</sup></div>
-            <div class="weather-glyph"><${Icon} name=${wx.glyph} /></div>
+            <div class="weather-temp num">${tRound}<sup>°C</sup></div>
+            ${wx ? html`<div class="weather-glyph"><${Icon} name=${wx.glyph} /></div>` : null}
           </div>
-          <div class="weather-condition">${wx.label} · feels like <span class="num">${feels}°</span></div>
-          <div class="weather-stats">
-            <div>
-              <div class="weather-stat-key">Wind</div>
-              <div class="weather-stat-val num">${wind} <span style="font-size:11px;color:var(--ink-muted);font-weight:500;">km/h</span></div>
-            </div>
-            <div>
-              <div class="weather-stat-key">Humidity</div>
-              <div class="weather-stat-val num">${hum}<span style="font-size:11px;color:var(--ink-muted);font-weight:500;">%</span></div>
-            </div>
-            <div>
-              <div class="weather-stat-key">Rain</div>
-              <div class="weather-stat-val num">${(d.precipitation ?? 0).toFixed(1)} <span style="font-size:11px;color:var(--ink-muted);font-weight:500;">mm</span></div>
-            </div>
+          <div class="weather-condition">
+            ${wx ? html`<span>${wx.label}</span>` : null}
+            ${wx && feelsRound != null ? html`<span class="weather-dot">·</span>` : null}
+            ${feelsRound != null ? html`<span>feels like <span class="num">${feelsRound}°</span></span>` : null}
           </div>
-          <div class="weather-updated">Updated ${relTime(d._ts)}</div>
+          ${stats.length > 0 && html`
+            <div class="weather-stats" data-count=${stats.length}>
+              ${stats.map((s) => html`
+                <div key=${s.k}>
+                  <div class="weather-stat-key">${s.k}</div>
+                  <div class="weather-stat-val">${s.v}</div>
+                </div>`)}
+            </div>`}
+          <div class="weather-updated">Updated ${relTime(obsTs)}</div>
         </div>
       `;
     }
@@ -2024,11 +2857,38 @@
     }
 
     /* ============================================================
+       Stream poster — paints behind the embedded iframe so the user sees
+       the scene immediately, not a black/grey YouTube preroll. Starts with
+       mqdefault (always present) and upgrades to maxresdefault if YouTube
+       has actually generated it for this stream.
+       ============================================================ */
+    function useStreamPoster(cam) {
+      const [poster, setPoster] = useState(() => thumbGrid(cam));
+      useEffect(() => {
+        if (!cam || cam.type !== 'youtube') { setPoster(null); return; }
+        const mq = thumbGrid(cam);
+        setPoster(mq);
+        const big = thumbLarge(cam);
+        if (!big) return;
+        const img = new Image();
+        img.onload = () => {
+          // YouTube serves a 120x90 sentinel when maxres is unavailable.
+          if (img.naturalWidth > 320) setPoster(big);
+        };
+        img.onerror = () => { /* keep mqdefault */ };
+        img.src = big;
+        return () => { img.onload = null; img.onerror = null; };
+      }, [cam && cam.id, cam && cam.type]);
+      return poster ? `url("${poster}")` : 'none';
+    }
+
+    /* ============================================================
        Detail sheet
        ============================================================ */
     function DetailSheet({ cam, onClose, onFullscreen }) {
       const { open, dragY, dragging, requestClose, dragProps } = useSheetDismiss(onClose);
       const handleClose = requestClose;
+      const posterBg = useStreamPoster(cam);
       const sheetStyle = dragY > 0
         ? { transform: `translate3d(0, ${dragY}px, 0)`, opacity: Math.max(0.55, 1 - dragY / 380) }
         : null;
@@ -2055,25 +2915,25 @@
               </div>
             </div>
             <div class="sheet-body">
-              <div class="stream">
-                <iframe
-                  src=${embedUrl(cam)}
-                  title=${cam.name}
-                  allow="autoplay; encrypted-media; picture-in-picture"
-                  allowfullscreen
-                  referrerpolicy="no-referrer-when-downgrade"
-                ></iframe>
-                <span class="live stream-live"><span class="live-dot"></span>LIVE</span>
-                <div class="stream-actions">
-                  <button class="stream-act" onClick=${() => window.open(sourceUrl(cam), '_blank', 'noopener')} aria-label="Open original source">
-                    <${Icon} name="external" />
-                  </button>
-                  <button class="stream-act" onClick=${() => onFullscreen(cam)} aria-label="Open fullscreen">
-                    <${Icon} name="expand" />
-                  </button>
-                </div>
-              </div>
-              <${WeatherCard} lat=${cam.lat} lng=${cam.lng} />
+              ${cam.type !== 'weather' && html`
+                <div class="stream" style=${{ backgroundImage: posterBg }}>
+                  <iframe
+                    src=${embedUrl(cam)}
+                    title=${cam.name}
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    allowfullscreen
+                    referrerpolicy="no-referrer-when-downgrade"
+                  ></iframe>
+                  <div class="stream-actions">
+                    <button class="stream-act" onClick=${() => openExternal(sourceUrl(cam))} aria-label="Open original source">
+                      <${Icon} name="external" />
+                    </button>
+                    <button class="stream-act" onClick=${() => onFullscreen(cam)} aria-label="Open fullscreen">
+                      <${Icon} name="expand" />
+                    </button>
+                  </div>
+                </div>`}
+              <${WeatherCard} cam=${cam} />
             </div>
           </div>
         </div>
@@ -2083,7 +2943,7 @@
     /* ============================================================
        Trails — list view + detail sheet
        ============================================================ */
-    function TrailCard({ trail, onSelect }) {
+    function TrailCard({ trail, onSelect, isFav, toggleFav }) {
       const [imgOk, setImgOk] = useState(true);
       const distance = trail.distance_km;
       const difficulty = trail.difficulty;
@@ -2093,24 +2953,46 @@
       if (difficulty)       bits.push(difficulty);
       if (distance == null && duration) bits.push(`${duration} h`);
       return html`
-        <button class="trail-card" onClick=${() => onSelect(trail)} aria-label=${`Open ${trail.name}`}>
-          ${imgOk && trail.image
-            ? html`<img class="trail-thumb" src=${trail.image} alt="" loading="lazy" decoding="async"
-                        onerror=${() => setImgOk(false)} />`
-            : html`<div class="trail-thumb-fallback"><${Icon} name="mountain" /></div>`}
-          <div class="trail-meta">
-            <div class="trail-code">${trail.pr_code}</div>
-            <h3 class="trail-name serif">${trail.name}</h3>
-            <div class="trail-row">
-              <span class="status" data-status=${trail.status}>${trail.status}</span>
-              ${bits.map((b, i) => html`<span class="trail-bit" key=${`b${i}`}><span class="dot"></span><span>${b}</span></span>`)}
+        <div class="trail-card-wrap">
+          <button class="trail-card" onClick=${() => onSelect(trail)} aria-label=${`Open ${trail.name}`}>
+            ${imgOk && trail.image
+              ? html`<img class="trail-thumb" src=${trail.image} alt="" loading="lazy" decoding="async"
+                          onerror=${() => setImgOk(false)} />`
+              : html`<div class="trail-thumb-fallback"><${Icon} name="mountain" /></div>`}
+            <div class="trail-meta">
+              <div class="trail-code">${trail.pr_code}</div>
+              <h3 class="trail-name serif">${trail.name}</h3>
+              <div class="trail-row">
+                ${bits.map((b, i) => html`<span class="trail-bit" key=${`b${i}`}>
+                  ${i > 0 ? html`<span class="dot"></span>` : null}
+                  <span>${b}</span>
+                </span>`)}
+              </div>
             </div>
-          </div>
-        </button>
+          </button>
+          <button class="trail-fav"
+                  aria-pressed=${isFav}
+                  aria-label=${isFav ? `Remove ${trail.name} from favorites` : `Add ${trail.name} to favorites`}
+                  onClick=${(e) => { e.stopPropagation(); toggleFav(trail.pr_code); }}>
+            <${Icon} name=${isFav ? 'heart-fill' : 'heart'} />
+          </button>
+        </div>
       `;
     }
 
-    function TrailsView({ trails, onSelect }) {
+    function TrailsView({ trails, onSelect, favs, toggleFav }) {
+      const [showFavsOnly, setShowFavsOnly] = useState(false);
+      const visible = useMemo(
+        () => (showFavsOnly ? trails.filter((t) => favs.has(t.pr_code)) : trails),
+        [trails, showFavsOnly, favs]
+      );
+      // Auto-disable the filter if the user un-favorites their last trail
+      // while the filter is active — otherwise they'd see an empty list with
+      // no obvious way back.
+      useEffect(() => {
+        if (showFavsOnly && favs.size === 0) setShowFavsOnly(false);
+      }, [favs.size, showFavsOnly]);
+
       return html`
         <div class="page page--trails">
           <div class="trails-scroll">
@@ -2120,8 +3002,18 @@
                 <h1 class="trails-h1 serif">Walk the laurel.</h1>
                 <p class="trails-lede">All ${trails.length} official PR hiking trails across Madeira and Porto Santo.</p>
               </header>
+              ${favs.size > 0 && html`
+                <div class="trails-filter">
+                  <button class="chip-toggle"
+                          aria-pressed=${showFavsOnly}
+                          onClick=${() => setShowFavsOnly((v) => !v)}>
+                    <${Icon} name=${showFavsOnly ? 'heart-fill' : 'heart'} />
+                    <span>Favorites (${favs.size})</span>
+                  </button>
+                </div>`}
               <div class="trails-list">
-                ${trails.map((t) => html`<${TrailCard} key=${t.pr_code} trail=${t} onSelect=${onSelect} />`)}
+                ${visible.map((t) => html`<${TrailCard} key=${t.pr_code} trail=${t} onSelect=${onSelect}
+                                                       isFav=${favs.has(t.pr_code)} toggleFav=${toggleFav} />`)}
               </div>
             </div>
           </div>
@@ -2129,7 +3021,40 @@
       `;
     }
 
-    function TrailSheet({ trail, onClose }) {
+    /* ============================================================
+       Links page — curated external resources, opened via openExternal
+       so they respect the Chrome-preference setting.
+       ============================================================ */
+    function LinksView() {
+      return html`
+        <div class="page page--links">
+          <div class="links-scroll">
+            <div class="links-inner">
+              <header class="trails-head">
+                <div class="trails-eyebrow">Mira · Useful</div>
+                <h1 class="trails-h1 serif">Pocket guide.</h1>
+                <p class="trails-lede">Curated links for getting around, planning ahead, and the practical stuff.</p>
+              </header>
+              <div class="link-list">
+                ${LINKS.map((l) => html`
+                  <button class="link-card" key=${l.id}
+                          onClick=${() => openExternal(l.href)}
+                          aria-label=${`Open ${l.label}`}>
+                    <span class="link-card-icon"><${Icon} name=${l.icon} /></span>
+                    <span class="link-card-text">
+                      <span class="link-card-label">${l.label}</span>
+                      <span class="link-card-host">${hostnameOf(l.href)}</span>
+                    </span>
+                    <span class="link-card-chev"><${Icon} name="external" /></span>
+                  </button>`)}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function TrailSheet({ trail, onClose, isFav, toggleFav }) {
       const [imgOk, setImgOk] = useState(true);
       const { open, dragY, dragging, requestClose, dragProps } = useSheetDismiss(onClose);
       const handleClose = requestClose;
@@ -2158,6 +3083,12 @@
         kv.push(['Tunnels', trail.tunnels.headlamp_required ? 'Yes — headlamp required' : 'Yes']);
       }
 
+      // Curated deep links per trail (set in hikes.json). Each button only
+      // renders when its URL is present and non-empty — no fallback link.
+      const externalCtas = [];
+      if (trail.alltrails_url) externalCtas.push({ label: 'AllTrails', href: trail.alltrails_url });
+      if (trail.komoot_url)    externalCtas.push({ label: 'Komoot',    href: trail.komoot_url });
+
       return html`
         <div class="sheet-portal" data-open=${open}>
           <div class="sheet-scrim" onClick=${handleClose} style=${scrimStyle}></div>
@@ -2171,6 +3102,13 @@
                   <div class="sheet-region">${trail.pr_code}</div>
                   <h2 class="sheet-title">${trail.name}</h2>
                 </div>
+                <button class="sheet-fav"
+                        aria-pressed=${isFav}
+                        aria-label=${isFav ? 'Remove from favorites' : 'Add to favorites'}
+                        onPointerDown=${(e) => e.stopPropagation()}
+                        onClick=${() => toggleFav(trail.pr_code)}>
+                  <${Icon} name=${isFav ? 'heart-fill' : 'heart'} />
+                </button>
                 <button class="sheet-close" onPointerDown=${(e) => e.stopPropagation()} onClick=${handleClose} aria-label="Close">
                   <${Icon} name="close" />
                 </button>
@@ -2184,10 +3122,7 @@
                   : html`<div class="trail-hero-fallback"><${Icon} name="mountain" /></div>`}
               </div>
 
-              <div class="trail-status-row">
-                <span class="status" data-status=${trail.status}>${trail.status}</span>
-                ${trail.alternative_names && html`<span style="font-size:13px;color:var(--ink-muted);">${trail.alternative_names}</span>`}
-              </div>
+              ${trail.alternative_names && html`<p class="trail-alt-name">${trail.alternative_names}</p>`}
 
               ${trail.highlights && html`<p class="trail-highlights">${trail.highlights}</p>`}
 
@@ -2236,10 +3171,21 @@
                 </section>`}
 
               ${trail.official_url && html`
-                <a class="trail-cta" href=${trail.official_url} target="_blank" rel="noopener noreferrer">
+                <button class="trail-cta" type="button"
+                        onClick=${() => openExternal(trail.official_url)}>
                   <${Icon} name="external" />
                   View on Visit Madeira
-                </a>`}
+                </button>`}
+
+              ${externalCtas.length > 0 && html`
+                <div class="trail-cta-pair" data-count=${externalCtas.length}>
+                  ${externalCtas.map((c) => html`
+                    <button class="trail-cta-secondary" key=${c.label} type="button"
+                            onClick=${() => openExternal(c.href)}>
+                      <${Icon} name="external" />
+                      ${c.label}
+                    </button>`)}
+                </div>`}
             </div>
           </div>
         </div>
@@ -2249,7 +3195,7 @@
     /* ============================================================
        Settings sheet
        ============================================================ */
-    function SettingsPage({ cameras }) {
+    function SettingsPage({ cameras, theme, setTheme, chromeLinks, setChromeLinks }) {
       const counts = useMemo(() => {
         const c = { total: cameras.length, byRegion: {} };
         for (const cam of cameras) c.byRegion[cam.region] = (c.byRegion[cam.region] || 0) + 1;
@@ -2283,6 +3229,28 @@
               </section>
 
               <section class="settings-group">
+                <div class="settings-group-label">Preferences</div>
+                <button class="pref-row"
+                        aria-pressed=${chromeLinks}
+                        onClick=${() => setChromeLinks(!chromeLinks)}>
+                  <span class="pref-text">
+                    <span class="pref-title">Open links in Chrome</span>
+                    <span class="pref-sub">Routes external links through the Chrome app when installed.</span>
+                  </span>
+                  <span class="pref-switch" aria-hidden="true"></span>
+                </button>
+                <button class="pref-row"
+                        aria-pressed=${theme === 'dark'}
+                        onClick=${() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+                  <span class="pref-text">
+                    <span class="pref-title">Dark theme</span>
+                    <span class="pref-sub">Switch between the cream daylight palette and the basalt night palette.</span>
+                  </span>
+                  <span class="pref-switch" aria-hidden="true"></span>
+                </button>
+              </section>
+
+              <section class="settings-group">
                 <div class="settings-group-label">By region</div>
                 <ul class="region-list">
                   ${regions.map(([r, n]) => html`
@@ -2297,7 +3265,8 @@
                 <div class="settings-group-label">About</div>
                 <div class="about">
                   Streams sourced openly via YouTube and madeirawebcams.com.
-                  Weather by <a href="https://open-meteo.com" target="_blank" rel="noreferrer">Open-Meteo</a>.
+                  Observations by <a href="https://www.ipma.pt" onClick=${(e) => { e.preventDefault(); openExternal('https://www.ipma.pt'); }}>IPMA</a>;
+                  condition icons and UV index by <a href="https://open-meteo.com" onClick=${(e) => { e.preventDefault(); openExternal('https://open-meteo.com'); }}>Open-Meteo</a>.
                   Map view toggle: Regular by OpenStreetMap, Satellite imagery and labels by Esri.
                   <div class="about-meta">Mira runs entirely on your device. No accounts, no tracking, no servers between you and the cameras.</div>
                   <div class="about-version">Version ${APP_VERSION}</div>
@@ -2314,6 +3283,7 @@
        ============================================================ */
     function Fullscreen({ cam, onClose }) {
       const [open, setOpen] = useState(false);
+      const posterBg = useStreamPoster(cam);
       useEffect(() => {
         const id = requestAnimationFrame(() => setOpen(true));
         document.body.style.overflow = 'hidden';
@@ -2327,7 +3297,7 @@
       }, []);
       return html`
         <div class="fs" data-open=${open}>
-          <div class="fs-inner">
+          <div class="fs-inner" style=${{ backgroundImage: posterBg }}>
             <iframe src=${embedUrlFull(cam)} title=${cam.name}
                     allow="autoplay; encrypted-media; picture-in-picture"
                     allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -2353,11 +3323,60 @@
       const openCam = useCallback((c) => { setSheetTrail(null); setSheetCam(c); }, []);
       const openTrail = useCallback((t) => { setSheetCam(null); setSheetTrail(t); }, []);
 
+      // Theme preference — initialised from localStorage / OS, applied on mount
+       // and on every change so the toggle in Settings is reflected immediately.
+      const [theme, setThemeState] = useState(() => readStoredTheme());
+      const setTheme = useCallback((t) => {
+        setThemeState(t);
+        writeStoredTheme(t);
+        applyTheme(t);
+      }, []);
+      useEffect(() => { applyTheme(theme); }, [theme]);
+
+      // Chrome-preference for external links.
+      const [chromeLinks, setChromeLinksState] = useState(() => {
+        try { return localStorage.getItem('mira:chromeLinks') !== '0'; }
+        catch { return true; }
+      });
+      const setChromeLinks = useCallback((v) => {
+        setChromeLinksState(v);
+        try { localStorage.setItem('mira:chromeLinks', v ? '1' : '0'); } catch {}
+      }, []);
+
+      // Favourite trails — persisted to localStorage as an array of pr_codes.
+      const [favs, setFavs] = useState(() => {
+        try { return new Set(JSON.parse(localStorage.getItem('mira:favs') || '[]')); }
+        catch { return new Set(); }
+      });
+      const toggleFav = useCallback((id) => {
+        if (!id) return;
+        setFavs((prev) => {
+          const next = new Set(prev);
+          if (next.has(id)) next.delete(id); else next.add(id);
+          try { localStorage.setItem('mira:favs', JSON.stringify([...next])); } catch {}
+          return next;
+        });
+      }, []);
+
       // Load cameras
       useEffect(() => {
         fetch('./cameras.json', { cache: 'no-store' })
           .then((r) => r.json())
-          .then((list) => setCameras(list))
+          .then((list) => {
+            setCameras(list);
+            // Preload the first handful of YouTube grid thumbnails so the
+            // grid view renders crisp imagery the moment the user navigates
+            // to it. mqdefault is ~12-20KB per image so the budget is small.
+            const yts = list.filter((c) => c.type === 'youtube').slice(0, 6);
+            for (const c of yts) {
+              const link = document.createElement('link');
+              link.rel = 'preload';
+              link.as = 'image';
+              link.href = `https://i.ytimg.com/vi/${c.id}/mqdefault.jpg`;
+              link.crossOrigin = 'anonymous';
+              document.head.appendChild(link);
+            }
+          })
           .catch(() => setCameras([]));
       }, []);
 
@@ -2388,8 +3407,12 @@
           <div class="pages-track" style=${{ transform: pager.transform }}>
             <${MapView} cameras=${cameras} trails=${trails} onSelect=${openCam} onSelectTrail=${openTrail} active=${pager.page === 0} />
             <${GridView} cameras=${cameras} onSelect=${openCam} active=${pager.page === 1} />
-            <${TrailsView} trails=${trails} onSelect=${openTrail} active=${pager.page === 2} />
-            <${SettingsPage} cameras=${cameras} active=${pager.page === 3} />
+            <${TrailsView} trails=${trails} onSelect=${openTrail} active=${pager.page === 2}
+                           favs=${favs} toggleFav=${toggleFav} />
+            <${LinksView} />
+            <${SettingsPage} cameras=${cameras} active=${pager.page === 4}
+                             theme=${theme} setTheme=${setTheme}
+                             chromeLinks=${chromeLinks} setChromeLinks=${setChromeLinks} />
           </div>
         </main>
 
@@ -2405,13 +3428,17 @@
               <${Icon} name="trail" /><span class="tab-label">Trails</span>
             </button>
             <button class="tab" role="tab" aria-selected=${pager.page === 3} onClick=${() => pager.setPage(3)}>
+              <${Icon} name="compass" /><span class="tab-label">Links</span>
+            </button>
+            <button class="tab" role="tab" aria-selected=${pager.page === 4} onClick=${() => pager.setPage(4)}>
               <${Icon} name="settings" /><span class="tab-label">Settings</span>
             </button>
           </nav>
         </div>
 
         ${sheetCam && html`<${DetailSheet} cam=${sheetCam} onClose=${() => setSheetCam(null)} onFullscreen=${(c) => setFsCam(c)} />`}
-        ${sheetTrail && html`<${TrailSheet} trail=${sheetTrail} onClose=${() => setSheetTrail(null)} />`}
+        ${sheetTrail && html`<${TrailSheet} trail=${sheetTrail} onClose=${() => setSheetTrail(null)}
+                                            isFav=${favs.has(sheetTrail.pr_code)} toggleFav=${toggleFav} />`}
         ${fsCam && html`<${Fullscreen} cam=${fsCam} onClose=${() => setFsCam(null)} />`}
       `;
     }

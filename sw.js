@@ -1,7 +1,7 @@
 /* Mira — service worker
    Caches the app shell only. Never caches streams or weather.
 */
-const VERSION = 'mira-v2';
+const VERSION = 'mira-v13';
 const SHELL = [
   './',
   './index.html',
@@ -11,7 +11,22 @@ const SHELL = [
   './icons/favicon.svg',
   './icons/icon-192.png',
   './icons/icon-512.png',
-  './icons/apple-touch-icon.png'
+  './icons/apple-touch-icon.png',
+  // Vendored Leaflet — served same-origin so it's cacheable & offline-ready.
+  './vendor/leaflet/1.9.4/leaflet.js',
+  './vendor/leaflet/1.9.4/leaflet.css',
+  './vendor/leaflet/1.9.4/images/marker-icon.png',
+  './vendor/leaflet/1.9.4/images/marker-icon-2x.png',
+  './vendor/leaflet/1.9.4/images/marker-shadow.png',
+  './vendor/leaflet/1.9.4/images/layers.png',
+  './vendor/leaflet/1.9.4/images/layers-2x.png',
+  // Self-hosted fonts.
+  './fonts/geist-500.woff2',
+  './fonts/geist-600.woff2',
+  './fonts/geist-700.woff2',
+  './fonts/fraunces-500.woff2',
+  './fonts/fraunces-600.woff2',
+  './fonts/fraunces-700.woff2'
 ];
 
 const NEVER_CACHE_HOSTS = [
@@ -23,7 +38,8 @@ const NEVER_CACHE_HOSTS = [
   'stream.madeirawebcams.com',
   'madeirawebcams.com',
   'api.open-meteo.com',
-  'open-meteo.com'
+  'open-meteo.com',
+  'api.ipma.pt'
 ];
 
 self.addEventListener('install', (event) => {
@@ -53,8 +69,7 @@ self.addEventListener('fetch', (event) => {
 
   // Map tiles (CartoDB / OSM): network-first, do not cache.
   if (url.hostname.endsWith('basemaps.cartocdn.com') ||
-      url.hostname.endsWith('tile.openstreetmap.org') ||
-      url.hostname.endsWith('unpkg.com')) {
+      url.hostname.endsWith('tile.openstreetmap.org')) {
     return;
   }
 
