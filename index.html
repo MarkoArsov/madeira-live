@@ -144,9 +144,8 @@
       --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
       --ease-out-strong: cubic-bezier(0.16, 1, 0.3, 1);
       --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-      --app-vh: 100dvh;
 
-      --nav-h: 58px;
+      --nav-h: 64px;
 
       /* Tabbar surface — tokenized so dark theme can re-skin it. */
       --tabbar-bg: rgba(255, 248, 236, 0.97);
@@ -264,9 +263,13 @@
       font-optical-sizing: auto;
     }
     body {
+      /* 100lvh = the largest possible viewport. Crucially on iOS PWA
+         standalone, vh / dvh can resolve to the *safe* viewport (excluding
+         the home-indicator zone) on cold launch, which leaves a band of
+         body background visible at the bottom. lvh always reports the full
+         screen and avoids the cold-launch glitch. */
       min-height: 100vh;
-      min-height: 100dvh;
-      min-height: var(--app-vh);
+      min-height: 100lvh;
       transition: background 0.4s var(--ease-out), color 0.4s var(--ease-out);
     }
     button { font-family: inherit; cursor: pointer; border: 0; background: none; color: inherit; padding: 0; }
@@ -280,8 +283,7 @@
       margin: 0 auto;
       position: relative;
       min-height: 100vh;
-      min-height: 100dvh;
-      min-height: var(--app-vh);
+      min-height: 100lvh;
       overflow: hidden;
       background: var(--bg);
     }
@@ -300,8 +302,8 @@
     .pager {
       position: relative;
       width: 100%;
-      height: 100vh; height: 100dvh;
-      height: var(--app-vh);
+      height: 100vh;
+      height: 100lvh;
       overflow: hidden;
     }
     .pages-track {
@@ -328,7 +330,7 @@
     .tabbar-wrap {
       position: fixed;
       left: 50%;
-      bottom: calc(env(safe-area-inset-bottom) + 18px);
+      bottom: calc(env(safe-area-inset-bottom) + 4px);
       transform: translateX(-50%);
       z-index: 30;
       pointer-events: none;
@@ -336,7 +338,7 @@
     }
     .tabbar {
       pointer-events: auto;
-      padding: 5px 10px;
+      padding: 7px 12px;
       display: flex;
       align-items: stretch;
       gap: 6px;
@@ -344,15 +346,22 @@
       border: 1.5px solid var(--tabbar-border);
       border-radius: var(--r-pill);
       box-shadow:
-        0 1px 2px rgba(42, 58, 31, 0.08),
-        0 4px 10px rgba(42, 58, 31, 0.10),
-        0 14px 28px rgba(42, 58, 31, 0.20),
-        0 36px 60px rgba(42, 58, 31, 0.30);
+        0 2px 4px rgba(42, 58, 31, 0.14),
+        0 8px 16px rgba(42, 58, 31, 0.18),
+        0 22px 42px rgba(42, 58, 31, 0.30),
+        0 52px 90px rgba(42, 58, 31, 0.42);
       backdrop-filter: saturate(180%) blur(24px);
       -webkit-backdrop-filter: saturate(180%) blur(24px);
     }
+    :root[data-theme="dark"] .tabbar {
+      box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.45),
+        0 8px 18px rgba(0, 0, 0, 0.55),
+        0 24px 48px rgba(0, 0, 0, 0.65),
+        0 56px 100px rgba(0, 0, 0, 0.72);
+    }
     .tab {
-      width: 56px; height: 38px;
+      width: 60px; height: 44px;
       display: inline-flex; align-items: center; justify-content: center;
       color: var(--ink-muted);
       border-radius: var(--r-pill);
@@ -360,9 +369,9 @@
       position: relative;
     }
     @media (max-width: 360px) {
-      .tab { width: 50px; }
+      .tab { width: 54px; height: 42px; }
     }
-    .tab svg { width: 20px; height: 20px; transition: transform 0.22s var(--ease-out); }
+    .tab svg { width: 22px; height: 22px; transition: transform 0.22s var(--ease-out); }
     .tab:active { transform: scale(0.94); }
     .tab[aria-selected="true"] {
       background: var(--forest);
@@ -1035,9 +1044,25 @@
     .weather-updated {
       font-size: 11px;
       color: var(--ink-muted);
-      margin-top: 12px;
       letter-spacing: 0.01em;
     }
+    .weather-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .weather-deeplink {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 0;
+      background: none;
+      color: var(--forest);
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: -0.005em;
+      transition: color 0.18s var(--ease-out), opacity 0.12s var(--ease-out);
+    }
+    .weather-deeplink:active { opacity: 0.6; }
+    .weather-deeplink svg { width: 12px; height: 12px; }
     .weather-skel-row {
       height: 64px;
       border-radius: var(--r-sm);
@@ -1751,12 +1776,12 @@
     const UNMOUNT_DELAY_MS = 2000;
     const WX_TTL_MS = 10 * 60 * 1000;
 
-    // Viewport height: handled in CSS via `--app-vh: 100dvh`. On iOS PWA
-    // standalone, `visualViewport.height` reports the *safe* viewport
-    // (excluding the home-indicator zone) which is shorter than the actual
-    // screen, so overriding `--app-vh` with that value produces an empty
-    // cream band at the bottom on cold launch. `100dvh` is computed by the
-    // browser using the full viewport — that's what we want here.
+    // Viewport height is handled in CSS via `100lvh` on body/#app/.pager.
+    // iOS PWA standalone has a cold-launch bug where 100vh / 100dvh /
+    // visualViewport.height resolve to the *safe* viewport (excluding the
+    // home-indicator zone), leaving a band of body background showing. The
+    // "large viewport" unit (lvh) explicitly resolves to the maximum possible
+    // viewport, sidestepping the bug.
 
     const LINKS = [
       { id: 'itinerary', label: 'Itinerary',             icon: 'document', href: 'https://docs.google.com/document/d/1i-Vklymq5Wh3YAt_izedDb2oGH0yGbkWNTaCaOhwvCQ/edit?usp=sharing' },
@@ -1827,6 +1852,7 @@
       'komoot.com', 'komoot.de',
       'youtube.com', 'm.youtube.com', 'youtu.be',
       'docs.google.com',
+      'accuweather.com',
     ];
     function prefersNativeApp(url) {
       try {
@@ -2319,6 +2345,41 @@
 
           rebuildPins();
           rebuildTrails();
+
+          // Manual double-tap-zoom for iOS PWA standalone. Leaflet's built-in
+          // doubleClickZoom relies on synthesised dblclick events from touch
+          // taps, which iOS Safari in standalone PWA mode does not fire
+          // reliably. We bind a touchend listener and detect two taps within
+          // 320 ms / 30 px ourselves, skipping pins so marker taps still work.
+          const tapState = { t: 0, x: 0, y: 0 };
+          const onTouchEnd = (e) => {
+            if (!e.changedTouches || e.changedTouches.length !== 1) return;
+            const target = e.target;
+            if (target && target.closest && target.closest(
+              '.pin, .pin-cluster, .pin-trail, .pin-wx, .leaflet-control, .map-fab'
+            )) {
+              tapState.t = 0;
+              return;
+            }
+            const ct = e.changedTouches[0];
+            const now = Date.now();
+            if (now - tapState.t < 320 &&
+                Math.abs(ct.clientX - tapState.x) < 30 &&
+                Math.abs(ct.clientY - tapState.y) < 30) {
+              e.preventDefault();
+              try {
+                const latlng = map.mouseEventToLatLng({ clientX: ct.clientX, clientY: ct.clientY });
+                const next = Math.min(map.getZoom() + 1, map.getMaxZoom() || 19);
+                map.setView(latlng, next, { animate: true });
+              } catch {}
+              tapState.t = 0;
+            } else {
+              tapState.t = now;
+              tapState.x = ct.clientX;
+              tapState.y = ct.clientY;
+            }
+          };
+          containerRef.current.addEventListener('touchend', onTouchEnd, { passive: false });
         }).catch(() => { /* offline; map cannot load */ });
 
         return () => { cancelled = true; };
@@ -2784,7 +2845,16 @@
                   <div class="weather-stat-val">${s.v}</div>
                 </div>`)}
             </div>`}
-          <div class="weather-updated">Updated ${relTime(obsTs)}</div>
+          <div class="weather-footer">
+            <span class="weather-updated">Updated ${relTime(obsTs)}</span>
+            ${cam.lat != null && cam.lng != null && html`
+              <button class="weather-deeplink" type="button"
+                      onClick=${() => openExternal(`https://www.accuweather.com/en/search-locations?query=${cam.lat},${cam.lng}`)}
+                      aria-label="Open this location in AccuWeather">
+                <span>Open in AccuWeather</span>
+                <${Icon} name="external" />
+              </button>`}
+          </div>
         </div>
       `;
     }
