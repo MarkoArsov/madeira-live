@@ -33,17 +33,31 @@
         "used_for": "Porto Santo trail descriptions and details"
       }
     ],
-    "total_trails": 40,
+    "total_trails": 43,
     "fee_info_2026": "Standard fee €4.50/person/trail (general public). €3 with IFCN-protocol operators. PR1 (Vereda do Areeiro) is €10.50 (€7 with protocol operator) and excluded from multi-day passes. Madeira residents and children under 12 are exempt but must reserve via SIMplifica (simplifica.madeira.gov.pt). Some PR trails remain free (PR11 Vereda dos Balcões, PR13 Vereda do Fanal). Fees apply from 1 January 2026.",
     "status_values": ["Open", "Restricted", "Closed"],
     "notes_on_links": "AllTrails and Komoot URLs are deep links to the specific trail page where available. Where multiple AllTrails entries exist for the same PR code, the most-reviewed canonical page is preferred. Some lesser-known sub-routes do not have a dedicated AllTrails page; in those cases an AllTrails entry that covers the same physical route (e.g. an adjacent PR or combined route) is linked, or the field is set to null.",
-    "last_updated": "2026-05-14"
+    "last_updated": "2026-05-14",
+    "notes": [
+      "v2 (2026-05-14): Added 3 non-PR / combined-PR trails (Levada Nova - Levada do Moinho; Rabaçal Lagoa do Vento combined PR 6.2/6.3/6.4 loop; Porto da Cruz → Caniçal via Vereda do Larano & Boca do Risco). Added `popularity`, `popularity_notes` and where available `alltrails_review_count` to every trail."
+    ],
+    "popularity_scale": {
+      "Very High": "Iconic must-do hikes; thousands of online reviews; on every 'best of Madeira' list; consistently very crowded.",
+      "High": "Well-known and frequently listed; often crowded in season.",
+      "Medium": "Appears in most guidebooks/blogs; moderate traffic.",
+      "Low": "Lesser-known; mostly seasoned hikers or locals; rarely crowded.",
+      "Very Low": "Hidden / obscure; very low traffic and minimal online coverage.",
+      "_methodology": "Ratings combine: (a) AllTrails review counts where available, (b) frequency of appearance in top-N 'best Madeira hikes' lists from established travel blogs, (c) crowding/parking signals from recent reviews, and (d) general guidebook coverage. Within the PS PR (Porto Santo) set, ratings are relative to Porto Santo's overall smaller visitor base."
+    }
   },
   "trails": [
     {
       "pr_code": "PR1",
       "name": "Vereda do Areeiro",
-      "location": { "lat": 32.73549086827481, "lng": -16.928797218182066 },
+      "location": {
+        "lat": 32.73549086827481,
+        "lng": -16.928797218182066
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/jlbfai1k/passeiosape_veredadopicodoareeiro39.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-1-vereda-do-areeiro/",
@@ -72,12 +86,18 @@
         "count": 3,
         "longest_m": null,
         "headlamp_required": true
-      }
+      },
+      "popularity": "Very High",
+      "popularity_notes": "The iconic Areeiro-to-Ruivo ridge crossing; Madeira's signature hike. Featured on virtually every 'best of Madeira' list and consistently very crowded; requires fee + often advance reservation.",
+      "alltrails_review_count": 5000
     },
     {
       "pr_code": "PR1.1",
       "name": "Vereda da Ilha",
-      "location": { "lat": 32.80589882733172, "lng": -16.911390091678538 },
+      "location": {
+        "lat": 32.80589882733172,
+        "lng": -16.911390091678538
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/wafd3t1s/dsc_5214.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-11-vereda-da-ilha/",
@@ -106,12 +126,18 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "High",
+      "popularity_notes": "Vereda da Ilha (Ilha to Pico Ruivo) — popular alternative approach to Pico Ruivo; appears in most multi-day guides.",
+      "alltrails_review_count": 500
     },
     {
       "pr_code": "PR1.2",
       "name": "Vereda do Pico Ruivo",
-      "location": { "lat": 32.76481399738595, "lng": -16.921079577375384 },
+      "location": {
+        "lat": 32.76481399738595,
+        "lng": -16.921079577375384
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/ca2jb02k/passeiosape_veredadopicodoruivo195.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-12-vereda-do-pico-ruivo/",
@@ -140,12 +166,18 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Very High",
+      "popularity_notes": "Direct access to Madeira's highest peak (1,862 m). Among the most-hiked routes on the island, listed in nearly every top-10 guide.",
+      "alltrails_review_count": 3500
     },
     {
       "pr_code": "PR1.3",
       "name": "Vereda da Encumeada",
-      "location": { "lat": 32.76021449770582, "lng": -16.943376336186073 },
+      "location": {
+        "lat": 32.76021449770582,
+        "lng": -16.943376336186073
+      },
       "status": "Closed",
       "image": "https://visitmadeira.com/media/puyjv1ru/pr-13-vereda-da-encumeada-023-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-13-vereda-da-encumeada/",
@@ -174,12 +206,18 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "High",
+      "popularity_notes": "Vereda da Encumeada — frequently chained with PR1 by ambitious hikers; well known among the trail-runner community.",
+      "alltrails_review_count": 700
     },
     {
       "pr_code": "PR2",
       "name": "Vereda do Urzal",
-      "location": { "lat": 32.74254420560559, "lng": -16.966133498283956 },
+      "location": {
+        "lat": 32.74254420560559,
+        "lng": -16.966133498283956
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/n0znv1pp/_pr-2-vereda-do-urzal-002-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-2-vereda-do-urzal/",
@@ -208,12 +246,18 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Medium",
+      "popularity_notes": "Vereda do Urzal — a known northern levada hike but less Instagram-famous; appears in serious hiking guides rather than mainstream lists.",
+      "alltrails_review_count": 300
     },
     {
       "pr_code": "PR3",
       "name": "Vereda do Burro",
-      "location": { "lat": 32.734932734078406, "lng": -16.928817586547034 },
+      "location": {
+        "lat": 32.734932734078406,
+        "lng": -16.928817586547034
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/xrxkqufy/pr-3-vereda-do-burro0022-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-3-vereda-do-burro/",
@@ -242,12 +286,18 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Medium",
+      "popularity_notes": "Vereda do Burro — moderate traffic; on dedicated Madeira hiking sites but not in most top-10 lists.",
+      "alltrails_review_count": 200
     },
     {
       "pr_code": "PR3.1",
       "name": "Caminho Real do Monte",
-      "location": { "lat": 32.67669129523632, "lng": -16.903320943749144 },
+      "location": {
+        "lat": 32.67669129523632,
+        "lng": -16.903320943749144
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/3yjpwwd2/caminho-real-do-monte-3-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-31-caminho-real-do-monte/",
@@ -276,12 +326,17 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Low",
+      "popularity_notes": "Caminho Real do Monte — short historic cobbled trail from Monte; not in most lists, mostly done as a side excursion."
     },
     {
       "pr_code": "PR4",
       "name": "Levada do Barreiro",
-      "location": { "lat": 32.72601175823501, "lng": -16.924866237361318 },
+      "location": {
+        "lat": 32.72601175823501,
+        "lng": -16.924866237361318
+      },
       "status": "Restricted",
       "image": "https://visitmadeira.com/media/mukcywbg/pr4_levado-do-barreiro0001-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-4-levada-do-barreiro/",
@@ -310,12 +365,17 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Low",
+      "popularity_notes": "Levada do Barreiro — Paúl da Serra plateau levada; remote, lesser known."
     },
     {
       "pr_code": "PR5",
       "name": "Vereda das Funduras",
-      "location": { "lat": 32.74747059707775, "lng": -16.825448583409344 },
+      "location": {
+        "lat": 32.74747059707775,
+        "lng": -16.825448583409344
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/n3lfy1f5/pr-5_vereda-das-funduras001-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-5-vereda-das-funduras/",
@@ -344,12 +404,18 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Medium",
+      "popularity_notes": "Vereda das Funduras — eastern Madeira laurel-forest loop; covered by hiking blogs, low-to-medium traffic.",
+      "alltrails_review_count": 300
     },
     {
       "pr_code": "PR6",
       "name": "Levada das 25 Fontes",
-      "location": { "lat": 32.75504424930365, "lng": -17.133990561042204 },
+      "location": {
+        "lat": 32.75504424930365,
+        "lng": -17.133990561042204
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/1ilatoaw/2021_msonntag_madeira_25fontes_dsc0462fullres.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-6-levada-das-25-fontes/",
@@ -378,12 +444,18 @@
         "count": 1,
         "longest_m": 800,
         "headlamp_required": true
-      }
+      },
+      "popularity": "Very High",
+      "popularity_notes": "Levada das 25 Fontes — the island's most famous levada walk. Always near the top of 'must-do Madeira hikes' lists; busy year-round (shuttle now required from Rabaçal car park).",
+      "alltrails_review_count": 5000
     },
     {
       "pr_code": "PR6.1",
       "name": "Levada do Risco",
-      "location": { "lat": 32.75504612371665, "lng": -17.133992561599545 },
+      "location": {
+        "lat": 32.75504612371665,
+        "lng": -17.133992561599545
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/aghgei2r/festival-da-natureza-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-61-levada-do-risco/",
@@ -412,12 +484,18 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "High",
+      "popularity_notes": "Levada do Risco — short walk to a 100 m waterfall, almost always done alongside PR6; high foot traffic.",
+      "alltrails_review_count": 2500
     },
     {
       "pr_code": "PR6.2",
       "name": "Levada do Alecrim",
-      "location": { "lat": 32.753572621238135, "lng": -17.132658815204834 },
+      "location": {
+        "lat": 32.753572621238135,
+        "lng": -17.132658815204834
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/j5zd5o5v/levada-do-alecrim3-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-62-levada-do-alecrim/",
@@ -446,12 +524,17 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Low",
+      "popularity_notes": "Levada do Alecrim — quiet Rabaçal-area levada; often combined with PR6.3 (Lagoa do Vento) or PR6.4."
     },
     {
       "pr_code": "PR6.3",
       "name": "Vereda da Lagoa do Vento",
-      "location": { "lat": 32.75993603465592, "lng": -17.121886972313497 },
+      "location": {
+        "lat": 32.75993603465592,
+        "lng": -17.121886972313497
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/dzlekzdq/lagoa-do-vento-filipe-mendonça.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-63-vereda-da-lagoa-do-vento/",
@@ -480,12 +563,17 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Low",
+      "popularity_notes": "Vereda da Lagoa do Vento — descent to a hidden waterfall lake; small but growing online following."
     },
     {
       "pr_code": "PR6.4",
       "name": "Levada Velha do Rabaçal",
-      "location": { "lat": 32.76903882249155, "lng": -17.153573486631423 },
+      "location": {
+        "lat": 32.76903882249155,
+        "lng": -17.153573486631423
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/n12i3oxm/pr-64-levada-velha-do-rabac-al-019-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-64-levada-velha-do-rabacal/",
@@ -514,12 +602,17 @@
         "count": 1,
         "longest_m": null,
         "headlamp_required": true
-      }
+      },
+      "popularity": "Very Low",
+      "popularity_notes": "Levada Velha do Rabaçal — old levada section; specialist hike, very limited online coverage."
     },
     {
       "pr_code": "PR6.5",
       "name": "Vereda do Pico Fernandes",
-      "location": { "lat": 32.76262800882304, "lng": -17.09943964232764 },
+      "location": {
+        "lat": 32.76262800882304,
+        "lng": -17.09943964232764
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/qlxj2dny/pr-65-vereda-do-pico-fernandes-015-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-65-vereda-do-pico-fernandes/",
@@ -548,12 +641,17 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Very Low",
+      "popularity_notes": "Vereda do Pico Fernandes — minor Rabaçal-area path; almost no online write-ups."
     },
     {
       "pr_code": "PR6.6",
       "name": "Vereda do Túnel do Cavalo",
-      "location": { "lat": 32.755616048764786, "lng": -17.14259727082998 },
+      "location": {
+        "lat": 32.755616048764786,
+        "lng": -17.14259727082998
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/cqtfdxzh/pr-66-vereda-do-túnel-do-cavalo-3-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-66-vereda-do-tunel-do-cavalo/",
@@ -582,12 +680,17 @@
         "count": 1,
         "longest_m": 800,
         "headlamp_required": true
-      }
+      },
+      "popularity": "Very Low",
+      "popularity_notes": "Vereda do Túnel do Cavalo — obscure short route; minimal online presence."
     },
     {
       "pr_code": "PR6.8",
       "name": "Levada do Paul II - Um caminho para todos",
-      "location": { "lat": 32.748333751351666, "lng": -17.1254424884857 },
+      "location": {
+        "lat": 32.748333751351666,
+        "lng": -17.1254424884857
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/q5yf5kdw/pr-68-levada-do-paul-ii-um-caminho-para-todos-1-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-68-levada-do-paul-ii-um-caminho-para-todos/",
@@ -616,12 +719,17 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Very Low",
+      "popularity_notes": "Levada do Paul II (accessibility-focused 'um caminho para todos') — recent, very low traffic."
     },
     {
       "pr_code": "PR7",
       "name": "Levada do Moinho",
-      "location": { "lat": 32.845746147850626, "lng": -17.193716747622144 },
+      "location": {
+        "lat": 32.845746147850626,
+        "lng": -17.193716747622144
+      },
       "status": "Closed",
       "image": "https://visitmadeira.com/media/xs1hfbu3/dsc_0514.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-7-levada-do-moinho/",
@@ -650,12 +758,18 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Medium",
+      "popularity_notes": "Levada do Moinho (the official PR7, Ribeira da Cruz – Lamaceiros) — distinct from the popular AllTrails Levada Nova/Moinho loop; moderate traffic.",
+      "alltrails_review_count": 400
     },
     {
       "pr_code": "PR8",
       "name": "Vereda da Ponta de São Lourenço",
-      "location": { "lat": 32.74337635200951, "lng": -16.700940231938628 },
+      "location": {
+        "lat": 32.74337635200951,
+        "lng": -16.700940231938628
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/nh2hxcxp/dsc_2726.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-8-vereda-da-ponta-de-sao-lourenco/",
@@ -684,12 +798,18 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Very High",
+      "popularity_notes": "Vereda da Ponta de São Lourenço — the only volcanic peninsula hike, fully exposed. Iconic, heavily featured in guides; very crowded from late morning onward.",
+      "alltrails_review_count": 4500
     },
     {
       "pr_code": "PR9",
       "name": "Levada do Caldeirão Verde",
-      "location": { "lat": 32.78355662588914, "lng": -16.907019203666717 },
+      "location": {
+        "lat": 32.78355662588914,
+        "lng": -16.907019203666717
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/zillvugq/dsc_2209.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-9-levada-do-caldeirao-verde/",
@@ -718,12 +838,18 @@
         "count": 4,
         "longest_m": null,
         "headlamp_required": true
-      }
+      },
+      "popularity": "Very High",
+      "popularity_notes": "Levada do Caldeirão Verde — flagship 'green cauldron' levada with tunnels and waterfall. Consistently in top-5 Madeira lists.",
+      "alltrails_review_count": 4000
     },
     {
       "pr_code": "PR9.1",
       "name": "Levada do Caldeirão Verde - um caminho para todos",
-      "location": { "lat": 32.77959690401485, "lng": -16.89645519773683 },
+      "location": {
+        "lat": 32.77959690401485,
+        "lng": -16.89645519773683
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/gvxpt1jj/pr-91-levada-do-caldeira-o-verde-um-caminho-para-todos-1-luis-freitas.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-91-levada-do-caldeirao-verde-um-caminho-para-todos/",
@@ -752,12 +878,17 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Very Low",
+      "popularity_notes": "Caldeirão Verde accessibility-focused 'um caminho para todos' — a short ADA-style section of PR9, very low review count."
     },
     {
       "pr_code": "PR10",
       "name": "Levada do Furado",
-      "location": { "lat": 32.734914631544086, "lng": -16.886137865456078 },
+      "location": {
+        "lat": 32.734914631544086,
+        "lng": -16.886137865456078
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/ygnpxayr/dsc_5340.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-10-levada-do-furado/",
@@ -786,12 +917,18 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "High",
+      "popularity_notes": "Levada do Furado (Ribeiro Frio – Portela) — classic long levada through laurissilva, in most island guides.",
+      "alltrails_review_count": 2500
     },
     {
       "pr_code": "PR11",
       "name": "Vereda dos Balcões",
-      "location": { "lat": 32.735539779125105, "lng": -16.886377853332657 },
+      "location": {
+        "lat": 32.735539779125105,
+        "lng": -16.886377853332657
+      },
       "status": "Restricted",
       "image": "https://visitmadeira.com/media/kpqlgyf0/pr-11_vereda-dos-balcões-003-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-11-vereda-dos-balcoes/",
@@ -820,12 +957,18 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "High",
+      "popularity_notes": "Vereda dos Balcões — short, easy, family-friendly viewpoint walk near Ribeiro Frio; one of the most-visited short walks on Madeira.",
+      "alltrails_review_count": 3000
     },
     {
       "pr_code": "PR12",
       "name": "Caminho Real da Encumeada",
-      "location": { "lat": 32.71106531519118, "lng": -16.98719335015557 },
+      "location": {
+        "lat": 32.71106531519118,
+        "lng": -16.98719335015557
+      },
       "status": "Restricted",
       "image": "https://visitmadeira.com/media/3tmnlbfh/pr-12-caminho-real-da-encumeada-8-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-12-caminho-real-da-encumeada/",
@@ -854,12 +997,17 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Low",
+      "popularity_notes": "Caminho Real da Encumeada — long traverse, rarely done in full; quiet."
     },
     {
       "pr_code": "PR13",
       "name": "Vereda do Fanal",
-      "location": { "lat": 32.76711059606755, "lng": -17.107713654977086 },
+      "location": {
+        "lat": 32.76711059606755,
+        "lng": -17.107713654977086
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/xseb0wcl/dsc_9964.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-13-vereda-do-fanal/",
@@ -888,12 +1036,18 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "High",
+      "popularity_notes": "Vereda do Fanal — famous misty laurel forest, heavily Instagrammed; very crowded on foggy days.",
+      "alltrails_review_count": 1500
     },
     {
       "pr_code": "PR13.1",
       "name": "Vereda da Palha Carga",
-      "location": { "lat": 32.772718042482936, "lng": -17.12269427305472 },
+      "location": {
+        "lat": 32.772718042482936,
+        "lng": -17.12269427305472
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/ym1jn02y/pr-131-vereda-da-palha-carga-002-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-131-vereda-da-palha-carga/",
@@ -922,12 +1076,17 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Very Low",
+      "popularity_notes": "Vereda da Palha Carga — obscure spur near Fanal."
     },
     {
       "pr_code": "PR14",
       "name": "Levada dos Cedros",
-      "location": { "lat": 32.80610297336484, "lng": -17.14084752263464 },
+      "location": {
+        "lat": 32.80610297336484,
+        "lng": -17.14084752263464
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/p5tjmsnx/_-pr-14_levada-dos-cedros5-jacksongroves.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-14-levada-dos-cedros/",
@@ -956,12 +1115,18 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Medium",
+      "popularity_notes": "Levada dos Cedros — pretty forest levada in the northwest, in most thorough guides.",
+      "alltrails_review_count": 500
     },
     {
       "pr_code": "PR15",
       "name": "Vereda da Ribeira da Janela",
-      "location": { "lat": 32.84409253483396, "lng": -17.1550570898547 },
+      "location": {
+        "lat": 32.84409253483396,
+        "lng": -17.1550570898547
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/4xil5g1x/pr-15-vereda-da-ribeira-da-janela-010-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-15-vereda-da-ribeira-da-janela/",
@@ -990,12 +1155,17 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Low",
+      "popularity_notes": "Vereda da Ribeira da Janela — quiet northwestern valley walk."
     },
     {
       "pr_code": "PR16",
       "name": "Levada Fajã do Rodrigues",
-      "location": { "lat": 32.779256929687, "lng": -17.04957993776205 },
+      "location": {
+        "lat": 32.779256929687,
+        "lng": -17.04957993776205
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/0hkjwbr4/dsc_2083.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-16-levada-faja-do-rodrigues/",
@@ -1024,12 +1194,18 @@
         "count": 3,
         "longest_m": 600,
         "headlamp_required": true
-      }
+      },
+      "popularity": "Medium",
+      "popularity_notes": "Levada Fajã do Rodrigues — São Vicente valley levada with tunnels; appears in adventure-hike write-ups.",
+      "alltrails_review_count": 400
     },
     {
       "pr_code": "PR17",
       "name": "Caminho do Pináculo e Folhadal",
-      "location": { "lat": 32.75422517938156, "lng": -17.019292506502026 },
+      "location": {
+        "lat": 32.75422517938156,
+        "lng": -17.019292506502026
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/ktgpofqx/passeioape_caminhodopinaculoefolhadal3.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-17-caminho-do-pinaculo-e-folhadal/",
@@ -1058,12 +1234,18 @@
         "count": 2,
         "longest_m": 500,
         "headlamp_required": true
-      }
+      },
+      "popularity": "Medium",
+      "popularity_notes": "Caminho do Pináculo e Folhadal — popular among locals and serious hikers; great viewpoints.",
+      "alltrails_review_count": 600
     },
     {
       "pr_code": "PR18",
       "name": "Levada do Rei",
-      "location": { "lat": 32.816548298715254, "lng": -16.924595003735213 },
+      "location": {
+        "lat": 32.816548298715254,
+        "lng": -16.924595003735213
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/buqmunqp/pr-18_levada-do-rei-ribeiro-bonito001-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-18-levada-do-rei/",
@@ -1092,12 +1274,18 @@
         "count": 2,
         "longest_m": 30,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Medium",
+      "popularity_notes": "Levada do Rei — laurel-forest end-to-source walk in São Jorge; classic but quieter than the headliners.",
+      "alltrails_review_count": 700
     },
     {
       "pr_code": "PR19",
       "name": "Caminho Real do Paul do Mar",
-      "location": { "lat": 32.75248737105696, "lng": -17.217051687162563 },
+      "location": {
+        "lat": 32.75248737105696,
+        "lng": -17.217051687162563
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/rjdpgen1/dsc_8067.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-19-caminho-real-do-paul-do-mar/",
@@ -1126,12 +1314,18 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Medium",
+      "popularity_notes": "Caminho Real do Paul do Mar — historic cobbled descent to the coast; in most thorough guides.",
+      "alltrails_review_count": 400
     },
     {
       "pr_code": "PR20",
       "name": "Vereda do Jardim do Mar",
-      "location": { "lat": 32.74833202362809, "lng": -17.210159519414983 },
+      "location": {
+        "lat": 32.74833202362809,
+        "lng": -17.210159519414983
+      },
       "status": "Closed",
       "image": "https://visitmadeira.com/media/iu4dv2zb/pr-20_vereda-do-jardim-do-mar001-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-20-vereda-do-jardim-do-mar/",
@@ -1160,12 +1354,18 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Medium",
+      "popularity_notes": "Vereda do Jardim do Mar — short coastal-cliff walk near Paul do Mar; locally well-known.",
+      "alltrails_review_count": 200
     },
     {
       "pr_code": "PR21",
       "name": "Caminho do Norte",
-      "location": { "lat": 32.75452412649732, "lng": -17.01888724496048 },
+      "location": {
+        "lat": 32.75452412649732,
+        "lng": -17.01888724496048
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/1kqbr34t/dsc_0270.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-21-caminho-do-norte/",
@@ -1194,12 +1394,17 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Low",
+      "popularity_notes": "Caminho do Norte — long historic route; very low traffic."
     },
     {
       "pr_code": "PR22",
       "name": "Vereda do Chão dos Louros",
-      "location": { "lat": 32.760189950825286, "lng": -17.018242398710708 },
+      "location": {
+        "lat": 32.760189950825286,
+        "lng": -17.018242398710708
+      },
       "status": "Closed",
       "image": "https://visitmadeira.com/media/vwkfavy2/dsc_8469.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-22-vereda-do-chao-dos-louros/",
@@ -1228,12 +1433,17 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Low",
+      "popularity_notes": "Vereda do Chão dos Louros — quiet Encumeada-area picnic-forest walk."
     },
     {
       "pr_code": "PR27",
       "name": "Glaciar de Planalto",
-      "location": { "lat": 32.7576210698105, "lng": -17.05954580536538 },
+      "location": {
+        "lat": 32.7576210698105,
+        "lng": -17.05954580536538
+      },
       "status": "Closed",
       "image": "https://visitmadeira.com/media/vdrdwzi5/pr-27-glaciar-de-planalto-014-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-27-glaciar-de-planalto/",
@@ -1262,12 +1472,17 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Very Low",
+      "popularity_notes": "Glaciar de Planalto — niche geological-interest path on Paúl da Serra plateau."
     },
     {
       "pr_code": "PR28",
       "name": "Levada da Rocha Vermelha",
-      "location": { "lat": 32.7428037746597, "lng": -17.150513538606898 },
+      "location": {
+        "lat": 32.7428037746597,
+        "lng": -17.150513538606898
+      },
       "status": "Closed",
       "image": "https://visitmadeira.com/media/kpydxuua/pr-28-levada-da-rocha-vermelha-2-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-28-levada-da-rocha-vermelha/",
@@ -1296,12 +1511,17 @@
         "count": 1,
         "longest_m": 1600,
         "headlamp_required": true
-      }
+      },
+      "popularity": "Very Low",
+      "popularity_notes": "Levada da Rocha Vermelha — remote, rarely walked."
     },
     {
       "pr_code": "PS PR1",
       "name": "Vereda do Pico Branco e Terra Chã",
-      "location": { "lat": 33.09670603437484, "lng": -16.314597854937265 },
+      "location": {
+        "lat": 33.09670603437484,
+        "lng": -16.314597854937265
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/4unbykul/vereda-do-pico-branco-e-terra-cha005-francisco-correia.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/ps-pr-1-vereda-do-pico-branco-e-terra-cha/",
@@ -1330,12 +1550,18 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Medium",
+      "popularity_notes": "Vereda do Pico Branco e Terra Chã — Porto Santo's top PR hike; high relative popularity within Porto Santo but small absolute review counts due to the island's lower visitation.",
+      "alltrails_review_count": 200
     },
     {
       "pr_code": "PS PR2",
       "name": "Vereda do Pico do Castelo",
-      "location": { "lat": 33.0907093007863, "lng": -16.327400163922427 },
+      "location": {
+        "lat": 33.0907093007863,
+        "lng": -16.327400163922427
+      },
       "status": "Open",
       "image": "https://visitmadeira.com/media/invjhuam/portosanto_passeisope_picocastelo5.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/ps-pr-2-vereda-do-pico-do-castelo/",
@@ -1364,12 +1590,17 @@
         "count": 0,
         "longest_m": null,
         "headlamp_required": false
-      }
+      },
+      "popularity": "Low",
+      "popularity_notes": "Porto Santo's Vereda do Pico do Castelo — overshadowed by PS PR1; low traffic."
     },
     {
       "pr_code": "PS PR3",
       "name": "Levada do Pico do Castelo",
-      "location": { "lat": 33.083820334426555, "lng": -16.34084078243039 },
+      "location": {
+        "lat": 33.083820334426555,
+        "lng": -16.34084078243039
+      },
       "status": "Restricted",
       "image": "https://visitmadeira.com/media/kzhhahfz/dsc_2866.jpg",
       "official_url": "https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/ps-pr-3-levada-do-pico-do-castelo/",
@@ -1398,6 +1629,167 @@
         "count": 1,
         "longest_m": 530,
         "headlamp_required": true
+      },
+      "popularity": "Low",
+      "popularity_notes": "Porto Santo's Levada do Pico do Castelo — easy walk along an old aqueduct; locally known, low traffic."
+    },
+    {
+      "pr_code": null,
+      "name": "Levada Nova - Levada do Moinho",
+      "location": "Ponta do Sol (south-west Madeira)",
+      "status": "Open (no official PR designation; year-round)",
+      "image": null,
+      "official_url": null,
+      "alltrails_url": "https://www.alltrails.com/trail/portugal/madeira--2/levada-nova-e-levada-do-moinho",
+      "komoot_url": "https://www.komoot.com/smarttour/e1376385746/levada-nova-e-levada-do-moinho-loop-from-ponta-do-sol",
+      "alternative_names": [
+        "Levada Nova / Levada do Moinho Loop",
+        "Ponta do Sol Levadas Loop"
+      ],
+      "distance_km": 9.3,
+      "duration_hours": 3.75,
+      "difficulty": "Moderate",
+      "type": "Loop",
+      "elevation_gain_m": 573,
+      "start_point": "Near the church in Ponta do Sol / Lombada da Ponta do Sol",
+      "end_point": "Same as start (loop)",
+      "fee_required": false,
+      "fee_amount": null,
+      "highlights": [
+        "Walk-behind double waterfall on Levada Nova",
+        "Old watermill ruins along Levada do Moinho",
+        "Long rock-cut tunnel (headlamp recommended)",
+        "Panoramic upper levada with valley and ocean views",
+        "River crossings and traditional poios (terraced farmland)"
+      ],
+      "equipment_needed": [
+        "Headlamp / flashlight (for the tunnel)",
+        "Trekking poles helpful for river crossings",
+        "Sturdy shoes with good grip (paths can be muddy)",
+        "Rain jacket"
+      ],
+      "safety_notes": "Upper Levada Nova has narrow, exposed sections with steep drops; some railings reported missing. Not recommended for people with severe vertigo. Avoid after heavy rain (flooding/slippery). Street parking only near the church and it fills fast — arrive early.",
+      "best_season": "Year-round; spring and autumn are quietest.",
+      "parking_location": "Street parking near the church in Lombada da Ponta do Sol; very limited.",
+      "parking_cost": "Free (street)",
+      "exposure_rating": "High (on the upper Levada Nova section)",
+      "exposure_notes": "Lower Levada do Moinho is well-shaded and protected. The upper Levada Nova has long narrow stretches with vertical drops; some sections have damaged or missing railings.",
+      "tunnels": {
+        "count": 1,
+        "notes": "One long rock-cut tunnel on Levada Nova with low ceilings in places; headlamp strongly recommended."
+      },
+      "popularity": "High",
+      "popularity_notes": "Among the most-reviewed non-PR Madeira trails on AllTrails (4.7/5, 5,478+ reviews) and almost universally listed in 'best Madeira levada walks' blog posts. AllTrails describes the area as 'very busy'; parking fills rapidly.",
+      "alltrails_review_count": 5478
+    },
+    {
+      "pr_code": "Combined (PR 6.2 + PR 6.3 + PR 6.4)",
+      "name": "Rabaçal Loop — Lagoa do Vento (PR 6.2 / 6.3 / 6.4)",
+      "location": "Rabaçal, Paúl da Serra plateau (central-west Madeira)",
+      "status": "Open (combined route over existing PR sections; depends on each component's status)",
+      "image": null,
+      "official_url": null,
+      "alltrails_url": null,
+      "komoot_url": "https://www.komoot.com/tour/2112830446?share_token=aGKq4nDDEKJuzsluANjJg1xPqJS8zu84YvnX4TVnxp3aI9gbV3",
+      "alternative_names": [
+        "Rabaçal Lagoa da Vento - PR 6.2-4",
+        "Rabaçal Lagoa do Vento Loop"
+      ],
+      "distance_km": 13.0,
+      "duration_hours": 4.27,
+      "difficulty": "Moderate",
+      "type": "Loop (combined PRs)",
+      "elevation_gain_m": 500,
+      "start_point": "Rabaçal car park (top, off ER110 / Paúl da Serra)",
+      "end_point": "Rabaçal car park (loop)",
+      "fee_required": true,
+      "fee_amount": "PR 6.2, PR 6.3 and PR 6.4 each carry the standard €3 PR access fee (paid per trail per day). Check current status of each PR before going.",
+      "highlights": [
+        "Levada do Alecrim — quiet, mossy laurissilva levada (PR 6.2)",
+        "Descent to Lagoa do Vento — hidden waterfall lake at the head of a steep valley (PR 6.3)",
+        "Wind Peak viewpoint with valley framing (komoot highlight)",
+        "Levada Velha do Rabaçal — historic upper levada section (PR 6.4)",
+        "Combines three official PRs into a single satisfying day"
+      ],
+      "equipment_needed": [
+        "Sturdy hiking shoes",
+        "Trekking poles useful on the Lagoa do Vento descent",
+        "Headlamp (PR 6.4 has tunnel sections)",
+        "Layers — Paúl da Serra weather is unpredictable",
+        "Water and snacks (no facilities mid-route)"
+      ],
+      "safety_notes": "Off-grid segment for ~161 m after 10.4 km — navigation care needed. The Lagoa do Vento descent is steep and can be slippery when wet. Check each component PR's status (open/closed) before setting out via the official Visit Madeira PR navigator.",
+      "best_season": "Late spring to early autumn (the Paúl da Serra plateau gets cold and foggy in winter).",
+      "parking_location": "Rabaçal car park on the ER110 / Paúl da Serra (the new shuttle system for PR6 may also apply here).",
+      "parking_cost": "Parking free at the upper Rabaçal car park; shuttle fee may apply if walking down from there.",
+      "exposure_rating": "Low to Moderate",
+      "exposure_notes": "Mostly forested levada walking with some open stretches on Paúl da Serra; the Lagoa do Vento descent has steep ground but not cliff exposure.",
+      "tunnels": {
+        "count": "Multiple (within PR 6.4 component)",
+        "notes": "Headlamp recommended for the PR 6.4 (Levada Velha do Rabaçal) section."
+      },
+      "popularity": "Low",
+      "popularity_notes": "The route as a single combined loop has minimal online presence (only 3 likes on the source Komoot tour) — but each component PR appears in serious hiking guides. The combined loop is a niche, slightly off-the-beaten-track alternative to the busy 25 Fontes/Risco circuit.",
+      "alltrails_review_count": null,
+      "related_blog_url": "https://www.trailsandterroirs.com/adventure/hiking-lagoa-do-vento",
+      "source_curator": "Trails and Terroirs (Komoot)"
+    },
+    {
+      "pr_code": null,
+      "name": "Porto da Cruz to Caniçal — Vereda do Larano & Boca do Risco",
+      "location": "East Madeira coast (Porto da Cruz — Larano — Boca do Risco — Caniçal)",
+      "status": "Open (no official PR designation; no advance reservation required as of Feb 2026)",
+      "image": null,
+      "official_url": null,
+      "alltrails_url": "https://www.alltrails.com/trail/portugal/madeira--2/vereda-do-larano-boca-do-risco",
+      "komoot_url": "https://www.komoot.com/tour/2069166688?share_token=aLG66PBpauxKc7SaxFaqq6IyX5cB9cuQB3sfrieIKu849oo2d6",
+      "alternative_names": [
+        "Vereda do Larano - Boca do Risco",
+        "Larano Coastal Trail",
+        "Porto da Cruz – Boca do Risco – Caniçal"
+      ],
+      "distance_km": 8.35,
+      "duration_hours": 3.65,
+      "difficulty": "Hard",
+      "type": "Point-to-point (one-way)",
+      "elevation_gain_m": 390,
+      "start_point": "Porto da Cruz (coastal village on the east coast)",
+      "end_point": "Caniçal (old tunnel area)",
+      "fee_required": false,
+      "fee_amount": "No fee required as of Feb 2026 — verify current status before going.",
+      "highlights": [
+        "400 m vertical cliff-edge views over the north coast",
+        "Yellow Ridge viewpoint",
+        "Boca do Risco mountain pass with vistas to Ponta de São Lourenço, Penha d'Águia, and (on clear days) Porto Santo island",
+        "Roçadas Peak viewpoint",
+        "Historic trade route once used by locals between Machico/Caniçal and Porto da Cruz",
+        "Endemic flora; mostly free of tourist crowds (often described as 'underrated')"
+      ],
+      "equipment_needed": [
+        "Sturdy hiking boots (not trainers) — trail gets steep and slippery",
+        "Sun protection (some sections fully exposed)",
+        "Rain jacket (weather changes fast on the north coast)",
+        "Trekking poles helpful on the descents",
+        "Water; no facilities mid-route"
+      ],
+      "safety_notes": "Komoot rates this 'Hard' with a 'segment that may be dangerous' (alpine hiking path, ~2.37 km after the 4.63 km mark). Sure-footedness, sturdy shoes and alpine experience required. Cliff-edge sections with exposed drops of up to 400 m; not for vertigo sufferers. Trail signage is reportedly inconsistent in places — bring offline maps. Avoid in wet/windy conditions.",
+      "best_season": "Spring (April–May) and autumn (September–October) for stable weather and comfortable temperatures.",
+      "parking_location": "Limited parking near the trailhead 3 km uphill from Porto da Cruz (a small sand pit fits a few cars). Alternative: park in Porto da Cruz or Machico and use the bus.",
+      "parking_cost": "Free (limited)",
+      "exposure_rating": "High",
+      "exposure_notes": "Long sections run along narrow paths carved into cliffs 300–400 m above the sea; some sketchy bits have railings, others do not. The path is generally wide enough to feel safe in dry conditions but vertigo sufferers should avoid.",
+      "tunnels": {
+        "count": 0,
+        "notes": "No major tunnels on the route itself (the old Caniçal tunnel sits near the eastern trailhead but is not walked through)."
+      },
+      "popularity": "High",
+      "popularity_notes": "Has 1,221+ AllTrails reviews on the most popular variant and additional reviews across alternative versions (Porto da Cruz - Boca do Risco: 328; Larano - Pico do Furado - Pico da Coroa loop: 173). Multiple bloggers call it 'Madeira's most breathtaking coastal hike' or 'one of the most underrated hikes in Madeira'. Still noticeably less crowded than PR1/PR6/PR8.",
+      "alltrails_review_count": 1221,
+      "related_blog_url": "https://www.trailsandterroirs.com/adventure/incredible-coastal-hike-madeira",
+      "source_curator": "Trails and Terroirs (Komoot)",
+      "transport": {
+        "bus_funchal_to_machico": "Bus 113 (Funchal ↔ Machico)",
+        "bus_machico_to_porto_da_cruz": "Bus 53 (Machico ↔ Porto da Cruz)"
       }
     }
   ]

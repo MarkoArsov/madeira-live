@@ -30,6 +30,8 @@
 
   <link rel="manifest" href="./manifest.json" />
   <link rel="icon" type="image/svg+xml" href="./icons/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="96x96" href="./icons/favicon-96x96.png" />
+  <link rel="shortcut icon" href="./icons/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png" />
 
   <link rel="preconnect" href="https://i.ytimg.com" crossorigin />
@@ -524,15 +526,16 @@
       position: sticky;
       top: 0;
       z-index: 4;
-      background: var(--bg-scrim);
-      backdrop-filter: saturate(160%) blur(20px);
-      -webkit-backdrop-filter: saturate(160%) blur(20px);
+      background: var(--bg);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
       padding-top: calc(env(safe-area-inset-top) + var(--space-3));
       padding-bottom: var(--space-3);
       display: flex;
       align-items: center;
       gap: 10px;
-      border-bottom: 1px solid var(--hairline);
+      border-bottom: 1px solid rgba(84, 107, 65, 0.24);
+      box-shadow: 0 8px 16px rgba(42, 58, 31, 0.12);
     }
     .chips-leading {
       flex: 0 0 auto;
@@ -1134,7 +1137,7 @@
       max-width: 520px;
       margin: 0 auto;
     }
-    .trails-head { margin-bottom: var(--space-6); }
+    .trails-head { margin-bottom: var(--space-4); }
     .trails-eyebrow {
       font-size: 10.5px;
       letter-spacing: 0.24em;
@@ -1142,9 +1145,10 @@
       color: var(--forest);
       font-weight: 700;
       margin-bottom: 12px;
+      display: none;
     }
     .trails-h1 {
-      margin: 0 0 10px;
+      margin: 0 0 6px;
       font-size: 36px;
       font-weight: 500;
       letter-spacing: -0.022em;
@@ -1154,7 +1158,7 @@
     .trails-lede {
       margin: 0;
       font-size: 14px;
-      line-height: 1.55;
+      line-height: 1.48;
       color: var(--ink-soft);
       max-width: 34ch;
     }
@@ -1162,17 +1166,200 @@
       display: flex; flex-direction: column;
       gap: 10px;
     }
-    .trails-filter {
+    .trails-tools {
+      display: grid;
+      gap: 10px;
       margin: 0 0 var(--space-4);
-      display: flex;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--bg);
+      margin-left: calc(var(--space-4) * -1);
+      margin-right: calc(var(--space-4) * -1);
+      padding: 8px var(--space-4) 10px;
     }
-    .trails-filter .chip-toggle svg { width: 14px; height: 14px; }
+    .trails-tools--scrolled {
+      border-bottom: 1px solid rgba(84, 107, 65, 0.24);
+      box-shadow: 0 8px 16px rgba(42, 58, 31, 0.12);
+    }
+    .trails-search-wrap {
+      position: relative;
+    }
+    .trails-search-icon {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ink-muted);
+      pointer-events: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .trails-search-icon svg {
+      width: 14px;
+      height: 14px;
+    }
+    .trails-search {
+      width: 100%;
+      height: 40px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--ink);
+      font-size: 13.5px;
+      padding: 0 14px 0 35px;
+      letter-spacing: -0.004em;
+      outline: none;
+      transition: border-color 0.18s var(--ease-out), box-shadow 0.18s var(--ease-out), background 0.18s var(--ease-out);
+    }
+    .trails-search::placeholder { color: var(--ink-muted); }
+    .trails-search:focus {
+      border-color: var(--forest);
+      box-shadow: 0 0 0 3px rgba(63, 83, 49, 0.16);
+    }
+    .trails-sort-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+      align-items: center;
+    }
+    .trails-sort-row--single {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+    }
+    .trails-sort {
+      position: relative;
+      min-width: 0;
+    }
+    .trails-sort-trigger {
+      width: 100%;
+      height: 36px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--ink-soft);
+      font-size: 12.5px;
+      font-weight: 600;
+      letter-spacing: -0.004em;
+      padding: 0 6px 0 12px;
+      outline: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      transition: border-color 0.18s var(--ease-out), box-shadow 0.18s var(--ease-out), background 0.18s var(--ease-out), color 0.18s var(--ease-out);
+    }
+    .trails-sort-trigger:focus,
+    .trails-sort-trigger[data-open="true"] {
+      border-color: var(--forest);
+      box-shadow: 0 0 0 3px rgba(63, 83, 49, 0.16);
+      color: var(--ink);
+    }
+    .trails-sort-label {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-align: left;
+    }
+    .trails-sort-chevron {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-muted);
+      background: rgba(63, 83, 49, 0.08);
+      transition: transform 0.2s var(--ease-out), color 0.18s var(--ease-out), background 0.18s var(--ease-out);
+      flex-shrink: 0;
+    }
+    .trails-sort-trigger[data-open="true"] .trails-sort-chevron {
+      transform: rotate(180deg);
+      color: var(--forest-deep);
+      background: rgba(63, 83, 49, 0.14);
+    }
+    .trails-sort-chevron svg { width: 14px; height: 14px; }
+    .trails-sort-panel {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      right: 0;
+      z-index: 40;
+      border-radius: var(--r-md);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      box-shadow: 0 14px 28px rgba(42, 58, 31, 0.14), 0 4px 10px rgba(42, 58, 31, 0.1);
+      padding: 10px;
+      opacity: 0;
+      transform: translateY(-4px) scale(0.98);
+      transform-origin: top center;
+      pointer-events: none;
+      visibility: hidden;
+      transition: opacity 0.2s var(--ease-out), transform 0.24s var(--ease-out), visibility 0.24s var(--ease-out);
+    }
+    .trails-sort-panel[data-open="true"] {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+      visibility: visible;
+    }
+    .trails-sort-group { display: grid; gap: 8px; }
+    .trails-sort-group + .trails-sort-group { margin-top: 10px; }
+    .trails-sort-k {
+      margin: 0;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--ink-muted);
+    }
+    .trails-sort-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .trails-sort-opt {
+      height: 30px;
+      padding: 0 10px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--ink-soft);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: -0.003em;
+      transition: transform 0.12s var(--ease-out), background 0.18s var(--ease-out), color 0.18s var(--ease-out), border-color 0.18s var(--ease-out);
+    }
+    .trails-sort-opt:active { transform: scale(0.97); }
+    .trails-sort-opt[aria-pressed="true"] {
+      border-color: var(--forest);
+      background: var(--forest);
+      color: var(--on-accent);
+    }
+    .trails-favs-toggle {
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      border-radius: 999px;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+    .trails-favs-toggle svg {
+      width: 17px;
+      height: 17px;
+      display: block;
+    }
 
     .trail-card-wrap { position: relative; }
     .trail-fav {
       position: absolute;
       top: 10px; right: 10px;
-      width: 28px; height: 28px;
+      width: 34px; height: 34px;
       padding: 0;
       background: transparent;
       border: 0;
@@ -1182,7 +1369,7 @@
       transition: color 0.18s var(--ease-out), transform 0.12s var(--ease-out);
     }
     .trail-fav:active { transform: scale(0.86); }
-    .trail-fav svg { width: 20px; height: 20px; }
+    .trail-fav svg { width: 25px; height: 25px; }
     .trail-fav[aria-pressed="true"] { color: var(--live); }
 
     /* Heart on the sheet header — same visual treatment, slightly bigger. */
@@ -1196,7 +1383,7 @@
       flex-shrink: 0;
       transition: color 0.18s var(--ease-out), transform 0.12s var(--ease-out);
     }
-    .sheet-fav svg { width: 22px; height: 22px; }
+    .sheet-fav svg { width: 25px; height: 25px; }
     .sheet-fav:active { transform: scale(0.88); }
     .sheet-fav[aria-pressed="true"] { color: var(--live); }
     .trail-card {
@@ -1205,7 +1392,7 @@
       background: var(--bg-elevated);
       border: 1px solid var(--hairline);
       border-radius: var(--r-md);
-      padding: 10px;
+      padding: 6px;
       text-align: left;
       width: 100%;
       box-shadow: 0 1px 2px rgba(42, 58, 31, 0.04);
@@ -1232,7 +1419,7 @@
       flex: 1; min-width: 0;
       display: flex; flex-direction: column;
       gap: 5px;
-      padding: 1px 0;
+      padding: 1px 34px 1px 0;
     }
     .trail-code {
       font-size: 10px;
@@ -1384,6 +1571,15 @@
     }
     .trail-cta:active { transform: scale(0.98); background: var(--forest-deep); }
     .trail-cta svg { width: 16px; height: 16px; }
+
+    .trail-cta-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .trail-cta-row[data-count="1"] { grid-template-columns: 1fr; }
+    .trail-cta-row .trail-cta { width: auto; }
 
     .trail-cta-pair {
       display: grid;
@@ -1602,7 +1798,7 @@
       max-width: 480px;
       margin: 0 auto;
     }
-    .settings-head { margin-bottom: var(--space-7); }
+    .settings-head { margin-bottom: var(--space-5); }
     .settings-eyebrow {
       font-size: 10.5px;
       letter-spacing: 0.24em;
@@ -1610,9 +1806,10 @@
       color: var(--forest);
       font-weight: 700;
       margin-bottom: 14px;
+      display: none;
     }
     .settings-h1 {
-      margin: 0 0 12px;
+      margin: 0 0 7px;
       font-size: 44px;
       font-weight: 500;
       letter-spacing: -0.024em;
@@ -1622,7 +1819,7 @@
     .settings-lede {
       margin: 0;
       font-size: 14px;
-      line-height: 1.55;
+      line-height: 1.48;
       color: var(--ink-soft);
       max-width: 32ch;
     }
@@ -1788,6 +1985,8 @@
       { id: 'cameras',   label: 'More cameras',          icon: 'camera',   href: 'https://www.madeira-web.com/de/webcams.html' },
       { id: 'bus',       label: 'Bus & airport shuttle', icon: 'bus',      href: 'https://siga.madeira.gov.pt/aerobus' },
       { id: 'weather',   label: 'Weather forecast',      icon: 'sun-cloud',href: 'https://www.ipma.pt/en/otempo/prev.localidade.hora/index.jsp#Madeira&Funchal' },
+      { id: 'trails-status', label: 'Trails status map', icon: 'trail',    href: 'https://visitmadeira.com/en/what-to-do/nature-seekers/notice-to-walkers-and-list-of-walks/' },
+      { id: 'simplifica-reservation', label: 'Simplifica trail reservation', icon: 'document', href: 'https://simplifica.madeira.gov.pt/services/78-82-259' },
       { id: 'water',     label: 'Water temperature',     icon: 'droplet',  href: 'https://www.ipma.pt/pt/maritima/costeira/index.jsp?selLocal=182&idLocal=182' },
       { id: 'ferry',     label: 'Porto Santo ferry',     icon: 'ferry',    href: 'https://www.portosantoline.pt/' },
       { id: 'tours',     label: 'Epic Madeira Tours',    icon: 'sparkles', href: 'https://epicmadeira.com/' },
@@ -1860,13 +2059,21 @@
         return PREFER_APP_HOSTS.some((d) => h === d || h.endsWith('.' + d));
       } catch { return false; }
     }
+
+    function canUseChromeScheme() {
+      const ua = navigator.userAgent || '';
+      const isiPhoneOrIPad = /iPhone|iPad|iPod/i.test(ua);
+      const isIPadDesktopUA = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+      return isiPhoneOrIPad || isIPadDesktopUA;
+    }
+
     function openExternal(url) {
       if (!url) return;
       if (prefersNativeApp(url)) {
         window.open(url, '_blank', 'noopener,noreferrer');
         return;
       }
-      if (readChromePref()) { window.location.href = chromifyUrl(url); return; }
+      if (readChromePref() && canUseChromeScheme()) { window.location.href = chromifyUrl(url); return; }
       window.open(url, '_blank', 'noopener,noreferrer');
     }
 
@@ -2049,12 +2256,14 @@
       thermo: html`<path d="M12 3a2.5 2.5 0 0 0-2.5 2.5v9.05a4 4 0 1 0 5 0V5.5A2.5 2.5 0 0 0 12 3z"/><path d="M12 10v6"/>`,
       compass: html`<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5.5-5.5 2 2-5.5z" fill="currentColor" stroke="none"/>`,
       document: html`<path d="M7 3h7l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 17h4"/>`,
+      search: html`<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/>`,
       bus: html`<rect x="4" y="5" width="16" height="13" rx="2"/><path d="M4 11h16M8 5V3h8v2"/><circle cx="8" cy="18" r="1.5" fill="currentColor" stroke="none"/><circle cx="16" cy="18" r="1.5" fill="currentColor" stroke="none"/>`,
       ferry: html`<path d="M3 17c1.5 1 3 1 4.5 0s3-1 4.5 0 3 1 4.5 0 3-1 4.5 0"/><path d="M4 14l8-7 8 7"/><path d="M7 14V9h10v5"/><path d="M12 4v3"/>`,
       droplet: html`<path d="M12 3.5C8 8 5.5 11 5.5 14.5a6.5 6.5 0 0 0 13 0C18.5 11 16 8 12 3.5z"/>`,
       sparkles: html`<path d="M12 4l1.4 3.4L17 9l-3.6 1.6L12 14l-1.4-3.4L7 9l3.6-1.6z" fill="currentColor" stroke="none"/><path d="M18 14l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z" fill="currentColor" stroke="none"/>`,
       heart: html`<path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 8.8 6c1.6 0 2.7 1 3.2 2.1C12.5 7 13.6 6 15.2 6a4.3 4.3 0 0 1 4.3 4.3c0 5.6-7.5 10.2-7.5 10.2z"/>`,
       'heart-fill': html`<path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 8.8 6c1.6 0 2.7 1 3.2 2.1C12.5 7 13.6 6 15.2 6a4.3 4.3 0 0 1 4.3 4.3c0 5.6-7.5 10.2-7.5 10.2z" fill="currentColor"/>`,
+      'chevron-down': html`<path d="M6.5 9.5 12 15l5.5-5.5"/>`,
       camera: html`<rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z" fill="currentColor"/>`,
       trail: html`<path d="M4 16 L9 7 L12 11 L15 7 L20 16 Z"/>`,
       mountain: html`<path d="M4 16 L9 7 L12 11 L15 7 L20 16 Z"/>`,
@@ -3016,6 +3225,87 @@
     /* ============================================================
        Trails — list view + detail sheet
        ============================================================ */
+    function parseDurationHours(raw) {
+      if (!raw || typeof raw !== 'string') return null;
+      const nums = raw.match(/\d+(?:\.\d+)?/g);
+      if (!nums || nums.length === 0) return null;
+      const values = nums.map((n) => Number(n)).filter(Number.isFinite);
+      if (!values.length) return null;
+      return Math.max(...values);
+    }
+
+    function parseDifficultyRank(raw) {
+      if (!raw || typeof raw !== 'string') return null;
+      const v = raw.toLowerCase();
+      if (v.includes('very easy')) return 0;
+      const tags = [];
+      if (v.includes('easy-moderate')) tags.push(2);
+      if (v.includes('moderate-hard')) tags.push(4);
+      if (v.includes('easy')) tags.push(1);
+      if (v.includes('moderate')) tags.push(3);
+      if (v.includes('hard')) tags.push(5);
+      if (!tags.length) return null;
+      return Math.max(...tags);
+    }
+
+    function parsePopularityRank(raw) {
+      if (!raw || typeof raw !== 'string') return null;
+      const v = raw.trim().toLowerCase();
+      if (v === 'very low') return 0;
+      if (v === 'low') return 1;
+      if (v === 'medium') return 2;
+      if (v === 'high') return 3;
+      if (v === 'very high') return 4;
+      return null;
+    }
+
+    function parsePrSortKey(prCode) {
+      if (!prCode || typeof prCode !== 'string') return [Number.POSITIVE_INFINITY];
+      const normalized = prCode.trim().toLowerCase().replace(/^pr\s*/i, '');
+      const parts = normalized.match(/\d+|[a-z]+/g);
+      if (!parts) return [Number.POSITIVE_INFINITY];
+      return parts.map((part) => (/^\d+$/.test(part) ? Number(part) : part));
+    }
+
+    function comparePrCodes(aCode, bCode) {
+      const a = parsePrSortKey(aCode);
+      const b = parsePrSortKey(bCode);
+      const len = Math.max(a.length, b.length);
+      for (let i = 0; i < len; i += 1) {
+        const av = a[i];
+        const bv = b[i];
+        if (av == null && bv == null) return 0;
+        if (av == null) return -1;
+        if (bv == null) return 1;
+        const aNum = typeof av === 'number';
+        const bNum = typeof bv === 'number';
+        if (aNum && bNum) {
+          if (av < bv) return -1;
+          if (av > bv) return 1;
+        } else if (aNum && !bNum) {
+          return -1;
+        } else if (!aNum && bNum) {
+          return 1;
+        } else {
+          const cmp = String(av).localeCompare(String(bv));
+          if (cmp !== 0) return cmp;
+        }
+      }
+      return 0;
+    }
+
+    function trailSearchText(trail) {
+      return [
+        trail.name,
+        trail.pr_code,
+        trail.alternative_names,
+        trail.highlights,
+        trail.start_point,
+        trail.end_point,
+        trail.difficulty,
+      ].filter(Boolean).join(' ').toLowerCase();
+    }
+
     function TrailCard({ trail, onSelect, isFav, toggleFav }) {
       const [imgOk, setImgOk] = useState(true);
       const distance = trail.distance_km;
@@ -3055,9 +3345,83 @@
 
     function TrailsView({ trails, onSelect, favs, toggleFav }) {
       const [showFavsOnly, setShowFavsOnly] = useState(false);
+      const [query, setQuery] = useState('');
+      const [sortField, setSortField] = useState('popularity');
+      const [sortDir, setSortDir] = useState('desc');
+      const [sortOpen, setSortOpen] = useState(false);
+      const [toolsScrolled, setToolsScrolled] = useState(false);
+      const sortRef = useRef(null);
+
+      const onTrailsScroll = (e) => {
+        const next = e.currentTarget.scrollTop > 0;
+        setToolsScrolled((prev) => (prev === next ? prev : next));
+      };
+
+      const sortFieldLabels = {
+        popularity: 'Popularity',
+        pr: 'PR number',
+        difficulty: 'Difficulty',
+        distance: 'Distance',
+        duration: 'Duration',
+        elevation: 'Elevation',
+      };
+
+      const sortLabel = `Sort: ${sortFieldLabels[sortField]} (${sortDir === 'asc' ? 'Ascending' : 'Descending'})`;
+
+      useEffect(() => {
+        if (!sortOpen) return;
+        const onPointerDown = (e) => {
+          const node = sortRef.current;
+          if (node && !node.contains(e.target)) setSortOpen(false);
+        };
+        const onKeyDown = (e) => {
+          if (e.key === 'Escape') setSortOpen(false);
+        };
+        document.addEventListener('pointerdown', onPointerDown);
+        window.addEventListener('keydown', onKeyDown);
+        return () => {
+          document.removeEventListener('pointerdown', onPointerDown);
+          window.removeEventListener('keydown', onKeyDown);
+        };
+      }, [sortOpen]);
+
       const visible = useMemo(
-        () => (showFavsOnly ? trails.filter((t) => favs.has(t.pr_code)) : trails),
-        [trails, showFavsOnly, favs]
+        () => {
+          const q = query.trim().toLowerCase();
+          let base = showFavsOnly ? trails.filter((t) => favs.has(t.pr_code)) : trails;
+          if (q) base = base.filter((trail) => trailSearchText(trail).includes(q));
+
+          const direction = sortDir === 'desc' ? -1 : 1;
+          const withIndex = base.map((trail, idx) => ({ trail, idx }));
+          const valueOf = (trail) => {
+            if (sortField === 'popularity') return parsePopularityRank(trail.popularity);
+            if (sortField === 'pr') return parsePrSortKey(trail.pr_code);
+            if (sortField === 'distance') return trail.distance_km;
+            if (sortField === 'elevation') return trail.elevation_gain_m;
+            if (sortField === 'duration') return parseDurationHours(trail.duration_hours);
+            if (sortField === 'difficulty') return parseDifficultyRank(trail.difficulty);
+            return null;
+          };
+
+          withIndex.sort((a, b) => {
+            if (sortField === 'pr') {
+              const cmp = comparePrCodes(a.trail.pr_code, b.trail.pr_code);
+              if (cmp !== 0) return cmp * direction;
+              return a.idx - b.idx;
+            }
+            const av = valueOf(a.trail);
+            const bv = valueOf(b.trail);
+            if (av == null && bv == null) return a.idx - b.idx;
+            if (av == null) return 1;
+            if (bv == null) return -1;
+            if (av < bv) return -1 * direction;
+            if (av > bv) return 1 * direction;
+            return a.idx - b.idx;
+          });
+
+          return withIndex.map((entry) => entry.trail);
+        },
+        [trails, showFavsOnly, favs, query, sortField, sortDir]
       );
       // Auto-disable the filter if the user un-favorites their last trail
       // while the filter is active — otherwise they'd see an empty list with
@@ -3068,22 +3432,77 @@
 
       return html`
         <div class="page page--trails">
-          <div class="trails-scroll">
+          <div class="trails-scroll" onScroll=${onTrailsScroll}>
             <div class="trails-inner">
               <header class="trails-head">
                 <div class="trails-eyebrow">Mira · Trails</div>
                 <h1 class="trails-h1 serif">Walk the laurel.</h1>
                 <p class="trails-lede">All ${trails.length} official PR hiking trails across Madeira and Porto Santo.</p>
               </header>
-              ${favs.size > 0 && html`
-                <div class="trails-filter">
-                  <button class="chip-toggle"
-                          aria-pressed=${showFavsOnly}
-                          onClick=${() => setShowFavsOnly((v) => !v)}>
-                    <${Icon} name=${showFavsOnly ? 'heart-fill' : 'heart'} />
-                    <span>Favorites (${favs.size})</span>
-                  </button>
-                </div>`}
+              <div class=${`trails-tools${toolsScrolled ? ' trails-tools--scrolled' : ''}`}>
+                <div class="trails-search-wrap">
+                  <span class="trails-search-icon"><${Icon} name="search" /></span>
+                  <input class="trails-search"
+                         type="search"
+                         value=${query}
+                         onInput=${(e) => setQuery(e.target.value)}
+                         placeholder="Search trails, codes, highlights, start/end, difficulty" />
+                </div>
+                <div class=${`trails-sort-row${favs.size > 0 ? '' : ' trails-sort-row--single'}`}>
+                  <div class="trails-sort" ref=${sortRef}>
+                    <button class="trails-sort-trigger"
+                            type="button"
+                            data-open=${sortOpen}
+                            aria-haspopup="menu"
+                            aria-expanded=${sortOpen}
+                            onClick=${() => setSortOpen((v) => !v)}>
+                      <span class="trails-sort-label">${sortLabel}</span>
+                      <span class="trails-sort-chevron"><${Icon} name="chevron-down" /></span>
+                    </button>
+                    <div class="trails-sort-panel" data-open=${sortOpen} role="menu" aria-label="Sort trails">
+                      <div class="trails-sort-group">
+                        <p class="trails-sort-k">Type</p>
+                        <div class="trails-sort-options">
+                          ${Object.entries(sortFieldLabels).map(([value, label]) => html`
+                            <button class="trails-sort-opt" type="button" key=${value}
+                                    role="menuitemradio"
+                                    aria-checked=${sortField === value}
+                                    aria-pressed=${sortField === value}
+                                    onClick=${() => setSortField(value)}>
+                              ${label}
+                            </button>`)}
+                        </div>
+                      </div>
+                      <div class="trails-sort-group">
+                        <p class="trails-sort-k">Order</p>
+                        <div class="trails-sort-options">
+                          <button class="trails-sort-opt" type="button"
+                                  role="menuitemradio"
+                                  aria-checked=${sortDir === 'asc'}
+                                  aria-pressed=${sortDir === 'asc'}
+                                  onClick=${() => setSortDir('asc')}>
+                            Ascending
+                          </button>
+                          <button class="trails-sort-opt" type="button"
+                                  role="menuitemradio"
+                                  aria-checked=${sortDir === 'desc'}
+                                  aria-pressed=${sortDir === 'desc'}
+                                  onClick=${() => setSortDir('desc')}>
+                            Descending
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  ${favs.size > 0 && html`
+                    <button class="chip-toggle trails-favs-toggle"
+                            aria-pressed=${showFavsOnly}
+                            aria-label=${showFavsOnly ? `Show all trails (${favs.size} favorites saved)` : `Show favorites only (${favs.size})`}
+                            onClick=${() => setShowFavsOnly((v) => !v)}>
+                      <${Icon} name=${showFavsOnly ? 'heart-fill' : 'heart'} />
+                    </button>`}
+                </div>
+              </div>
               <div class="trails-list">
                 ${visible.map((t) => html`<${TrailCard} key=${t.pr_code} trail=${t} onSelect=${onSelect}
                                                        isFav=${favs.has(t.pr_code)} toggleFav=${toggleFav} />`)}
@@ -3139,6 +3558,7 @@
         : null;
 
       const stats = [];
+      if (trail.popularity)         stats.push(['Popularity', trail.popularity]);
       if (trail.difficulty)         stats.push(['Difficulty', trail.difficulty]);
       if (trail.distance_km != null) stats.push(['Distance', `${trail.distance_km} km`]);
       if (trail.duration_hours)     stats.push(['Duration', `${trail.duration_hours} h`]);
@@ -3243,12 +3663,19 @@
                     </div>`)}
                 </section>`}
 
-              ${trail.official_url && html`
+              <div class="trail-cta-row" data-count=${trail.official_url ? 2 : 1}>
+                ${trail.official_url && html`
+                  <button class="trail-cta" type="button"
+                          onClick=${() => openExternal(trail.official_url)}>
+                    <${Icon} name="external" />
+                    Visit Madeira
+                  </button>`}
                 <button class="trail-cta" type="button"
-                        onClick=${() => openExternal(trail.official_url)}>
+                        onClick=${() => openExternal('https://simplifica.madeira.gov.pt/services/78-82-259')}>
                   <${Icon} name="external" />
-                  View on Visit Madeira
-                </button>`}
+                  Reservation
+                </button>
+              </div>
 
               ${externalCtas.length > 0 && html`
                 <div class="trail-cta-pair" data-count=${externalCtas.length}>
