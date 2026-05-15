@@ -79,7 +79,11 @@
       "Bash(mkdir -p vendor/leaflet/1.9.4/images)",
       "Bash(mkdir -p fonts)",
       "PowerShell($ProgressPreference='SilentlyContinue'; $base='https://unpkg.com/leaflet@1.9.4/dist/'; $dest='vendor/leaflet/1.9.4/'; Invoke-WebRequest -UseBasicParsing -Uri \\($base+'leaflet.js'\\) -OutFile \\($dest+'leaflet.js'\\); Invoke-WebRequest -UseBasicParsing -Uri \\($base+'leaflet.css'\\) -OutFile \\($dest+'leaflet.css'\\); $imgs=@\\('marker-icon.png','marker-icon-2x.png','marker-shadow.png','layers.png','layers-2x.png'\\); foreach \\($f in $imgs\\) { Invoke-WebRequest -UseBasicParsing -Uri \\($base+'images/'+$f\\) -OutFile \\($dest+'images/'+$f\\) }; Get-ChildItem $dest -Recurse | Select-Object FullName, Length)",
-      "Bash(xargs ls -la)"
+      "Bash(xargs ls -la)",
+      "WebFetch(domain:www.alltrails.com)",
+      "WebSearch",
+      "WebFetch(domain:visitmadeira.com)",
+      "WebFetch(domain:walkmeguide.com)"
     ]
   }
 }

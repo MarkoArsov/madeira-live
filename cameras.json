@@ -14,7 +14,9 @@
   { "name": "Madalena do Mar",      "type": "youtube", "id": "8e0UGWin4J0", "stationId": 1210986, "lat": 32.70125212692035,  "lng": -17.134164842996583, "region": "South" },
   { "name": "Rabaçal",              "type": "youtube", "id": "a9uoa-Q97zw", "stationId": 1210973, "lat": 32.7556098119273,   "lng": -17.134199201489963, "region": "Mountains" },
   { "name": "Porto Santo",          "type": "youtube", "id": "m_y8kzegqDo", "stationId": 1200524, "lat": 33.05754618203754,  "lng": -16.334610987286798, "region": "Porto Santo" },
+  { "name": "Porto Santo Beach",    "type": "hls",     "url": "https://video-auth1.iol.pt/beachcam/bcportosanto/playlist.m3u8", "stationId": 1200524, "lat": 33.03841770662086, "lng": -16.357730802350595, "region": "Porto Santo" },
   { "name": "Porto Moniz",          "type": "iframe",  "url": "https://stream.madeirawebcams.com/dab34e3a-a67a-4d47-9580-3d408d545431.html?rel=0&autoplay=1&mute=1", "stationId": 1210956, "lat": 32.866605352082296, "lng": -17.169411259016112, "region": "North Coast" },
+  { "name": "Seixal Beach",         "type": "hls",     "url": "https://video-auth1.iol.pt/beachcam/bcmadeiraseixal/playlist.m3u8", "stationId": 1210967, "lat": 32.82241880361249, "lng": -17.102314325814717, "region": "Beaches" },
 
   { "name": "Santana",                  "type": "weather", "stationId": 1210965, "lat": 32.8082, "lng": -16.8864, "region": "North Coast" },
   { "name": "São Vicente",              "type": "weather", "stationId": 1210967, "lat": 32.8002, "lng": -17.0447, "region": "North Coast" },

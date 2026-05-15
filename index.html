@@ -464,13 +464,22 @@
        ============================================================ */
       .tabbar-wrap {
         position: fixed;
-        left: 50%;
-        bottom: calc(env(safe-area-inset-bottom) + 4px);
-        transform: translateX(-50%);
+        left: 0;
+        right: 0;
+        bottom: 0;
         z-index: 30;
         pointer-events: none;
         display: flex;
         justify-content: center;
+      }
+      .tabbar-wrap--pwa {
+        left: 50%;
+        right: auto;
+        bottom: calc(env(safe-area-inset-bottom) + 4px);
+        transform: translateX(-50%);
+      }
+      .tabbar-wrap--browser {
+        padding-bottom: env(safe-area-inset-bottom);
       }
       .tabbar {
         pointer-events: auto;
@@ -488,6 +497,14 @@
           0 60px 110px rgba(42, 58, 31, 0.52);
         backdrop-filter: saturate(180%) blur(24px);
         -webkit-backdrop-filter: saturate(180%) blur(24px);
+      }
+      .tabbar-wrap--browser .tabbar {
+        width: 100%;
+        justify-content: center;
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 0;
       }
       :root[data-theme="dark"] .tabbar {
         box-shadow:
@@ -1331,13 +1348,16 @@
       }
       /* Detail-sheet stream: iframe receives no taps (controls=0 anyway), so the
        overlay buttons always win on iOS. */
-      .stream iframe {
+      .stream iframe,
+      .stream video {
         position: absolute;
         inset: 0;
         width: 100%;
         height: 100%;
         border: 0;
         z-index: 1;
+      }
+      .stream iframe {
         pointer-events: none;
       }
       .stream-live {
@@ -1564,7 +1584,8 @@
         background-position: center;
         background-color: #000;
       }
-      .fs-inner iframe {
+      .fs-inner iframe,
+      .fs-inner video {
         width: 100%;
         height: 100%;
         border: 0;
@@ -2951,6 +2972,28 @@
         return isiPhoneOrIPad || isIPadDesktopUA;
       }
 
+      function isMobilePlatform() {
+        const ua = navigator.userAgent || "";
+        const isIOS =
+          /iPhone|iPad|iPod/i.test(ua) ||
+          (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+        const isAndroid = /Android/i.test(ua);
+        return isIOS || isAndroid;
+      }
+
+      function isStandaloneDisplayMode() {
+        const mm =
+          typeof window.matchMedia === "function" &&
+          window.matchMedia("(display-mode: standalone)").matches;
+        const iosStandalone =
+          typeof navigator.standalone === "boolean" && navigator.standalone;
+        return !!(mm || iosStandalone);
+      }
+
+      function isMobilePwaAtStartup() {
+        return isMobilePlatform() && isStandaloneDisplayMode();
+      }
+
       function openExternal(url) {
         if (!url) return;
         if (prefersNativeApp(url)) {
@@ -3407,6 +3450,74 @@
         return leafletPromise;
       }
 
+      let hlsPromise = null;
+      function loadHls() {
+        if (window.Hls) return Promise.resolve(window.Hls);
+        if (hlsPromise) return hlsPromise;
+        hlsPromise = new Promise((resolve, reject) => {
+          const s = document.createElement("script");
+          s.src = "./vendor/hls/1.5.15/hls.min.js";
+          s.onload = () => resolve(window.Hls || null);
+          s.onerror = reject;
+          document.head.appendChild(s);
+        });
+        return hlsPromise;
+      }
+
+      function canPlayNativeHls(video) {
+        return !!video?.canPlayType?.("application/vnd.apple.mpegurl");
+      }
+
+      function attachHls(video, src) {
+        if (!video || !src) return () => {};
+        if (canPlayNativeHls(video)) {
+          video.src = src;
+          return () => {
+            video.removeAttribute("src");
+            video.load();
+          };
+        }
+        let cancelled = false;
+        let hls = null;
+        loadHls()
+          .then((HlsCtor) => {
+            if (cancelled || !HlsCtor || !HlsCtor.isSupported?.()) return;
+            hls = new HlsCtor({
+              enableWorker: true,
+              lowLatencyMode: true,
+            });
+            hls.loadSource(src);
+            hls.attachMedia(video);
+          })
+          .catch(() => {
+            /* keep silent; weather card still renders */
+          });
+        return () => {
+          cancelled = true;
+          if (hls) hls.destroy();
+          video.removeAttribute("src");
+          video.load();
+        };
+      }
+
+      function HlsVideo({ src, className, title, controls = false }) {
+        const videoRef = useRef(null);
+        useEffect(() => {
+          if (!videoRef.current || !src) return;
+          return attachHls(videoRef.current, src);
+        }, [src]);
+        return html`<video
+          class=${className}
+          ref=${videoRef}
+          title=${title}
+          muted
+          playsinline
+          autoplay
+          preload="none"
+          controls=${controls}
+        ></video>`;
+      }
+
       /* ============================================================
        Pager — tap-only (swipe gestures intentionally disabled).
        Track width is 400% across 4 pages; transform shifts by 25% per page.
@@ -3857,12 +3968,12 @@
           return html`<${WeatherTile} cam=${cam} onSelect=${onSelect} />`;
         }
         const ref = useRef(null);
-        const iframeRef = useRef(null);
+        const mediaRef = useRef(null);
         const id = cameraId(cam);
 
         useEffect(() => {
-          if (ref.current && iframeRef.current) {
-            registerIframe(id, ref.current, iframeRef.current, cam);
+          if (ref.current && mediaRef.current) {
+            registerIframe(id, ref.current, mediaRef.current, cam);
           }
           return () => registerIframe(id, null, null, null);
         }, [id]);
@@ -3901,14 +4012,24 @@
                   <${Icon} name="camera" />
                   <span class="ph-region">${cam.region}</span>
                 </div>`}
-            <iframe
-              class="tile-frame"
-              ref=${iframeRef}
-              title=${cam.name}
-              allow="autoplay; encrypted-media; picture-in-picture"
-              allowfullscreen
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
+            ${cam.type === "hls"
+              ? html`<video
+                  class="tile-frame"
+                  ref=${mediaRef}
+                  title=${cam.name}
+                  muted
+                  playsinline
+                  autoplay
+                  preload="none"
+                ></video>`
+              : html`<iframe
+                  class="tile-frame"
+                  ref=${mediaRef}
+                  title=${cam.name}
+                  allow="autoplay; encrypted-media; picture-in-picture"
+                  allowfullscreen
+                  referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>`}
             <div class="tile-overlay">
               <span class="tile-name">${cam.name}</span>
             </div>
@@ -3946,36 +4067,48 @@
 
         const scrollRef = useRef(null);
         const pullRef = useRef(null);
-        const tilesRef = useRef(new Map()); // id -> { el, iframe, cam, visible, unmountTimer }
+        const tilesRef = useRef(new Map()); // id -> { el, media, cam, visible, unmountTimer, detachHls }
         const mountedQueueRef = useRef([]); // ids in mount order (LRU)
         const ioRef = useRef(null);
 
         const mountIframe = (id, src) => {
           const e = tilesRef.current.get(id);
-          if (!e || !e.iframe) return;
-          if (e.iframe.src === src) return;
-          e.iframe.src = src;
+          if (!e || !e.media) return;
+          if (e.cam.type === "hls") {
+            if (e.detachHls) return;
+            e.detachHls = attachHls(e.media, src);
+          } else {
+            if (e.media.src === src) return;
+            e.media.src = src;
+          }
           // Mark the tile container immediately so the play badge fades out
           // even while YouTube is still showing its grey loading screen.
           if (e.el) e.el.classList.add("is-mounted");
           // YouTube's iframe fires `load` while still showing its own grey loading screen.
           // Keep the thumbnail visible until the video has had a beat to start playing.
           setTimeout(() => {
-            if (mountedQueueRef.current.includes(id) && e.iframe) {
-              e.iframe.classList.add("mounted");
+            if (mountedQueueRef.current.includes(id) && e.media) {
+              e.media.classList.add("mounted");
             }
           }, 1800);
         };
         const unmountIframe = (id) => {
           const e = tilesRef.current.get(id);
-          if (!e || !e.iframe) return;
-          e.iframe.classList.remove("mounted");
+          if (!e || !e.media) return;
+          e.media.classList.remove("mounted");
           if (e.el) e.el.classList.remove("is-mounted");
           // Wait for the cross-fade out before swapping src back to blank,
           // so the thumbnail underneath is the visible state during the transition.
           setTimeout(() => {
-            if (!mountedQueueRef.current.includes(id) && e.iframe) {
-              e.iframe.src = "about:blank";
+            if (!mountedQueueRef.current.includes(id) && e.media) {
+              if (e.cam.type === "hls") {
+                if (e.detachHls) {
+                  e.detachHls();
+                  e.detachHls = null;
+                }
+              } else {
+                e.media.src = "about:blank";
+              }
             }
           }, 450);
         };
@@ -4068,11 +4201,12 @@
           }
         }, [autoplay]);
 
-        const registerIframe = useCallback((id, el, iframe, cam) => {
+        const registerIframe = useCallback((id, el, media, cam) => {
           if (!el) {
             // tile is unmounting
             const e = tilesRef.current.get(id);
             if (e && e.unmountTimer) clearTimeout(e.unmountTimer);
+            if (e && e.detachHls) e.detachHls();
             tilesRef.current.delete(id);
             mountedQueueRef.current = mountedQueueRef.current.filter(
               (x) => x !== id,
@@ -4082,10 +4216,11 @@
           if (ioRef.current) ioRef.current.unobserve(el);
           tilesRef.current.set(id, {
             el,
-            iframe,
+            media,
             cam,
             visible: false,
             unmountTimer: null,
+            detachHls: null,
           });
           if (ioRef.current) ioRef.current.observe(el);
         }, []);
@@ -4575,13 +4710,20 @@
                   class="stream"
                   style=${{ backgroundImage: posterBg }}
                 >
-                  <iframe
-                    src=${embedUrl(cam)}
-                    title=${cam.name}
-                    allow="autoplay; encrypted-media; picture-in-picture"
-                    allowfullscreen
-                    referrerpolicy="no-referrer-when-downgrade"
-                  ></iframe>
+                  ${cam.type === "hls"
+                    ? html`<${HlsVideo}
+                        src=${cam.url}
+                        className="stream-video"
+                        title=${cam.name}
+                        controls=${true}
+                      />`
+                    : html`<iframe
+                        src=${embedUrl(cam)}
+                        title=${cam.name}
+                        allow="autoplay; encrypted-media; picture-in-picture"
+                        allowfullscreen
+                        referrerpolicy="no-referrer-when-downgrade"
+                      ></iframe>`}
                   <div class="stream-actions">
                     <button
                       class="stream-act"
@@ -4682,6 +4824,22 @@
         return 0;
       }
 
+      function slugifyTrailName(name) {
+        if (!name || typeof name !== "string") return "";
+        return name
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[̀-ͯ]/g, "")
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "");
+      }
+
+      function trailId(trail) {
+        if (!trail) return "";
+        if (trail.pr_code) return trail.pr_code;
+        return `name:${slugifyTrailName(trail.name)}`;
+      }
+
       function trailSearchText(trail) {
         return [
           trail.name,
@@ -4747,7 +4905,7 @@
                 : `Add ${trail.name} to favorites`}
               onClick=${(e) => {
                 e.stopPropagation();
-                toggleFav(trail.pr_code);
+                toggleFav(trailId(trail));
               }}
             >
               <${Icon} name=${isFav ? "heart-fill" : "heart"} />
@@ -4801,7 +4959,7 @@
         const visible = useMemo(() => {
           const q = query.trim().toLowerCase();
           let base = showFavsOnly
-            ? trails.filter((t) => favs.has(t.pr_code))
+            ? trails.filter((t) => favs.has(trailId(t)))
             : trails;
           if (q)
             base = base.filter((trail) => trailSearchText(trail).includes(q));
@@ -4959,10 +5117,10 @@
                   ${visible.map(
                     (t) =>
                       html`<${TrailCard}
-                        key=${t.pr_code}
+                        key=${trailId(t)}
                         trail=${t}
                         onSelect=${onSelect}
-                        isFav=${favs.has(t.pr_code)}
+                        isFav=${favs.has(trailId(t))}
                         toggleFav=${toggleFav}
                       />`,
                   )}
@@ -5124,7 +5282,7 @@
                     aria-label=${isFav
                       ? "Remove from favorites"
                       : "Add to favorites"}
-                    onClick=${() => toggleFav(trail.pr_code)}
+                    onClick=${() => toggleFav(trailId(trail))}
                   >
                     <${Icon} name=${isFav ? "heart-fill" : "heart"} />
                   </button>
@@ -5399,13 +5557,20 @@
         return html`
           <div class="fs" data-open=${open}>
             <div class="fs-inner" style=${{ backgroundImage: posterBg }}>
-              <iframe
-                src=${embedUrlFull(cam)}
-                title=${cam.name}
-                allow="autoplay; encrypted-media; picture-in-picture"
-                allowfullscreen
-                referrerpolicy="no-referrer-when-downgrade"
-              ></iframe>
+              ${cam.type === "hls"
+                ? html`<${HlsVideo}
+                    src=${cam.url}
+                    className="fs-video"
+                    title=${cam.name}
+                    controls=${true}
+                  />`
+                : html`<iframe
+                    src=${embedUrlFull(cam)}
+                    title=${cam.name}
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    allowfullscreen
+                    referrerpolicy="no-referrer-when-downgrade"
+                  ></iframe>`}
             </div>
             <button
               class="fs-close"
@@ -5424,6 +5589,7 @@
       function App() {
         const [cameras, setCameras] = useState([]);
         const [trails, setTrails] = useState([]);
+        const [isMobilePwa] = useState(() => isMobilePwaAtStartup());
         const [sheetCam, setSheetCam] = useState(null);
         const [sheetTrail, setSheetTrail] = useState(null);
         const [fsCam, setFsCam] = useState(null);
@@ -5705,7 +5871,9 @@
             </div>
           </main>
 
-          <div class="tabbar-wrap">
+          <div
+            class=${`tabbar-wrap ${isMobilePwa ? "tabbar-wrap--pwa" : "tabbar-wrap--browser"}`}
+          >
             <nav class="tabbar" role="tablist" aria-label="Pages">
               <button
                 class="tab"
@@ -5762,7 +5930,7 @@
           html`<${TrailSheet}
             trail=${sheetTrail}
             onClose=${() => setSheetTrail(null)}
-            isFav=${favs.has(sheetTrail.pr_code)}
+            isFav=${favs.has(trailId(sheetTrail))}
             toggleFav=${toggleFav}
           />`}
           ${fsCam &&
