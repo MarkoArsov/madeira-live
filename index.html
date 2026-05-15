@@ -729,10 +729,11 @@
       }
 
       .grid-head {
+        position: relative;
+        z-index: 5;
         padding-top: calc(env(safe-area-inset-top) + var(--space-7));
         padding-left: var(--space-4);
         padding-right: var(--space-4);
-        padding-bottom: env(safe-area-inset-top);
         max-width: 520px;
         margin: 0 auto var(--space-5);
       }
@@ -1608,8 +1609,9 @@
         margin: 0 auto;
       }
       .trails-head {
+        position: relative;
+        z-index: 21;
         margin-bottom: var(--space-5);
-        padding-bottom: env(safe-area-inset-top);
       }
       .trails-eyebrow {
         font-size: 10.5px;
@@ -5555,6 +5557,9 @@
         const onPagePointerDown = (e) => {
           if (pager.page === 0) return; // map page: hand off to Leaflet
           if (e.pointerType === "mouse" && e.button !== 0) return;
+          // Don't hijack horizontal scroll inside the grid's filter chips.
+          if (e.target && e.target.closest && e.target.closest(".chips"))
+            return;
           const st = pageDragRef.current;
           st.active = true;
           st.startX = e.clientX;
