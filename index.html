@@ -482,19 +482,19 @@
         border: 1.5px solid var(--tabbar-border);
         border-radius: var(--r-pill);
         box-shadow:
-          0 2px 4px rgba(42, 58, 31, 0.14),
-          0 8px 16px rgba(42, 58, 31, 0.18),
-          0 22px 42px rgba(42, 58, 31, 0.3),
-          0 52px 90px rgba(42, 58, 31, 0.42);
+          0 3px 6px rgba(42, 58, 31, 0.2),
+          0 12px 24px rgba(42, 58, 31, 0.26),
+          0 28px 54px rgba(42, 58, 31, 0.38),
+          0 60px 110px rgba(42, 58, 31, 0.52);
         backdrop-filter: saturate(180%) blur(24px);
         -webkit-backdrop-filter: saturate(180%) blur(24px);
       }
       :root[data-theme="dark"] .tabbar {
         box-shadow:
-          0 2px 4px rgba(0, 0, 0, 0.45),
-          0 8px 18px rgba(0, 0, 0, 0.55),
-          0 24px 48px rgba(0, 0, 0, 0.65),
-          0 56px 100px rgba(0, 0, 0, 0.72);
+          0 3px 6px rgba(0, 0, 0, 0.55),
+          0 12px 26px rgba(0, 0, 0, 0.65),
+          0 32px 60px rgba(0, 0, 0, 0.75),
+          0 64px 120px rgba(0, 0, 0, 0.82);
       }
       .tab {
         width: 60px;
@@ -732,8 +732,6 @@
       }
 
       .grid-head {
-        position: relative;
-        z-index: 5;
         padding-top: calc(env(safe-area-inset-top) + var(--space-7));
         padding-left: var(--space-4);
         padding-right: var(--space-4);
@@ -761,16 +759,20 @@
         top: 0;
         z-index: 4;
         background: var(--bg);
-        margin-top: calc(env(safe-area-inset-top) * -1);
-        padding-top: calc(env(safe-area-inset-top) + 8px);
+        padding-top: 8px;
+        margin-top: -8px;
         padding-bottom: var(--space-3);
         display: flex;
         align-items: center;
         gap: 10px;
       }
       .chips-row--scrolled {
+        margin-top: calc(env(safe-area-inset-top) * -1);
+        padding-top: calc(env(safe-area-inset-top) + 8px);
         border-bottom: 1px solid rgba(84, 107, 65, 0.24);
-        box-shadow: 0 8px 16px rgba(42, 58, 31, 0.12);
+        box-shadow:
+          0 4px 10px -8px rgba(42, 58, 31, 0.1),
+          0 14px 28px -16px rgba(42, 58, 31, 0.18);
       }
       .chips {
         flex: 1 1 auto;
@@ -779,10 +781,10 @@
         gap: 8px;
         overflow-x: auto;
         overflow-y: hidden;
-        padding-left: var(--space-7);
+        padding-left: var(--space-8);
         padding-right: var(--space-5);
         scroll-snap-type: x proximity;
-        scroll-padding-left: 4px;
+        scroll-padding-left: 10px;
         scrollbar-width: none;
         -ms-overflow-style: none;
       }
@@ -1612,8 +1614,6 @@
         margin: 0 auto;
       }
       .trails-head {
-        position: relative;
-        z-index: 21;
         margin-bottom: var(--space-4);
       }
       .trails-eyebrow {
@@ -1648,17 +1648,21 @@
       .trails-tools {
         display: grid;
         gap: 10px;
-        margin: calc(env(safe-area-inset-top) * -1) calc(var(--space-4) * -1)
-          var(--space-4);
+        margin: 0 calc(var(--space-4) * -1) var(--space-4);
+        margin-top: -8px;
         position: sticky;
         top: 0;
         z-index: 20;
         background: var(--bg);
-        padding: calc(env(safe-area-inset-top) + 8px) var(--space-4) 10px;
+        padding: 8px var(--space-4) 10px;
       }
       .trails-tools--scrolled {
+        margin-top: calc(env(safe-area-inset-top) * -1);
+        padding-top: calc(env(safe-area-inset-top) + 8px);
         border-bottom: 1px solid rgba(84, 107, 65, 0.24);
-        box-shadow: 0 8px 16px rgba(42, 58, 31, 0.12);
+        box-shadow:
+          0 4px 10px -8px rgba(42, 58, 31, 0.1),
+          0 14px 28px -16px rgba(42, 58, 31, 0.18);
       }
       .trails-search-wrap {
         position: relative;
@@ -5283,7 +5287,6 @@
                   </div>
                 </section>
 
-
                 <section class="settings-group">
                   <div class="settings-group-label">Preferences</div>
                   <button
@@ -5335,14 +5338,24 @@
                   <div class="about">
                     <p class="about-p">
                       Streams sourced openly via YouTube and madeirawebcams.com.
-                      Observations by ${' '}
-                      <a href="https://www.ipma.pt"
-                         onClick=${(e) => { e.preventDefault(); openExternal("https://www.ipma.pt"); }}>IPMA</a>${' '}
-                      with Open-Meteo as a fallback; condition icons and UV
-                      index by ${' '}
-                      <a href="https://open-meteo.com"
-                         onClick=${(e) => { e.preventDefault(); openExternal("https://open-meteo.com"); }}>Open-Meteo</a>.
-                      Map view toggle: Regular by OpenStreetMap, Satellite
+                      Observations by ${" "}
+                      <a
+                        href="https://www.ipma.pt"
+                        onClick=${(e) => {
+                          e.preventDefault();
+                          openExternal("https://www.ipma.pt");
+                        }}
+                        >IPMA</a
+                      >${" "} with Open-Meteo as a fallback; condition icons and
+                      UV index by ${" "}
+                      <a
+                        href="https://open-meteo.com"
+                        onClick=${(e) => {
+                          e.preventDefault();
+                          openExternal("https://open-meteo.com");
+                        }}
+                        >Open-Meteo</a
+                      >. Map view toggle: Regular by OpenStreetMap, Satellite
                       imagery and labels by Esri.
                     </p>
                     <p class="about-meta">
